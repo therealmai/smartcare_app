@@ -17,5 +17,18 @@
  .card-section1{
      padding-left: 50px;
  }
-    
+
+ .footer-main{
+     background-color: #346bae;
+ }
+
+ .nav-link{
+     color: white;
+ }
+ 
+ .footer-description{
+    color: white;
+    text-align: justify;
+ }
+
 
