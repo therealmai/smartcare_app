@@ -1,9 +1,8 @@
 .container-nav{
     background-image: url('../resources/section1.jpg');
+    background-position: center;
     background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
+    background-size: cover;
     
 }
 
@@ -13,6 +12,10 @@
 
 .navbar{
     opacity: 75%;
+ }
+
+ .card-section1{
+     padding-left: 50px;
  }
     
 
