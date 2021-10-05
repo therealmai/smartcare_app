@@ -1,8 +1,18 @@
-.main-sectinon-1{
-    background-color: aqua;
+.container-nav{
+    background-image: url('../resources/section1.jpg');
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    
 }
 
 .nav-link{
     color: black;
 }
+
+.navbar{
+    opacity: 75%;
+ }
+    
 
