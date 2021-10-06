@@ -20,10 +20,13 @@
 .nav-link{
     color: black;
 }
-
+.nav-head{
+    font-family: 'Roboto', sans-serif;
+}
 .navbar{
     background-color: white;
     background: rgba(255, 255, 255, 0.404);
+    padding-top: 0;
  }
 
  .card-section1{
@@ -48,13 +51,13 @@
  }
 
  .section4{
-    font-family: Varela Round;
+    font-family: 'Varela Round', sans-serif;
     font-weight: 500;
     color: #346bae;
  }
 
 .section4head{
-    font-family: Roboto;
+    font-family: 'Roboto', sans-serif;
     font-weight: 800;
     font-stretch: expanded;
     font-size: 50px;
@@ -112,11 +115,12 @@
 .main-section-3 {
     display: flex;
     justify-content: center;
-    margin: 15px 0;
+    margin: 15px 0 5px 0
 }
 
 .main-section-3__abt-us-cont {
     width: 30%;
+    padding-bottom: 3rem;
 }
 
 .main-section-3__abt-us {
@@ -172,7 +176,7 @@
 } */
 
 .main-section-3__img {
-    height: 400px;
+    height: 500px;
     width: auto;
 }
 
