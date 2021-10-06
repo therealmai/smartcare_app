@@ -63,13 +63,13 @@
     font-size: 50px;
     color: #3ec9da;
 }
-
-.card-cover1{
-    background-color:#3664af;
+/* Card margin and padding between image and text -- mt-5 to pt-5 */
+.mt-5 {
+    margin-top: 0rem!important;
 }
 
-.card-cover2{
-    background-color: #3ec9da;
+.pt-5 {
+    padding-top: 0rem!important;
 }
 
 .main-section-2{
