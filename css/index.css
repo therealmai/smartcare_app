@@ -1,3 +1,6 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
 .container-nav{
     background-image: url('../resources/section1.jpg');
     background-position: center;
@@ -22,6 +25,7 @@
 }
 .nav-head{
     font-family: 'Roboto', sans-serif;
+    font-size: larger;
 }
 .navbar{
     background-color: white;
