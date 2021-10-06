@@ -11,7 +11,7 @@
 }
 
 .navbar{
-    opacity: 75%;
+    opacity: 60%;
  }
 
  .card-section1{
@@ -23,7 +23,7 @@
  }
 
  .nav-link{
-     color: white;
+     color: black;
  }
  
  .footer-description{
@@ -31,4 +31,21 @@
     text-align: justify;
  }
  
+ .above-footer{
+    background-color: #c9f0f5;
+ }
 
+ .section4{
+    font-family: Varela Round;
+    font-weight: 500;
+    color: #346bae;
+ }
+
+.section4head{
+    font-family: Roboto;
+    font-weight: 800;
+    font-stretch: expanded;
+    font-size: 50px;
+    color: #3ec9da;
+
+}

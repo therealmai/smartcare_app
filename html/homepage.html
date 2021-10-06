@@ -15,6 +15,7 @@
 
 </head>
 <body>
+  
 <div class="container-nav">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -78,17 +79,15 @@
     <main>
         <section class="main-sectinon-1">
             <!-- start of Card -->
-            <div class="position-relative">
-                <div class="position-relative top-50 start-30 translate-middle-y"></div><br><br><br>
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="container py-4">
+            <div class="col-md-4">
+              <div class="h-100 p-5 text-white bg-dark rounded-3">
+                <h2>Change the background</h2>
+                <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
+                <button class="btn btn-outline-light" type="button">Example button</button>
+              </div>
             </div>
+          </div>
             <!-- End of Card -->
             <h1 class="main-section-1__headline"><span class="main-section-1__headline--medical">Medical</span><span class="main-section-1__headline--services">Services</span></h1>
             <h2 class="main-section-1__subhead">Lorem ipsum dolor sit amet</h2>
@@ -144,32 +143,45 @@
             <div class="main-section-3__img-cont">
                 <img class="main-section-3__img" src="" alt="">
             </div>
-
-            
-            <div class="main-section-3__footer">
-                <div class="main-section-3__footer-block">
-                    <p class="main-section-3__footer-block--num">5</p>
-                    <p class="main-section-3__footer-block--p">Different Medical Fields</p>
-                </div>
-                <div class="main-section-3__footer-block">
-                    <p class="main-section-3__footer-block--num">8-11</p>
-                    <p class="main-section-3__footer-block--p">Years of Experience</p>
-                </div>
-                <div class="main-section-3__footer-block">
-                    <p class="main-section-3__footer-block--num">11</p>
-                    <p class="main-section-3__footer-block--p">Qualified Doctors</p>
-                </div>
-            </div>
         </section>
+
+<section class="above-footer">  
+   <div class="container px-3" id="icon-grid">
+
+      <div class="row row-cols g-2 py-4">
+        <div class="col d-flex align-items-center">
+          <h1 class="section4head">5</h1>
+          <div>
+            <h5 class="section4">DIFFERENT<br>MEDICAL FIELDS</h5>
+          </div>
+        </div>
+
+        <div class="col d-flex align-items-center">
+          <h1 class="section4head">8-11</h1>
+          <div>
+            <h5 class="section4">YEARS OF<br>EXPERIENCE</h5>
+          </div>
+        </div>
+
+        <div class="col d-flex align-items-center">
+          <h1 class="section4head">11</h1>
+          <div>
+            <h5 class="section4">QUALIFIED<br>DOCTOR</h5>
+          </div>
+        </div>
+
+      </div>
+  </div>
+</section> 
+        
     </main>
 
     <footer>
         <section class="footer-main">
-            <div class="container"> 
-                <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none cols-3">
+            <div class="container">
                       <img src="../resources/logo.jpg" alt="" width="150">
                 </a>
-                <footer class="row row-cols-7 py-3">
+                <footer class="row row-cols-7 py-5">
                   <div class="col-3">
                    
                     <p class="footer-description">Our medical center offers the widest range of servies in the area. We strive to provide our patients with the most high-quality help by top notch experts in their fields</p>
@@ -182,61 +194,38 @@
                   <div class="col border-end">
                     <h5 style="color: white;">Section</h5>
                     <ul class="nav flex-column">
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Features</a></li>
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Features</a></li>
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Pricing</a></li>
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">FAQs</a></li>
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">About</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Features</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Features</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Pricing</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">FAQs</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">About</a></li>
                     </ul>
                   </div>
               
                   <div class="col border-end">
                     <h5 style="color: white;">Section</h5>
                     <ul class="nav flex-column">
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Home</a></li>
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Features</a></li>
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Pricing</a></li>
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">FAQs</a></li>
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">About</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Home</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Features</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Pricing</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">FAQs</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">About</a></li>
                     </ul>
                   </div>
               
                   <div class="col">
                     <h5 style="color: white;">Section</h5>
                     <ul class="nav flex-column">
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Home</a></li>
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Features</a></li>
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Pricing</a></li>
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">FAQs</a></li>
-                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0">About</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Home</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Features</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Pricing</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">FAQs</a></li>
+                      <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">About</a></li>
                     </ul>
                   </div>
                 </footer>
               </div>
-            <!-- <div class="footer-right__column">
-                <h4 class="footer-right__title">Lorem Ipsum</h4>
-                <span class="footer-right__span">Lorem ipsum</span>
-                <span class="footer-right__span">Lorem ipsum</span>
-                <span class="footer-right__span">Lorem ipsum</span>
-                <span class="footer-right__span">Lorem ipsum</span>    
-            </div>
-
-            <div class="footer-right__column footer-right__column--middle">
-                <h4 class="footer-right__title">Lorem Ipsum</h4>
-                <span class="footer-right__span">Lorem ipsum</span>
-                <span class="footer-right__span">Lorem ipsum</span>
-                <span class="footer-right__span">Lorem ipsum</span>
-                <span class="footer-right__span">Lorem ipsum</span>    
-            </div>
-
-            <div class="footer-right__column">
-                <h4 class="footer-right__title">Lorem Ipsum</h4>
-                <span class="footer-right__span">Lorem ipsum</span>
-                <span class="footer-right__span">Lorem ipsum</span>
-                <span class="footer-right__span">Lorem ipsum</span>
-                <span class="footer-right__span">Lorem ipsum</span>    
-            </div>
-        </section> -->
+        </section> 
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
