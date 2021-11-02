@@ -4,9 +4,146 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../src/css/registration.css">
     <title>SmartCare - Registration</title>
 </head>
 <body>
-    
+    <header>
+        <img class="header__logo" src="../src/img/logo-with-heading.png" alt="">
+    </header>
+    <main>
+        <section id="leftSection" class="left-sec">
+            <p class="left-sec__p1">
+                <span class="left-sec__span--font-size-m">Let's Get</span> <br>
+                <span class="left-sec__span--font-size-xl">Started!</span> <br>
+                Signing up for a Doctor account is fast and easy. <br>
+                It will only take a few minutes.
+            </p>
+
+            <p class="left-sec__p2">
+                Already have an account? <a href="">Sign in</a>
+                <br>
+            </p>
+
+            <a class="left-sec__home-btn" href="./homepage.html">Back to Home</a>
+        </section>
+
+        <section id="userFormCont" class="right-sec">
+            <h1>Please fill up the blanks.</h1>
+            <form class="right-sec__form" method="">
+                <div>
+                    <label for="fname">First Name</label>
+                    <input id="fname" name="fname" type="text" >
+                </div>
+
+                <div>
+                    <label for="lname">Last Name</label>
+                    <input id="lname" name="lname" type="text" >
+                </div>
+
+                <div>
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="text" >
+                </div>
+
+                <div>
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" >
+                </div>
+
+                <div>
+                    <label for="confirm-pass">Confirm Password</label>
+                    <input id="confirm-pass" name="confirm-pass" type="password" >
+                </div>
+
+                <div>
+                    <label for="birthday">Birthday</label>
+                    <input id="birthday" name="birthday" type="date" >
+                </div>
+
+                <div>
+                    <label for="streetAdd">Street Address</label>
+                    <input id="streetAdd" name="streetAdd" type="text" >
+                </div>
+
+                <div>
+                    <label for="province">Province</label>
+                    <input id="province" name="province" type="text" >
+                </div>
+
+                <div>
+                    <label for="city">City</label>
+                    <input id="city" name="city" type="text" >
+                </div>
+
+                <div>
+                    <label for="pcode">Postal Code</label>
+                    <input id="pcode" name="pcode" type="number" >
+                </div>
+
+                <div>
+                    <label for="ssn">Philippine SSN</label>
+                    <input id="ssn" name="ssn" type="text" >
+                </div>
+
+                <button id="nextBtn" type="submit">Register</button>
+            </form>
+        </section>
+
+        <section id="choicesCont" class="hide right-sec right-sec--choices-cont">
+            <h1>
+                Thank you for creating an account!
+                <br>
+                Tell us which are you.
+            </h1>
+            <div>
+                <button id="choosePatientBtn">Patient</button>
+                <button id="chooseDocBtn">Doctor</button>
+                <button id="chooseSecBtn">Secretary</button>
+            </div>
+        </section>
+
+        <section id="patientFormCont" class="hide right-sec right-sec--position">
+            <h1>Hi Patient! Please fill up the blanks.</h1>
+            <form class="right-sec__form" method="">
+                <div>
+                    <label for="fname">First Name</label>
+                    <input id="a" name="fname" type="text" >
+                </div>
+
+                <button id="regBtnPatient" type="submit">Register</button>
+            </form>
+            <button class="backBtn"><-- Back</button>
+        </section>
+
+        <section id="doctorFormCont" class="hide right-sec right-sec--position">
+            <h1>Hi Doctor! Please fill up the blanks.</h1>
+            <form class="right-sec__form" method="">
+                <div>
+                    <label for="fname">First Name</label>
+                    <input id="b" name="fname" type="text" >
+                </div>
+                
+                <button id="regBtnDoc" type="submit">Register</button>
+            </form>
+            <button class="backBtn"><-- Back</button>
+        </section>
+
+        <section id="secretaryFormCont" class="hide right-sec right-sec--position">
+            <h1>Hi Secretary! Please fill up the blanks.</h1>
+            <form class="right-sec__form" method="">
+                <div>
+                    <label for="fname">First Name</label>
+                    <input id="c" name="fname" type="text" >
+                </div>
+                
+                <button id="regBtnSec" type="submit">Register</button>
+            </form>
+            <button class="backBtn"><-- Back</button>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="../src/js/registration.js"></script>
 </body>
 </html>
