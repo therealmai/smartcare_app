@@ -2,7 +2,7 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 .container-nav{
-    background-image: url('../resources/section1.jpg');
+    background-image: url('../img/section1.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
