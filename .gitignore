@@ -1,4 +1,8 @@
+smartcare-app/resources/css/_sitewide.scss
+smartcare-app/resources/css/_global.scss
 smartcare-app/resources/css/appointment.css.map
 smartcare-app/resources/css/appointment.scss
 smartcare-app/resources/css/registration.css.map
 smartcare-app/resources/css/registration.scss
+smartcare-app/resources/css/search.scss
+smartcare-app/resources/css/search.css.map

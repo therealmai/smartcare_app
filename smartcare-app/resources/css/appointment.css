@@ -17,6 +17,10 @@ button:hover {
   cursor: pointer;
 }
 
+.hide {
+  display: none;
+}
+
 .fa-user-md, .fa-phone {
   color: #b3b3b3;
 }

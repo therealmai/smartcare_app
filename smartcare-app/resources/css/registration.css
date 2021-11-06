@@ -21,6 +21,10 @@ button:hover {
   display: none;
 }
 
+.hide {
+  display: none;
+}
+
 header {
   height: 120px;
   width: auto;
