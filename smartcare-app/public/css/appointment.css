@@ -1,0 +1,213 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
+
+.fa-user-md, .fa-phone {
+  color: #b3b3b3;
+}
+
+.fa-arrow-right {
+  color: white;
+}
+
+header {
+  height: 120px;
+  width: auto;
+  background-color: #f0f0f0;
+}
+
+.line {
+  background-color: #b3b3b3;
+  height: 5px;
+  width: auto;
+}
+
+.header__logo {
+  height: 80px;
+  width: auto;
+  margin-top: 20px;
+  margin-left: 130px;
+}
+
+.right-sec {
+  border: 1px solid black;
+  -webkit-box-shadow: 0 0 10px 5px #b3b3b3;
+          box-shadow: 0 0 10px 5px #b3b3b3;
+  width: 750px;
+  padding: 20px 50px;
+  position: absolute;
+  top: 40px;
+  right: 130px;
+}
+
+.right-sec--top-bg {
+  background-color: #f0f0f0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: 130px;
+}
+
+.right-sec__doctor-cont {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr 2fr;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template: 1fr 2fr / 1fr 1fr;
+  justify-items: center;
+  position: relative;
+}
+
+.right-sec__doctor-cont h5 {
+  font-size: 18px;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-column: 1 / span 2;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.right-sec__doctor-cont--left, .right-sec__doctor-cont--right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 15px;
+}
+
+.right-sec__doctor-cont--left h5, .right-sec__doctor-cont--right h5 {
+  margin-bottom: 0;
+}
+
+.right-sec__form-cont form {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.right-sec__form-cont form div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+}
+
+.right-sec__form-cont form select, .right-sec__form-cont form input {
+  border: none;
+  -webkit-box-shadow: inset 0 0 5px 1px #b3b3b3;
+          box-shadow: inset 0 0 5px 1px #b3b3b3;
+  padding: 7.5px;
+}
+
+.right-sec__form-cont form button {
+  background-color: #659fde;
+  border: 1px solid #659fde;
+  color: white;
+}
+
+.right-sec__form-cont form button:hover {
+  background-color: white;
+  border: 1px solid #659fde;
+  color: black;
+}
+
+.right-sec__form-cont form button {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-column: 1 / span 2;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  margin-top: 20px;
+  padding: 10px 15px;
+}
+
+.right-sec__form-cont form button:hover .fa-arrow-right {
+  color: black;
+}
+
+.right-sec__page {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr;
+  -ms-grid-columns: (1fr)[4];
+      grid-template: 1fr/repeat(4, 1fr);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 20px 50px;
+  text-align: center;
+}
+
+.right-sec__page .line {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 2;
+  grid-column: 2 / span 2;
+}
+
+.right-sec__page--1, .right-sec__page--2 {
+  background-color: #b3b3b3;
+  border-radius: 50%;
+  padding: 10px 15px;
+}
+
+.right-sec__page--1 {
+  -ms-grid-column-align: end;
+      justify-self: end;
+}
+
+.right-sec__page--2 {
+  -ms-grid-column-align: start;
+      justify-self: start;
+}
+
+.right-sec__page--ad, .right-sec__page--s {
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+.right-sec__page--ad {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-column: 1 / span 2;
+  margin-right: 38px;
+}
+
+.right-sec__page--s {
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 2;
+  grid-column: 3 / 5;
+  margin-left: 38px;
+}
+/*# sourceMappingURL=appointment.css.map */
