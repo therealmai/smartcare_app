@@ -1,0 +1,17 @@
+@import "_global";
+
+$logo-height: 80px;
+$margin-align: 130px;
+$gray-color: rgb(179, 179, 179);
+$light-gray-color: rgb(240, 240, 240);
+
+header {
+    @include setSize($logo-height * 1.5, auto);
+    background-color: $light-gray-color;
+}
+
+.header__logo {
+    @include setSize($logo-height, auto);
+    margin-top: $logo-height * 0.25;
+    margin-left: $margin-align;
+}

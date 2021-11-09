@@ -1,0 +1,130 @@
+@import "_sitewide";
+
+$search-bgcolor : rgb(63, 168, 63);
+$blue-color: rgb(17, 107, 203);
+
+$form-width: 1110px;
+
+.fa-search {
+    position: absolute;
+    top: 22.5px - 15px;
+    left: 15px;
+}
+
+.fa-angle-right {
+    color: white;
+}
+
+.fa-stethoscope, .fa-phone, .fa-user, .fa-video-camera, .fa-user-md {
+    color: $gray-color;
+    margin-right: 7.5px;
+}
+
+.fa-user-md {
+    background-color: $light-gray-color;
+    border-radius: 50%;
+    align-self: flex-start;
+    grid-row: 1 / span 2;
+    padding: 10px 15px;
+}
+
+.search-form {
+    @include setSize(auto, $form-width);
+    display: grid;
+    grid-template: auto 1fr 1fr / 4fr auto;
+    gap: 5px; 
+    margin: 15px auto;
+
+    @include modifyButton($search-bgcolor, white, black);
+
+    h4 {
+        font-size: 13px;
+        grid-column: 1 / span 2;
+    }
+
+    button {
+        border-radius: 15px;
+        font-size: 18px;
+        justify-self: flex-start;
+        padding: 0 25px;
+    }
+
+    &__input-cont {
+        position: relative;
+
+        input {
+            font-size: 18px;
+            padding: 12.5px 50px;
+            width: 100%;
+        }
+    }
+
+    &__filter-cont {
+        align-self: center;
+        display: flex;
+        align-items: center;
+        gap: 12.5px;
+
+        span {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        select {
+            font-size: 14px;    
+            padding: 5px 7.5px;
+        }
+    }
+}
+
+.search-results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: $form-width;
+
+    span {
+        font-size: 36px;
+    }
+
+    &__result {
+        border: 1px solid $light-gray-color;
+        display: grid;
+        row-gap: 7.5px;
+        grid-template: 1fr 1fr / auto repeat(2, 1fr);
+        padding: 15px;
+        width: $form-width*0.5;
+    
+        @include modifyButton($blue-color, white, black);
+    
+        button {
+            border-radius: 5px;
+            grid-row: 1;
+            grid-column: 3;
+            justify-self: flex-end;
+            padding: 0 15px;
+        }
+    }
+
+    &__profile {
+        grid-row: 1;
+        grid-column: 2;
+        line-height: 1.4;
+    
+        a {
+            color: $blue-color;
+        }
+    }
+
+    &__addi-info {
+        grid-column: 2 / span 2;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    
+        p {
+            width: 220px;
+        }
+    }
+}
