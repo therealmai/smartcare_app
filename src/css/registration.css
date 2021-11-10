@@ -44,7 +44,7 @@ header {
 }
 
 .left-sec span {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .left-sec .left-sec__p1 {
@@ -64,11 +64,12 @@ header {
 }
 
 .left-sec .left-sec__span--font-size-m {
-  font-size: 25px;
+  font-size: 30px;
 }
 
 .left-sec .left-sec__span--font-size-xl {
-  font-size: 50px;
+  font-size: 75px;
+  letter-spacing: 2px;
 }
 
 .left-sec .left-sec__home-btn {
@@ -84,7 +85,7 @@ header {
   -webkit-box-shadow: 0 0 15px 1px #c4c4c4;
           box-shadow: 0 0 15px 1px #c4c4c4;
   height: 500px;
-  width: 500px;
+  width: 700px;
   overflow-y: auto;
   padding: 2.5em 4em;
   position: absolute;

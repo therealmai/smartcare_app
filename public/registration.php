@@ -17,7 +17,7 @@
             <p class="left-sec__p1">
                 <span class="left-sec__span--font-size-m">Let's Get</span> <br>
                 <span class="left-sec__span--font-size-xl">Started!</span> <br>
-                Signing up for a Doctor account is fast and easy. <br>
+                 Signing up for a Doctor account is fast and easy. <br>
                 It will only take a few minutes.
             </p>
 
@@ -30,7 +30,8 @@
         </section>
 
         <section id="userFormCont" class="right-sec">
-            <h1>Please fill up the blanks.</h1>
+            <h1>Registration Form</h1>
+            <center><h3>Please fill up the blanks</h3></center>
             <form class="right-sec__form" method="POST" action="../src/php/registration_logic.php">
                 <div>
                     <label for="first_name">First Name</label>
@@ -90,6 +91,8 @@
                 <input class = "btn btn-primary" class="font-weight-bold" type="submit" name="submit" value="Register">
             </form>
         </section>
+        
+        
 
         <!-- <section id="choicesCont" class="hide right-sec right-sec--choices-cont">
             <h1>
