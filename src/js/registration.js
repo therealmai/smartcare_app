@@ -6,7 +6,7 @@ let choicesCont = $("#choicesCont");
 
 let nextBtn = $("#nextBtn");
 let backBtn = $(".backBtn");
-let regBtnPatient = $("#regBtnPatient   ");
+let regBtnPatient = $("#regBtnPatient");
 let regBtnDoc = $("#regBtnDoc");
 let regBtnSec = $("#regBtnSec");
 let choosePatientBtn = $("#choosePatientBtn");
