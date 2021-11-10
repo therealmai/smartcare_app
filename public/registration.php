@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../src/css/registration.css">
     <title>SmartCare - Registration</title>
 </head>
-<body>
+<body style="background-image:url(../src/img/registration.jpg)">
     <header>
-        <img class="header__logo" src="../src/img/logo-with-heading.png" alt="">
+        <img class="header__logo" src="../src/img/logo_trans.png" alt="">
     </header>
     <main>
         <section id="leftSection" class="left-sec">
@@ -25,20 +26,20 @@
                 <br>
             </p>
 
-            <a class="left-sec__home-btn" href="./homepage.html">Back to Home</a>
+           <a href="./homepage.html"><button class="btn btn-primary btn-lg" style="margin-top: 50px;" > Back to Home</button></a>
         </section>
 
         <section id="userFormCont" class="right-sec">
             <h1>Please fill up the blanks.</h1>
-            <form class="right-sec__form" method="">
+            <form class="right-sec__form" method="POST" action="../src/php/registration_logic.php">
                 <div>
-                    <label for="fname">First Name</label>
-                    <input id="fname" name="fname" type="text" >
+                    <label for="first_name">First Name</label>
+                    <input id="fname" name="first_name" type="text" >
                 </div>
 
                 <div>
-                    <label for="lname">Last Name</label>
-                    <input id="lname" name="lname" type="text" >
+                    <label for="last_name">Last Name</label>
+                    <input id="lname" name="last_name" type="text" >
                 </div>
 
                 <div>
@@ -52,18 +53,18 @@
                 </div>
 
                 <div>
-                    <label for="confirm-pass">Confirm Password</label>
-                    <input id="confirm-pass" name="confirm-pass" type="password" >
+                    <label for="confirm_password">Confirm Password</label>
+                    <input id="confirm-pass" name="confirm_password-pass" type="password" >
                 </div>
 
                 <div>
-                    <label for="birthday">Birthday</label>
-                    <input id="birthday" name="birthday" type="date" >
+                    <label for="birthdate">Birthday</label>
+                    <input id="birthday" name="birthdate" type="date" >
                 </div>
 
                 <div>
-                    <label for="streetAdd">Street Address</label>
-                    <input id="streetAdd" name="streetAdd" type="text" >
+                    <label for="street_address">Street Address</label>
+                    <input id="streetAdd" name="street_address" type="text" >
                 </div>
 
                 <div>
@@ -77,8 +78,8 @@
                 </div>
 
                 <div>
-                    <label for="pcode">Postal Code</label>
-                    <input id="pcode" name="pcode" type="number" >
+                    <label for="postal_code">Postal Code</label>
+                    <input id="pcode" name="postal_code" type="number" >
                 </div>
 
                 <div>
@@ -86,11 +87,11 @@
                     <input id="ssn" name="ssn" type="text" >
                 </div>
 
-                <button id="nextBtn" type="submit">Register</button>
+                <input class = "btn btn-primary" class="font-weight-bold" type="submit" name="submit" value="Register">
             </form>
         </section>
 
-        <section id="choicesCont" class="hide right-sec right-sec--choices-cont">
+        <!-- <section id="choicesCont" class="hide right-sec right-sec--choices-cont">
             <h1>
                 Thank you for creating an account!
                 <br>
@@ -140,10 +141,10 @@
                 <button id="regBtnSec" type="submit">Register</button>
             </form>
             <button class="backBtn"><-- Back</button>
-        </section>
+        </section> -->
     </main>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="../src/js/registration.js"></script>
+    <!-- <script src="../src/js/registration.js"></script> -->
 </body>
 </html>

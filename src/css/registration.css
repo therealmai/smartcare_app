@@ -26,9 +26,9 @@ button:hover {
 }
 
 header {
-  height: 120px;
+  height: 150px;
   width: auto;
-  background-color: #c4c4c4;
+  background-color: #fbfbfb;
 }
 
 .header__logo {
@@ -40,7 +40,7 @@ header {
 
 .left-sec {
   margin-top: 30px;
-  margin-left: 130px;
+  margin-left: 10%;
 }
 
 .left-sec span {
@@ -72,13 +72,9 @@ header {
 }
 
 .left-sec .left-sec__home-btn {
-  background-color: #c4c4c4;
-  border: 1px solid black;
-  border-radius: 5px;
-  color: black;
   display: inline-block;
   margin-top: 50px;
-  padding: 1em;
+
 }
 
 .right-sec {
@@ -106,7 +102,7 @@ header {
 }
 
 .right-sec::-webkit-scrollbar-thumb {
-  background-color: #40dff2;
+  background-color: #0d6efd;
   background-clip: content-box;
   border: 5px solid transparent;
   border-radius: 100px;
