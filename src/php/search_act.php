@@ -9,19 +9,28 @@
 
     $specialty = $_GET["specialty"];
     $order = $_GET["order"];
+    $docIds = json_decode($_GET["docIds"]);
     $name = strtolower($_GET["docName"]);
+    
+    $query = <<<EOT
+        SELECT doctors.id, specialization, name, contact 
+        FROM doctors
+        INNER JOIN users
+        ON doctors.userID = users.id
+    EOT;
 
-    if($specialty !== "") {
-        $specialty = "Cardiologist";
-        $query = <<<EOT
-            SELECT doctors.id, specialization, name, contact 
-            FROM doctors
-            INNER JOIN users
-            ON doctors.userID = users.id
-            WHERE specialization = '$specialty';
+    if($specialty !== "" && $name !== "") {
+        $query .= <<<EOT
+            WHERE LOCATE('$specialty', specialization) > 0 AND LOCATE('$name', name) > 0;
         EOT;
-    } else {
-        $query = "SELECT doctors.id, users.name, doctors.specialization, users.contact FROM users INNER JOIN doctors ON ";
+    } else if($specialty !== "") {
+        $query .= <<<EOT
+            WHERE LOCATE('$specialty', specialization) > 0;
+        EOT;
+    } else { // $name !==""
+        $query .= <<<EOT
+            WHERE LOCATE('$name', name) > 0;
+        EOT;
     }
 
     $stmt = $con->query($query);
@@ -30,7 +39,7 @@
         array_push($data, $result);
     }
 
-    $isFound = count($data) > 0 ? 1 : 0;
+    $isFound = $stmt->num_rows > 0 ? 1 : 0;
 
     $obj = [
         "message" => $message,

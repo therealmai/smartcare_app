@@ -19,21 +19,21 @@
 
             <div class="search-form__input-cont">
                 <i class="fa fa-search fa-2x" aria-hidden="true"></i>
-                <input name="docName" type="text" placeholder="Search for a doctor's name" id="docName">
+                <input name="docName" type="text" placeholder="Search for a doctor's name" id="searchName">
             </div>
 
             <button id="searchBtn" type="submit">Search</button>
 
             <div class="search-form__filter-cont">
                 <span>Filters:</span>
-                <select name="specialty" id="specialty">
+                <select name="specialty" id="searchSpecialty">
                     <option selected value=""> -- select a specialty --</option>
                     <option value="cardio">Cardiologist</option>
                     <option value="pedia">Pediatrician</option>
                 </select>
 
                 <span>Sort by:</span>
-                <select name="order" id="order">
+                <select name="order" id="searchOrder">
                     <option selected value="name-asc">Name - ASC</option>
                     <option value="name-dsc">Name - DESC</option>
                     <option value="f2f-price-asc">F2F Price - ASC</option>
@@ -45,8 +45,8 @@
         </form>
 
         <section id="searchResults" class="search-results">
-            <span class="hide">No results found.</span>
-            <div class="search-results__result">
+            <span id="searchNoResMsg" class="hide">No results found.</span>
+            <!-- <div class="search-results__result">
                 <i class="fa fa-user-md fa-2x" aria-hidden="true"></i>
                 <div class="search-results__profile">
                     <h4>Dr. Mylze Mangubat, MD</h4>
@@ -74,11 +74,11 @@
                     Book Now
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
                 </button>
-            </div>
+            </div> -->
         </section>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="../src/js/search.js"></script>
+    <script src="../src/js/script.js"></script>
 </body>
 </html>

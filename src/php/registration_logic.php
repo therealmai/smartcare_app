@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require 'dbconnect.php';
    //  var_dump($_POST);
     if(isset($_POST['submit'])){
