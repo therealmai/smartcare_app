@@ -26,9 +26,9 @@ button:hover {
 }
 
 header {
-  height: 120px;
+  height: 150px;
   width: auto;
-  background-color: #c4c4c4;
+  background-color: #fbfbfb;
 }
 
 .header__logo {
@@ -40,11 +40,11 @@ header {
 
 .left-sec {
   margin-top: 30px;
-  margin-left: 130px;
+  margin-left: 10%;
 }
 
 .left-sec span {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .left-sec .left-sec__p1 {
@@ -64,21 +64,18 @@ header {
 }
 
 .left-sec .left-sec__span--font-size-m {
-  font-size: 25px;
+  font-size: 30px;
 }
 
 .left-sec .left-sec__span--font-size-xl {
-  font-size: 50px;
+  font-size: 75px;
+  letter-spacing: 2px;
 }
 
 .left-sec .left-sec__home-btn {
-  background-color: #c4c4c4;
-  border: 1px solid black;
-  border-radius: 5px;
-  color: black;
   display: inline-block;
   margin-top: 50px;
-  padding: 1em;
+
 }
 
 .right-sec {
@@ -88,7 +85,7 @@ header {
   -webkit-box-shadow: 0 0 15px 1px #c4c4c4;
           box-shadow: 0 0 15px 1px #c4c4c4;
   height: 500px;
-  width: 500px;
+  width: 700px;
   overflow-y: auto;
   padding: 2.5em 4em;
   position: absolute;
@@ -106,7 +103,7 @@ header {
 }
 
 .right-sec::-webkit-scrollbar-thumb {
-  background-color: #40dff2;
+  background-color: #0d6efd;
   background-clip: content-box;
   border: 5px solid transparent;
   border-radius: 100px;
