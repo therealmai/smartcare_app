@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 const HOST = 'localhost';
 define('DB_NAME', 'smartcare');
 define('USERNAME', 'root');

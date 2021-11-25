@@ -37,29 +37,25 @@
               <div class="smartcare-logo">
                 <img src="../src/img/smartcare login.jpg" alt="smartcare-logo.png" width="150%">
               </div>
-              <form class="login-form">
+              <form class="login-form" method="POST" action="../src/php/login.php">
                 <div class="user">
-                  <input class="user" type="text" name="username" placeholder="USERNAME OR EMAIL">
+                  <input class="user" type="text" name="email" placeholder="EMAIL">
                 </div>
 
                 <div class="password">
-                  <input class="password" type="password" name="pass" placeholder="PASSWORD">
+                  <input class="password" type="password" name="password" placeholder="PASSWORD">
                 </div>
                 <div class="login-btn">
-                  <input type="submit" value="LOGIN">
+                  <input type="submit" name="submit" value="SUBMIT" >
                 </div>
                 <label class="checkb">
                   <input type="checkbox" checked="checked">
                   REMEMBER ME<span class="checkmark"></span>
                 </label>
-                <label class="forgotp">
-                  <img src="../src/img/forgot pass.png">
-                  <a href="" style="text-decoration: none;">FORGOT PASSWORD?</a>
-                </label>
                 <hr>
                 <center>
                   <label>
-                    Don't have an account? <a href="registration.html" style="text-decoration: none;">Sign Up</a>
+                    Don't have an account? <a href="registration.php" style="text-decoration: none;">Sign Up</a>
                   </label>
                 </center>
                 </form>
