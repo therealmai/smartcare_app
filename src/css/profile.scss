@@ -1,0 +1,32 @@
+@import "_global";
+
+.prof {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+    padding: 0 75px;
+}
+
+.prof-btn-cont {
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    width: 200px;
+
+    button {
+        padding: 25px;
+
+        &:focus {
+            background-color: white;
+            color: black;
+        }
+    }
+
+    @include modifyButton(black, white, black);
+}
+
+.prof-res {
+    width: 80%;
+}

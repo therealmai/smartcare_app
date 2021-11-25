@@ -1,3 +1,4 @@
+// SEARCH PAGE
 let searchForm = "#searchForm";
 let searchResults = "#searchResults";
 
@@ -20,24 +21,26 @@ let specialties = {
     "pedia" : "Pediatrician",
     "radio" : "Radiologist"
 }
+// SEARCH PAGE
 
+// UTILITY FUNCTIONS
 function addEventGlobalListener(action, selector, callback) {
     document.addEventListener(action, (e) => {
         if(e.target.matches(selector)) 
             callback(e);
     })
 }
+function stringify(name, arr) {
+    return `${name}=${JSON.stringify(arr)}`;
+}
+// UTILITY FUNCTIONS
 
+// SEARCH PAGE FUNCTIONS
 function pushToArr(selector, arr, dataId) {
     $(selector).each((index, elem) => {
         arr.push($(elem).attr(dataId));
     })
 }
-
-function stringify(name, arr) {
-    return `${name}=${JSON.stringify(arr)}`;
-}
-
 function createSearchResultHtml(name, specialty, contact, id) {
     return `
         <div data-doc-id=${id} class="search-results__result">
@@ -82,6 +85,8 @@ function checkSearchInput() {
     nameLen = $(searchName).val().length;
     return specLen > 0 || nameLen > 0 ? 1 : 0;
 }
+// SEARCH PAGE FUNCTIONS
+
 
 addEventGlobalListener('click', closeBtn, (e) => {
     $(appointmentForm).addClass('hide');
@@ -98,7 +103,6 @@ addEventGlobalListener('click', bookNowBtns, (e) => {
     $(docSpec).text(spec);
     $(docCont).text(`+63 ${cont}`);
 })
-
 addEventGlobalListener('submit', searchForm, (e) => {
     e.preventDefault();
     let data = $(searchForm).serialize();

@@ -10,9 +10,7 @@
     <title>SmartCare - Search</title>
 </head>
 <body>
-    <header>
-        <img class="header__logo" src="../src/img/logo-with-heading.png" alt="">
-    </header>
+    <?php include "./header.php" ?>
 
     <main>
         <form action="" class="search-form" id="searchForm">
