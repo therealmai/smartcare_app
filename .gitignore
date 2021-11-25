@@ -1,6 +1,8 @@
 src/_global.scss
 src/_sitewide.scss
 src/appointment.scss
+src/profile.scss
+src/profile.scss.map
 src/registration.scss
 src/search.scss
 src/appointment.css.map
