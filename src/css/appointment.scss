@@ -2,6 +2,7 @@
 
 $logo-height: 80px;
 $margin-align: 130px;
+$appointment-width: 750px;
 
 $dark-blue-color: rgb(17, 107, 203);
 $light-blue-color: rgb(101, 159, 222);
@@ -14,6 +15,18 @@ $light-gray-color: rgb(240, 240, 240);
 
 .fa-arrow-right {
     color: white;
+}
+
+.fa-times-circle {
+    color: red;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 20;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 header {
@@ -36,13 +49,17 @@ header {
 }
 
 .right-sec {
+    background-color: white;
     border: 1px solid black;    
     box-shadow: 0 0 10px 5px $gray-color;
-    width: 750px;
+    width: $appointment-width;
     padding: 20px 50px;
     position: absolute;
     top: $logo-height/2;
-    right: $margin-align;
+    left: 50%;
+    margin-left: -$appointment-width/2;
+    opacity: 1;
+    z-index: 10;
 }
 
 .right-sec--top-bg {
@@ -50,7 +67,7 @@ header {
     position: absolute;
     top: 0;
     left: 0;
-    width: inherit;
+    width: 100%;
     height: 130px;
 }
 
@@ -58,24 +75,26 @@ header {
     display: grid;
     grid-template: 1fr 2fr / 1fr 1fr;
     justify-items: center;
+    align-items: center;
     position: relative;
 
     h5 {
         font-size: 18px;
         grid-column: 1 / span 2;
         margin-bottom: 15px;
-        text-align: center;
+    }
+
+    .fa-user-md {
+        align-self: center;
+        padding: 0;
     }
 }
 
 .right-sec__doctor-cont--left, .right-sec__doctor-cont--right {
     display: flex;
     align-items: center;
-    gap: 15px;
-
-    h5 {
-        margin-bottom: 0;
-    }
+    gap: 10px;
+    text-align: left;
 }
 
 .right-sec__form-cont {

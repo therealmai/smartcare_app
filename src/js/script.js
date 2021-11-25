@@ -6,6 +6,15 @@ let searchOrder = "#searchOrder";
 let searchSpecialty = "#searchSpecialty";
 let searchNoResMsg = "#searchNoResMsg";
 
+let appointForm = "#appointForm";
+
+let docName = "#docName";
+let docSpec = "#docSpec";
+let docCont = "#docCont";
+
+let bookNowBtns = ".search-results__book-btn";
+let closeBtn = "#closeBtn";
+
 let specialties = {
     "cardio" : "Cardiologist",
     "pedia" : "Pediatrician",
@@ -28,8 +37,6 @@ function pushToArr(selector, arr, dataId) {
 function stringify(name, arr) {
     return `${name}=${JSON.stringify(arr)}`;
 }
-
-
 
 function createSearchResultHtml(name, specialty, contact, id) {
     return `
@@ -64,19 +71,33 @@ function createSearchResultHtml(name, specialty, contact, id) {
         </div>
     `;
 }
-
 function createSearchResult(arr) {
     arr.forEach((elem) => {
         $(searchResults).append(createSearchResultHtml(elem["name"], elem["specialization"], elem["contact"], elem["id"]));
     })
 }
-
 function checkSearchInput() {
     let specLen, nameLen;
     specLen = $(searchSpecialty).val().length;
     nameLen = $(searchName).val().length;
     return specLen > 0 || nameLen > 0 ? 1 : 0;
 }
+
+addEventGlobalListener('click', closeBtn, (e) => {
+    $(appointmentForm).addClass('hide');
+})
+addEventGlobalListener('click', bookNowBtns, (e) => {
+    $(appointmentForm).removeClass("hide");
+    let profile = $(e.target).siblings(".search-results__profile");
+    let addInfo = $(e.target).siblings(".search-results__addi-info")
+    let name = $(profile).find("h4").text();
+    let spec = $(addInfo).children("p:nth-child(1)").text();
+    let cont = $(addInfo).children("p:nth-child(2)").text();
+
+    $(docName).text(name);
+    $(docSpec).text(spec);
+    $(docCont).text(`+63 ${cont}`);
+})
 
 addEventGlobalListener('submit', searchForm, (e) => {
     e.preventDefault();
@@ -96,9 +117,10 @@ addEventGlobalListener('submit', searchForm, (e) => {
             success: function(response) {
                 res = JSON.parse(response);
                 $(searchNoResMsg).addClass("hide");
-                if(res["isFound"] > 0) {
+                $(searchResults).children(".search-results__result").remove();
+                if(res["isFound"]) {
+                    console.log(res);
                     doctors = res["data"];
-                    $(searchResults).children().remove();
                     createSearchResult(doctors);
                 } else {
                     $(searchNoResMsg).removeClass("hide");
@@ -108,4 +130,8 @@ addEventGlobalListener('submit', searchForm, (e) => {
     } else {
         alert("Please input a name or choose a filter!");
     }
+})
+addEventGlobalListener('submit', appointForm, (e) => {
+    e.preventDefault();
+    console.log($(appointForm).serialize());
 })

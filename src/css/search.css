@@ -40,10 +40,6 @@ header {
   left: 15px;
 }
 
-.fa-angle-right {
-  color: white;
-}
-
 .fa-stethoscope, .fa-phone, .fa-user, .fa-video-camera, .fa-user-md {
   color: #b3b3b3;
   margin-right: 7.5px;
