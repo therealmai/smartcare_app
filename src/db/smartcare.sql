@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2021 at 05:11 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.4.22
+-- Generation Time: Nov 29, 2021 at 11:45 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `appointments`
+--
+
+CREATE TABLE `appointments` (
+  `ID` bigint(20) NOT NULL,
+  `DoctorID` bigint(20) NOT NULL,
+  `PatientID` bigint(20) NOT NULL,
+  `Type` enum('f2f','online') NOT NULL,
+  `Day` smallint(6) NOT NULL,
+  `Month` int(11) NOT NULL,
+  `Year` int(11) NOT NULL,
+  `Time` varchar(5) NOT NULL,
+  `IsFinished` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`ID`, `DoctorID`, `PatientID`, `Type`, `Day`, `Month`, `Year`, `Time`, `IsFinished`) VALUES
+(1, 2, 1, 'f2f', 6, 11, 2021, '21:33', 0),
+(2, 3, 1, 'online', 11, 11, 2021, '21:37', 1),
+(3, 3, 1, 'online', 15, 11, 2021, '19:37', 1),
+(4, 4, 1, 'f2f', 9, 11, 2021, '21:48', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `doctors`
 --
 
@@ -32,10 +60,17 @@ CREATE TABLE `doctors` (
   `userID` bigint(20) UNSIGNED NOT NULL,
   `specialization` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `license_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `degree` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `degree` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `doctors`
+--
+
+INSERT INTO `doctors` (`id`, `userID`, `specialization`, `license_number`, `degree`) VALUES
+(2, 3, 'Cardiologist', '', ''),
+(3, 4, 'Pediatrician', '', ''),
+(4, 5, 'Pediatrician', '', '');
 
 -- --------------------------------------------------------
 
@@ -99,22 +134,6 @@ CREATE TABLE `emergency_contacts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
---
-
-CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `insurances`
 --
 
@@ -132,49 +151,12 @@ CREATE TABLE `insurances` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
---
-
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2021_11_04_154705_create_patients_table', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `password_resets`
---
-
-CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `patients`
 --
 
 CREATE TABLE `patients` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `userID` bigint(20) UNSIGNED NOT NULL,
-  `testID` bigint(20) UNSIGNED NOT NULL,
-  `prescriptionID` bigint(20) UNSIGNED NOT NULL,
   `height` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `weight` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `blood_pressure` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -182,6 +164,15 @@ CREATE TABLE `patients` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `patients`
+--
+
+INSERT INTO `patients` (`id`, `userID`, `height`, `weight`, `blood_pressure`, `heart_rate`, `created_at`, `updated_at`) VALUES
+(1, 6, '', '', '', '', NULL, NULL),
+(2, 7, '', '', '', '', NULL, NULL),
+(3, 8, '', '', '', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -234,24 +225,6 @@ CREATE TABLE `payer_for_patients` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personal_access_tokens`
---
-
-CREATE TABLE `personal_access_tokens` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_used_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `prescriptions`
 --
 
@@ -267,41 +240,44 @@ CREATE TABLE `prescriptions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `secretaries`
---
-
-CREATE TABLE `secretaries` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `referral` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `contact` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ssn` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `age` tinyint(4) NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `firstname` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lastname` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `middle_initial` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
+  `month` int(11) DEFAULT NULL,
+  `day` smallint(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `password`, `ssn`, `contact`, `firstname`, `lastname`, `middle_initial`, `year`, `month`, `day`) VALUES
+(3, 'user1@gmail.com', '', '', '09123426921', 'User1', 'User1', 'U1', NULL, NULL, NULL),
+(4, 'user2@gmail.com', '', '', '09123422121', 'User2', 'User2', 'U2', NULL, NULL, NULL),
+(5, 'user3@gmail.com', '', '', '09132126921', 'User3', 'User3', 'U3', NULL, NULL, NULL),
+(6, 'user4@gmail.com', '', '', '09123431242', 'User4', 'User4', 'U4', NULL, NULL, NULL),
+(7, 'user5@gmail.com', '', '', '09178431242', 'User5', 'User5', 'U5', NULL, NULL, NULL),
+(8, 'user6@gmail.com', '', '', '09122861242', 'User6', 'User6', 'U6', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `appointments`
+--
+ALTER TABLE `appointments`
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `doctors`
@@ -337,13 +313,6 @@ ALTER TABLE `emergency_contacts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
-
---
 -- Indexes for table `insurances`
 --
 ALTER TABLE `insurances`
@@ -352,25 +321,11 @@ ALTER TABLE `insurances`
   ADD KEY `insurances_feeid_foreign` (`feeID`);
 
 --
--- Indexes for table `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
-
---
 -- Indexes for table `patients`
 --
 ALTER TABLE `patients`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `patients_userid_foreign` (`userID`),
-  ADD KEY `patients_testid_foreign` (`testID`),
-  ADD KEY `patients_prescriptionid_foreign` (`prescriptionID`);
+  ADD KEY `patients_userid_foreign` (`userID`);
 
 --
 -- Indexes for table `patients_table`
@@ -386,25 +341,11 @@ ALTER TABLE `payer_for_patients`
   ADD KEY `payer_for_patients_feeid_foreign` (`feeID`);
 
 --
--- Indexes for table `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
-
---
 -- Indexes for table `prescriptions`
 --
 ALTER TABLE `prescriptions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `prescriptions_doctor_id_foreign` (`doctor_id`);
-
---
--- Indexes for table `secretaries`
---
-ALTER TABLE `secretaries`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -418,10 +359,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `appointments`
+--
+ALTER TABLE `appointments`
+  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `doctors_fees`
@@ -448,28 +395,16 @@ ALTER TABLE `emergency_contacts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `insurances`
 --
 ALTER TABLE `insurances`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `patients_table`
@@ -484,28 +419,16 @@ ALTER TABLE `payer_for_patients`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `prescriptions`
 --
 ALTER TABLE `prescriptions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `secretaries`
---
-ALTER TABLE `secretaries`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -540,8 +463,6 @@ ALTER TABLE `insurances`
 -- Constraints for table `patients`
 --
 ALTER TABLE `patients`
-  ADD CONSTRAINT `patients_prescriptionid_foreign` FOREIGN KEY (`prescriptionID`) REFERENCES `prescriptions` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `patients_testid_foreign` FOREIGN KEY (`testID`) REFERENCES `doctors_lab_tests` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `patients_userid_foreign` FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
