@@ -13,11 +13,11 @@
             $city = $_POST['city'];
             $postal_code = $_POST['postal_code'];
             $ssn = $_POST['ssn'];
-            $sql = "INSERT INTO patients_table (first_name, last_name, email, `password`, confirm_password, birthdate, street_address, province, city, postal_code, ssn) 
-                                        VALUES ('$first_name','$last_name','$email','$password','$confirm_password','$birthdate','$street_address','$province','$city','$postal_code','$ssn')";
+            $sql = "INSERT INTO users (first_name, last_name, email, `password`, confirm_password, birthdate, street_address, province, city, postal_code, ssn, created_at) 
+                                        VALUES ('$first_name','$last_name','$email','$password','$confirm_password','$birthdate','$street_address','$province','$city','$postal_code','$ssn', 'NOW()')";
             // var_dump(mysqli_query($mysqli, $sql));
             if (mysqli_query($mysqli, $sql)) {
-                header("location: ../../public/homepage.html");
+                header("location: ../../public/homepage.php");
                
             } else {
             echo "Error: " . $sql . ":-" . mysqli_error($mysqli);
