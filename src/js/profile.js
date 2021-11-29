@@ -17,7 +17,7 @@ function addEventGlobalListener(action, selector, callback) {
     })
 }
 //              DOCTORS
-
+//       INSERT CODE LIKE generateAppointment for Doctor
 //              DOCTORS
 
 //              PATIENTS
@@ -40,23 +40,25 @@ function generateAppointment({Day, Month, Time, Year, Type, firstname, lastname,
 
 
 //              DOCTORS
+// addEventGlobalListener('click', showDocProfBtn, (e) => {
+//     let html = `
+//         <h1>
+//             REPLACE THIS DOCTOR PROFILE DUMMY CODE WITH THE CORRECT ONE.
+//         </h1>
+//     `;
+//     // $(profRes).children().remove();
+//     $(profRes).append(html);
+var x = document.getElementById("Docprof");
+var y = document.getElementById("DocAppoint");
+
+//              DOCTORS
 addEventGlobalListener('click', showDocProfBtn, (e) => {
-    let html = `
-        <h1>
-            REPLACE THIS DOCTOR PROFILE DUMMY CODE WITH THE CORRECT ONE.
-        </h1>
-    `;
-    // $(profRes).children().remove();
-    $(profRes).append(html);
+    x.style.display = "block";
+    y.style.display = "none";
 })
 addEventGlobalListener('click', showDocAppointBtn, (e) => {
-    let html = `
-        <h1>
-            REPLACE THIS DOCTORAPPOINT DUMMY CODE WITH THE CORRECT ONE.
-        </h1>
-    `;
-    $(profRes).children().remove();
-    $(profRes).append(html);
+    x.style.display = "none";
+    y.style.display = "block";
 })
 //              DOCTORS
 
@@ -94,4 +96,4 @@ $(window).on("load", (evt) => {
     $(showDocProfBtn).trigger('focus');
     $(showPatProfBtn).trigger('click');
     $(showPatProfBtn).trigger('focus');
-});
+})
