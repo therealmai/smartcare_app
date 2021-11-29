@@ -18,7 +18,14 @@
         </section>
 
         <section class="prof-res" id="profRes">
-
+            <div class="hide" id="profResAppCont">
+                <div class="prof-res__appoint-cont" id="profResUnApp">
+                    <h1>Unfinished Appointments</h1>
+                </div>
+                <div class="prof-res__appoint-cont" id="profResFinApp">
+                    <h1>Finished Appointments</h1>
+                </div>
+            </div>
         </section>
     </main>
 

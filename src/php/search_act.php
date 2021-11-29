@@ -13,7 +13,7 @@
     $name = strtolower($_GET["docName"]);
     
     $query = <<<EOT
-        SELECT doctors.id, specialization, name, contact 
+        SELECT doctors.id, specialization, firstname, lastname, middle_initial, contact 
         FROM doctors
         INNER JOIN users
         ON doctors.userID = users.id
@@ -21,7 +21,7 @@
 
     if($specialty !== "" && $name !== "") {
         $query .= <<<EOT
-            WHERE LOCATE('$specialty', specialization) > 0 AND LOCATE('$name', name) > 0
+            WHERE LOCATE('$specialty', specialization) > 0 AND LOCATE('$name', firstname) > 0
         EOT;
     } else if($specialty !== "") {
         $query .= <<<EOT
@@ -29,11 +29,11 @@
         EOT;
     } else { // $name !==""
         $query .= <<<EOT
-            WHERE LOCATE('$name', name) > 0
+            WHERE LOCATE('$name', firstname) > 0
         EOT;
     }
 
-    $query .= " ORDER BY $order[0] $order[1]";
+    // $query .= " ORDER BY $order[0] $order[1]";
 
     $stmt = $con->query($query);    
 
@@ -46,7 +46,10 @@
     $obj = [
         "message" => $message,
         "data" => $data,
-        "isFound" => $isFound
+        "isFound" => $isFound,
+        "stmt" => $stmt,
+        "specialty" => $specialty,
+        "name" => $name
     ];
 
     $obj = json_encode($obj);

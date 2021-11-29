@@ -2,6 +2,7 @@
 
 .prof {
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
     margin-top: 25px;
     padding: 0 75px;
@@ -29,4 +30,31 @@
 
 .prof-res {
     width: 80%;
+
+    &__appoint-cont {
+        margin-bottom: 20px;
+
+        h1 {
+            padding-bottom: 10px;
+            border-bottom: 2px solid black;
+            margin-bottom: 15px;
+        }
+    }
+
+    &__appoint {
+        border: 1px solid black;
+        display: grid;
+        grid-template-columns: 1fr repeat(5, 150px);
+        align-items: center;
+        justify-items: center;
+        padding: 7.5px 12.5px;
+        margin-bottom: 7.5px;
+
+        @include modifyButton(red, white, red);
+
+        button {
+            padding: 7.5px;
+            justify-self: flex-end;
+        }
+    }
 }

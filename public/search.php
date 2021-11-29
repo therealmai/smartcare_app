@@ -85,24 +85,6 @@
 
                 <form action="" id="appointForm">
                     <div>
-                        <label for="appoint-type">Appointment Type</label>
-                        <select name="appoint-type" id="appoint-type">
-                            <option hidden disabled selected value> -- select an option -- </option>
-                            <option value="f2f">Face-to-face</option>
-                            <option value="online">Online Appointment</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="clinic">Select Clinic</label>
-                        <select name="clinic" id="clinic">
-                            <option hidden disabled selected value> -- select an option -- </option>
-                            <option value="f2f">Face-to-face</option>
-                            <option value="vir-appoint">Virtual Appointment</option>
-                        </select>
-                    </div>
-
-                    <div>
                         <label for="date">Date of Appointment</label>
                         <input name="date" id="date" type="date">
                     </div>
@@ -112,8 +94,26 @@
                         <input name="time" id="time" type="time">
                     </div>
 
+                    <div>
+                        <label for="appoint-type">Appointment Type</label>
+                        <select name="appoint-type" id="appoint-type">
+                            <option hidden disabled selected value> -- select an option -- </option>
+                            <option value="f2f">Face-to-face</option>
+                            <option value="online">Online Appointment</option>
+                        </select>
+                    </div>
+
+                    <!-- <div>
+                        <label for="clinic">Select Clinic</label>
+                        <select name="clinic" id="clinic">
+                            <option hidden disabled selected value> -- select an option -- </option>
+                            <option value="f2f">Face-to-face</option>
+                            <option value="vir-appoint">Virtual Appointment</option>
+                        </select>
+                    </div> -->
+
                     <button type="submit">
-                        Continue <i class="fa fa-arrow-right" aria-hidden="true"></i>                
+                        Submit <i class="fa fa-arrow-right" aria-hidden="true"></i>                
                     </button>
                 </form>
             </div>

@@ -16,6 +16,8 @@ let docCont = "#docCont";
 let bookNowBtns = ".search-results__book-btn";
 let closeBtn = "#closeBtn";
 
+let docId;
+
 let specialties = {
     "cardio" : "Cardiologist",
     "pedia" : "Pediatrician",
@@ -102,6 +104,8 @@ addEventGlobalListener('click', bookNowBtns, (e) => {
     $(docName).text(name);
     $(docSpec).text(spec);
     $(docCont).text(`+63 ${cont}`);
+
+    docId = $(e.target).parent().attr("data-doc-id");
 })
 addEventGlobalListener('submit', searchForm, (e) => {
     e.preventDefault();
@@ -123,7 +127,6 @@ addEventGlobalListener('submit', searchForm, (e) => {
                 $(searchNoResMsg).addClass("hide");
                 $(searchResults).children(".search-results__result").remove();
                 if(res["isFound"]) {
-                    console.log(res);
                     doctors = res["data"];
                     createSearchResult(doctors);
                 } else {
@@ -137,5 +140,18 @@ addEventGlobalListener('submit', searchForm, (e) => {
 })
 addEventGlobalListener('submit', appointForm, (e) => {
     e.preventDefault();
-    console.log($(appointForm).serialize());
+    let data = $(appointForm).serialize();
+    let url = "../src/php/appoint_act.php";
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data + `&docId=${docId}`,
+        success: (resp) => {
+            let {msg, success} = JSON.parse(resp);
+            if(success) {
+                $(appointForm)[0].reset();
+            }
+            alert(msg);
+        }
+    })
 })
