@@ -17,6 +17,7 @@
     <main class="prof">
         <section class="prof-btn-cont">
             <button id="showDocProfBtn">Profile</button>
+            <button id="showDocPatBtn">Patients</button>
             <button id="showDocAppointBtn">Appointments</button>
         </section>
   
@@ -64,7 +65,25 @@
         </div>
         </div>
     </section>
+    <section class="prof-res" id="DocPatients">
+        <h1>
+            REPLACE THIS DOCTORPATIENTS DUMMY CODE WITH THE CORRECT ONE. Hello
+        </h1>
+        <p>
+            Must be included:
+            firstname
+            lastname
+            middle initial
+            age [year month day]
+            patient id
+            height
+            weight
+            blood pressure
+            heart rate
 
+            view person's appointments and 
+        </p>
+    </section>
     <section class="prof-res" id="DocAppoint">
         <h1>
             REPLACE THIS DOCTORAPPOINT DUMMY CODE WITH THE CORRECT ONE. Hello

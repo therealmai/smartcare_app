@@ -15,6 +15,7 @@
         <section class="prof-btn-cont">
             <button id="showPatProfBtn">Profile</button>
             <button id="showPatAppointBtn">Appointments</button>
+            <button id="showPatDocBtn">Doctors</button>
         </section>
 
         <section class="prof-res" id="profRes">
