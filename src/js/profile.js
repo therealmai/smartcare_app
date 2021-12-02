@@ -9,6 +9,7 @@ let showPatAppointBtn = "#showPatAppointBtn";
 let profResAppCont = "#profResAppCont";
 let profResUnApp = "#profResUnApp";
 let profResFinApp = "#profResFinApp";
+let appIdArr = [];
 
 function addEventGlobalListener(action, selector, callback) {
     document.addEventListener(action, (e) => {
@@ -21,11 +22,11 @@ function addEventGlobalListener(action, selector, callback) {
 //              DOCTORS
 
 //              PATIENTS
-function generateAppointment({Day, Month, Time, Year, Type, firstname, lastname, middle_initial, specialization}, action, cont) {
+function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastname, middle_initial, specialization}, action, cont) {
     let month = (Month).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
     let day = (Day).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
     let html = `
-        <div class="prof-res__appoint">
+        <div data-id=${ID} class="prof-res__appoint">
             <h3>Dr. ${firstname} ${middle_initial}. ${lastname}</h3>
             <h3>${specialization}</h3>
             <h3>${Type}</h3>
@@ -77,15 +78,20 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
     $(profResAppCont).removeClass("hide");
     $.ajax({
         type: "GET",
+        data: "appIdArr=" + JSON.stringify(appIdArr),
         url: "../src/php/get-appoints_act.php",
         success: (resp) => {
             let {finished, unfinished} = JSON.parse(resp);
-            console.log(finished);
-            console.log(unfinished);
-            for(var i of finished)
+            for(var i of finished) {
                 generateAppointment(i, "Delete", profResFinApp);
-            for(var i of unfinished)
+                if(!appIdArr.includes(i.ID)) 
+                    appIdArr.push(i.ID);
+            } 
+            for(var i of unfinished){
                 generateAppointment(i, "Cancel", profResUnApp);
+                if(!appIdArr.includes(i.ID))
+                    appIdArr.push(i.ID);
+            }
         }
     })
 })
