@@ -15,18 +15,14 @@
    
    if ($rows > 0) {
      $row = mysqli_fetch_assoc($results);
-     $checkRole = $row['id'];
      if (password_verify($password, $row['password'])) {
        $_SESSION['id'] = $row['id']; 
        $_SESSION['email'] = $row['email']; 
        $_SESSION['password'] = $row['password'];
-       $query2 = "SELECT * FROM `doctors` WHERE userID = '$checkRole' LIMIT 1";
-       $results2 = mysqli_query($mysqli, $query2);
-       $rows2 = mysqli_num_rows($results2);
-       if($rows2 > 0){
-         header("location:../../public/doctorpage.php"); 
+       if($row['role'] == "doctor"){
+        header("location:../../public/doctorpage.php"); 
        }else{
-         header("location:../../public/homepage.html");
+         header("location:../../public/homepage.php");
        }
        // redirect to "login success" page would be a better solution
       
@@ -43,6 +39,7 @@
 //         </SCRIPT>";
 //    }
       }
+      //no record found
    }
 }
 
