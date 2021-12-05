@@ -67,6 +67,10 @@
                                 <a class="nav-link nav-head" href="#">nav 5</a>
                             </li>
 
+                            <li class="nav-item">
+                                <button class="btn btn-primary"><a class="nav-link nav-head" href="#">Logout</a></button>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
