@@ -96,7 +96,7 @@
         if (mysqli_query($mysqli, $sql)) {
 
             $selectQuery = "SELECT * FROM users WHERE email= '$email' LIMIT 1";
-            $results = mysqli_query($mysqli, $query);
+            $results = mysqli_query($mysqli, $selectQuery);
             $rows = mysqli_num_rows($results);
 
             if ($rows > 0) {
