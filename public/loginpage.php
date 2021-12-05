@@ -1,3 +1,9 @@
+<?php 
+    session_start();
+    if (isset($_SESSION['id']))
+        header('location: ./homepage.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,13 +45,24 @@
             <div class="smartcare-logo">
               <img src="../src/img/smartcare login.jpg" alt="smartcare-logo.png" width="150%">
             </div>
+            <?php
+                // Have fun with these errors hehe :>
+                if (isset($_SESSION['login_err'])) {
+                    foreach($_SESSION['login_err'] as $loginErr) {
+                        echo "<p>{$loginErr}</p>";
+                    }
+                    
+                    unset($_SESSION['login_err']);
+                }
+                
+            ?>
             <form class="login-form" method="POST" action="../src/php/login.php">
               <div class="user">
-                <input class="user" type="text" name="email" placeholder="EMAIL">
+                <input class="user" type="text" name="email" placeholder="EMAIL" required>
               </div>
 
               <div class="password">
-                <input class="password" type="password" name="password" placeholder="PASSWORD">
+                <input class="password" type="password" name="password" placeholder="PASSWORD" required>
               </div>
 
               <div class="login-btn">
