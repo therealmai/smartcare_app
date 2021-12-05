@@ -42,7 +42,10 @@
                     foreach($_SESSION['reg_err'] as $regErr) {
                         echo "<p>{$regErr}</p>";
                     }
+                    
+                    unset($_SESSION['reg_err']);
                 }
+                
             ?>
             <form class="right-sec__form" method="POST" action="../src/php/registration_logic.php">
                 <div>
@@ -73,11 +76,6 @@
                 <div>
                     <label for="confirm_password">Confirm Password</label>
                     <input id="confirm-pass" name="confirm_password" type="password" required>
-                </div>
-
-                <div>
-                    <label for="contact">Contact #</label>
-                    <input id="birthday" name="contact" type="tel" required>
                 </div>
 
                 <div>

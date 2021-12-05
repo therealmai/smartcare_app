@@ -8,7 +8,7 @@
         $_SESSION['reg_err'] = [];
 
         // Base input validations
-        if (empty(trim($_POST['first_name'])) && empty(trim($_POST['last_name']))) 
+        if (empty(trim($_POST['first_name'])) && empty(trim($_POST['last_name'])) && empty(trim($_POST['middle_initial']))) 
             $_SESSION['reg_err']['nameErr'] = "First Name and Last Name are both empty.";
 
         if (empty(trim($_POST['email']))) 
@@ -32,7 +32,7 @@
             $contact = trim($_POST['contact']);
         }
 
-        if (empty(trim($_POST['contact']))) {
+        if (empty(trim($_POST['ssn']))) {
             $_SESSION['reg_err']['ssnErr'] = "SSN is required";
         } else {
             $ssn = trim($_POST['ssn']);
@@ -85,17 +85,14 @@
 
         $first_name =  $_POST['first_name'] ?? '';
         $last_name = $_POST['last_name'] ?? '';
+        $middle_initial = $_POST['middle_initial'] ?? '';
         $birthdate = $_POST['birthdate'] ?? '';
         $year = date('Y', strtotime($birthdate));
         $month = date('m', strtotime($birthdate));
         $day = date('d', strtotime($birthdate));
-        $street_address = $_POST['street_address'] ?? '';
-        $province = $_POST ['province'] ?? '';
-        $city = $_POST['city'] ?? '';
-        $postal_code = $_POST['postal_code'] ?? '';
-        $sql = "INSERT INTO users (first_name, last_name, email, `password`, street_address, province, city, postal_code, ssn, created_at) 
-                                    VALUES ('$first_name','$last_name','$email','$hashedPass','$street_address','$province','$city','$postal_code','$ssn', 'NOW()')";
-        // var_dump(mysqli_query($mysqli, $sql));
+        $sql = "INSERT INTO users (email, `password`, ssn, contact, firstname, lastname, middle_initial, `year`, `month`, `day`) 
+            VALUES ('$email','$hashedPass','$ssn','$contact','$first_name','$last_name','$middle_initial','$year','$month','$day')";        // var_dump(mysqli_query($mysqli, $sql));
+        
         if (mysqli_query($mysqli, $sql)) {
             header("location: ../../public/homepage.php");
             
