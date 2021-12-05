@@ -86,6 +86,9 @@
         $first_name =  $_POST['first_name'] ?? '';
         $last_name = $_POST['last_name'] ?? '';
         $birthdate = $_POST['birthdate'] ?? '';
+        $year = date('Y', strtotime($birthdate));
+        $month = date('m', strtotime($birthdate));
+        $day = date('d', strtotime($birthdate));
         $street_address = $_POST['street_address'] ?? '';
         $province = $_POST ['province'] ?? '';
         $city = $_POST['city'] ?? '';
@@ -101,5 +104,3 @@
         }
         mysqli_close($mysqli);
     };
-
-?>
