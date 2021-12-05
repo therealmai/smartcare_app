@@ -22,7 +22,7 @@
 <body>
 
 <?php include('header.php') ?>
- 
+ <div class="container-nav">
     <main>
         <section class="main-sectinon-1">
             <!-- start of Card -->
