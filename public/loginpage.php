@@ -1,3 +1,9 @@
+<?php 
+    session_start();
+    if (isset($_SESSION['id']))
+        header('location: ./homepage.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,45 +28,55 @@
 <body style="background-image: url('../src/img/Login\ bg.png'); background-size:100%">
 
 <div class="container-nav">
- 
- 
+
     <nav class="navbar navbar-expand-lg">
     
       <div class="container-xl">          
-           
+
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
             
     <main>
-            <div class="container">
-              <div class="smartcare-logo">
-                <img src="../src/img/smartcare login.jpg" alt="smartcare-logo.png" width="150%">
-              </div>
-              <form class="login-form" method="POST" action="../src/php/login.php">
-                <div class="user">
-                  <input class="user" type="text" name="email" placeholder="EMAIL">
-                </div>
-
-                <div class="password">
-                  <input class="password" type="password" name="password" placeholder="PASSWORD">
-                </div>
-                <div class="login-btn">
-                  <input type="submit" name="submit" value="SUBMIT" >
-                </div>
-                <label class="checkb">
-                  <input type="checkbox" checked="checked">
-                  REMEMBER ME<span class="checkmark"></span>
-                </label>
-                <hr>
-                <center>
-                  <label>
-                    Don't have an account? <a href="registration.php" style="text-decoration: none;">Sign Up</a>
-                  </label>
-                </center>
-                </form>
+      <div class="container">
+        <div class="smartcare-logo">
+          <img src="../src/img/smartcare login.jpg" alt="smartcare-logo.png" width="150%">
+        </div>
+        <?php
+            // Have fun with these errors hehe :>
+            if (isset($_SESSION['login_err'])) {
+                foreach($_SESSION['login_err'] as $loginErr) {
+                    echo "<p>{$loginErr}</p>";
+                }
                 
-            </div>
+                unset($_SESSION['login_err']);
+            }
+            
+        ?>
+        <form class="login-form" method="POST" action="../src/php/login.php">
+          <div class="user">
+            <input class="user" type="text" name="email" placeholder="EMAIL" required>
+          </div>
+
+          <div class="password">
+            <input class="password" type="password" name="password" placeholder="PASSWORD" required>
+          </div>
+          <div class="login-btn">
+            <input type="submit" name="submit" value="SUBMIT" >
+          </div>
+          <label class="checkb">
+            <input type="checkbox" checked="checked">
+            REMEMBER ME<span class="checkmark"></span>
+          </label>
+          <hr>
+          <center>
+            <label>
+              Don't have an account? <a href="registration.php" style="text-decoration: none;">Sign Up</a>
+            </label>
+          </center>
+        </form>
+          
+      </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

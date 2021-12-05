@@ -57,7 +57,7 @@
             }
 
             // Check if email already exists
-            $sql = "SELECT id FROM user WHERE email = ?";
+            $sql = "SELECT id FROM users WHERE email = ?";
             if($stmt = $mysqli->prepare($sql)) {
                 $stmt->bind_param("s", $paramEmail);
                 $paramEmail = trim($_POST['email']);
@@ -94,10 +94,23 @@
             VALUES ('$email','$hashedPass','$ssn','$contact','$first_name','$last_name','$middle_initial','$year','$month','$day')";        // var_dump(mysqli_query($mysqli, $sql));
         
         if (mysqli_query($mysqli, $sql)) {
-            header("location: ../../public/homepage.php");
-            
-        } else {
-        echo "Error: " . $sql . ":-" . mysqli_error($mysqli);
+
+            $selectQuery = "SELECT * FROM users WHERE email= '$email' LIMIT 1";
+            $results = mysqli_query($mysqli, $query);
+            $rows = mysqli_num_rows($results);
+
+            if ($rows > 0) {
+                $row = mysqli_fetch_assoc($results);
+                $_SESSION['id'] = $row['id'];
+
+                mysqli_close($mysqli);
+                header("location: ../../public/homepage.php");
+            }            
         }
-        mysqli_close($mysqli);
+
+        $_SESSION['reg_error']['server_err'] = "A server error has occurred";
+        $_SESSION['reg_error']['sql_err'] = "Error: " . $sql . ":-" . mysqli_error($mysqli);
+        header('location: ../../public/registration.php');
+
     };
+?>
