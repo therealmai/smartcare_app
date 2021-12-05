@@ -26,7 +26,7 @@
                 <br>
             </p>
 
-           <a href="./homepage.php"><button class="btn btn-primary btn-lg" style="margin-top: 50px;" > Back to Home</button></a>
+           <a href="./loginpage.php"><button class="btn btn-primary btn-lg" style="margin-top: 50px;" > Back to Login</button></a>
         </section>
 
         <section id="userFormCont" class="right-sec">
