@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <?php include('session_check.php') ?>
     <?php include "./header.php" ?>
 
     <main class="prof">
@@ -63,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-            </section>   
+            </section>
             <section class="prof-res" id="DocPatients">
                 <h1>
                     REPLACE THIS DOCTORPATIENTS DUMMY CODE WITH THE CORRECT ONE. Hello
@@ -80,9 +81,9 @@
                     blood pressure
                     heart rate
 
-                    view person's appointments and 
+                    view person's appointments and
                 </p>
-            </section>  
+            </section>
             <div class="hide" id="profResAppCont">
 
             </div>

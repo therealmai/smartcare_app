@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +11,7 @@
 </head>
 
 <body>
+    <?php include('session_check.php') ?>
     <?php include "./header.php" ?>
 
     <main class="prof">
@@ -33,11 +35,13 @@
 
         <section class="prof-res" id="profRes">
             <div class="hide" id="profPresAppCont">
-            <style>
-            table, th, td {
-            border:1px solid black;
-            }
-            </style>
+                <style>
+                    table,
+                    th,
+                    td {
+                        border: 1px solid black;
+                    }
+                </style>
                 <div>
                     <h1>Prescriptions</h1>
                     <table style="width:100%">
@@ -51,16 +55,17 @@
                             <td>safasfdaad</td>
                             <td>John Alex</td>
                         </tr>
-                        
+
                     </table>
                 </div>
-               
+
             </div>
         </section>
-       
+
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="../src/js/profile.js"></script>
 </body>
+
 </html>

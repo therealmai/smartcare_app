@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +10,9 @@
     <link rel="stylesheet" href="../src/css/font-awesome-4.7.0/css/font-awesome.min.css">
     <title>SmartCare - Search</title>
 </head>
+
 <body>
+    <?php include('session_check.php') ?>
     <?php include "./header.php" ?>
 
     <main>
@@ -51,14 +54,15 @@
             <i class="fa fa-times-circle fa-2x" aria-hidden="true" id="closeBtn"></i>
 
             <div class="right-sec--top-bg"></div>
-            
+
             <div class="right-sec__doctor-cont">
                 <h5>BOOK APPOINTMENT</h5>
                 <div class="right-sec__doctor-cont--left">
                     <i class="fa fa-user-md fa-2x" aria-hidden="true"></i>
                     <div>
                         <h4 id="docName"></h4>
-                        <h4 id="docSpec"></h5>
+                        <h4 id="docSpec">
+                            </h5>
                     </div>
                 </div>
 
@@ -71,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="right-sec__page"> 
+            <div class="right-sec__page">
                 <p class="right-sec__page--1">1</p>
                 <div class="line"></div>
                 <p class="right-sec__page--2">2</p>
@@ -113,7 +117,7 @@
                     </div> -->
 
                     <button type="submit">
-                        Submit <i class="fa fa-arrow-right" aria-hidden="true"></i>                
+                        Submit <i class="fa fa-arrow-right" aria-hidden="true"></i>
                     </button>
                 </form>
             </div>
@@ -123,4 +127,5 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="../src/js/script.js"></script>
 </body>
+
 </html>
