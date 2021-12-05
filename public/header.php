@@ -23,7 +23,7 @@
 
 <body>
 
-    <div class="container-nav">
+    <!-- <div class="container-nav"> -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <!-- Container wrapper -->
         <div class="container-fluid">
@@ -41,7 +41,7 @@
                 <!-- Left links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
+                        <a class="nav-link" href="profile-doc.php">Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Team</a>
@@ -56,7 +56,7 @@
 
             <!-- Right elements -->
             <div class="d-flex align-items-center">
-             <button class="btn btn-primary btn-sm" type="button" href="../src/php/logout.php" > Logout </button>
+             <button class="btn btn-primary btn-sm" type="button"> <a href="../src/php/logout.php" style="color: white; text-decoration: none;"> Logout</a></button>
             </div>
             <!-- Right elements -->
         </div>

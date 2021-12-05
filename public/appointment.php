@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,13 +9,15 @@
     <link rel="stylesheet" href="../src/css/font-awesome-4.7.0/css/font-awesome.min.css">
     <title>SmartCare - Appointment</title>
 </head>
+
 <body>
+    <?php include('session_check.php') ?>
     <header>
         <img class="header__logo" src="../src/img/logo-with-heading.png" alt="">
     </header>
     <section class="right-sec">
         <div class="right-sec--top-bg"></div>
-        
+
         <div class="right-sec__doctor-cont">
             <h5>BOOK APPOINTMENT</h5>
             <div class="right-sec__doctor-cont--left">
@@ -34,7 +37,7 @@
             </div>
         </div>
 
-        <div class="right-sec__page"> 
+        <div class="right-sec__page">
             <p class="right-sec__page--1">1</p>
             <div class="line"></div>
             <p class="right-sec__page--2">2</p>
@@ -76,10 +79,11 @@
                 </div>
 
                 <button type="submit">
-                    Continue <i class="fa fa-arrow-right" aria-hidden="true"></i>                
+                    Continue <i class="fa fa-arrow-right" aria-hidden="true"></i>
                 </button>
             </form>
         </div>
     </section>
 </body>
+
 </html>

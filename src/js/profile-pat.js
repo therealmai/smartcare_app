@@ -2,8 +2,9 @@ let profRes = "#profRes";
 
 let showPatProfBtn = "#showPatProfBtn";
 let showPatAppointBtn = "#showPatAppointBtn";
-
+let showPatPresBtn = "#showPatPresBtn";
 let profResAppCont = "#profResAppCont";
+
 let profResUnApp = "#profResUnApp";
 let profResFinApp = "#profResFinApp";
 let appIdArr = [];
@@ -83,4 +84,26 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
 $(window).on("load", (evt) => {
     $(showPatProfBtn).trigger('click');
     $(showPatProfBtn).trigger('focus');
+})
+
+addEventGlobalListener('click', showPatPresBtn, (e) => {
+    $(profPresAppCont).removeClass("hide");
+    // $.ajax({
+    //     type: "GET",
+    //     data: "appIdArr=" + JSON.stringify(appIdArr),
+    //     url: "../src/php/get-appoints_act.php",
+    //     success: (resp) => {
+    //         let {finished, unfinished} = JSON.parse(resp);
+    //         for(var i of finished) {
+    //             generateAppointment(i, "Delete", profResFinApp);
+    //             if(!appIdArr.includes(i.ID)) 
+    //                 appIdArr.push(i.ID);
+    //         } 
+    //         for(var i of unfinished){
+    //             generateAppointment(i, "Cancel", profResUnApp);
+    //             if(!appIdArr.includes(i.ID))
+    //                 appIdArr.push(i.ID);
+    //         }
+    //     }
+    // })
 })
