@@ -7,35 +7,34 @@
     $unfinished = [];
     $appIdArr = json_decode($_GET["appIdArr"]);
 
-    $patId = 1;
-    //$patId = $_SESSION["patId"];
+    $docId = 3;
 
     $query = <<<EOT
-        SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, users.firstname, users.lastname, users.middle_initial, doctors.specialization 
+        SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, users.firstname, users.lastname, users.middle_initial 
         FROM appointments
-        INNER JOIN doctors
-        ON doctors.id = appointments.DoctorID
+        INNER JOIN patients
+        ON patients.id = appointments.PatientID
         INNER JOIN users
-        ON users.id = doctors.userID
-        WHERE appointments.PatientID = $patId
+        ON users.id = patients.userID
+        WHERE appointments.DoctorID = $docId
     EOT;
-    
+
     $stmt = $con->query($query);
 
     while($result = $stmt->fetch_assoc()) {
         if(in_array($result["ID"], $appIdArr))
             break;
-
         if($result["IsFinished"] == 1)
             array_push($finished, $result);
         else 
             array_push($unfinished, $result);
     }
 
+    $stmt->close();
+
     $obj = [
         "finished" => $finished,
-        "unfinished" => $unfinished,
-        "appIdArr" => $appIdArr
+        "unfinished" => $unfinished
     ];
     $obj = json_encode($obj);
     echo $obj;

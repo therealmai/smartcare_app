@@ -5,6 +5,10 @@ let showDocAppointBtn = "#showDocAppointBtn";
 let showDocPatBtn = "#showDocPatBtn";
 
 let profResAppCont = "#profResAppCont";
+let profResUnApp = "#profResUnApp";
+let profResFinApp = "#profResFinApp";
+
+let appIdArr = [];
 
 function addEventGlobalListener(action, selector, callback) {
     document.addEventListener(action, (e) => {
@@ -13,18 +17,20 @@ function addEventGlobalListener(action, selector, callback) {
     })
 }
 
-function generateAppointments() {
+function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastname, middle_initial, specialization}, action, cont) {
+    let month = (Month).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
+    let day = (Day).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
     let html = `
-    <h1>
-        REPLACE THIS DOCTORAPPOINT DUMMY CODE WITH THE CORRECT ONE. Hello
-    </h1>
-    <p>
-        Must be included:
-        tanan appointments in the table plus patient Name
-        and button that "finishes" the appointment
-    </p>
+    <div data-id=${ID} class="prof-res__appoint">
+        <h3>${firstname} ${middle_initial}. ${lastname}</h3>
+        <h3>${specialization}</h3>
+        <h3>${Type}</h3>
+        <h3>${Year}-${month}-${day}</h3>
+        <h3>${Time}</h3>
+        <button>${action}</button>
+    </div>
     `;
-    return html;
+    $(cont).append(html);
 }
 
 function isolateResultCont(resultCont) {
@@ -34,7 +40,24 @@ function isolateResultCont(resultCont) {
 
 addEventGlobalListener('click', showDocAppointBtn, e => {
     isolateResultCont(profResAppCont);
-    $(profResAppCont).append(generateAppointments());
+    $.ajax({
+        type: "GET",
+        data: "appIdArr=" + JSON.stringify(appIdArr),
+        url: "../src/php/get-appoints-doc_act.php",
+        success: resp => {
+            let {finished, unfinished} = JSON.parse(resp);
+            for(var i of finished) {
+                generateAppointment(i, "Delete", profResFinApp);
+                if(!appIdArr.includes(i.ID))
+                    appIdArr.push(i.ID);
+            }
+            for(var i of unfinished){
+                generateAppointment(i, "Cancel", profResUnApp);
+                if(!appIdArr.includes(i.ID))
+                    appIdArr.push(i.ID);
+            }
+        }
+    })
 })
 
 $(window).on("load", (evt) => {
