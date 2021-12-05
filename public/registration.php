@@ -44,13 +44,18 @@
                 </div>
 
                 <div>
+                    <label for="middle_initial">Middle Initial</label>
+                    <input id="middle_initial" name="middle_initial" type="text"  >
+                </div>
+
+                <div>
                     <label for="email">Email</label>
-                    <input id="email" name="email" type="text" >
+                    <input id="email" name="email" type="text"  >
                 </div>
 
                 <div>
                     <label for="password">Password</label>
-                    <input id="password" name="password" type="password" >
+                    <input id="password" name="password" type="password"  >
                 </div>
 
                 <div>
@@ -59,33 +64,18 @@
                 </div>
 
                 <div>
-                    <label for="birthdate">Birthday</label>
-                    <input id="birthday" name="birthdate" type="date" >
+                    <label for="contact">Contact Number</label>
+                    <input id="mobile" name="contact" type="text"  maxlength="12"  title="Ten digits code" required >
                 </div>
 
                 <div>
-                    <label for="street_address">Street Address</label>
-                    <input id="streetAdd" name="street_address" type="text" >
-                </div>
-
-                <div>
-                    <label for="province">Province</label>
-                    <input id="province" name="province" type="text" >
-                </div>
-
-                <div>
-                    <label for="city">City</label>
-                    <input id="city" name="city" type="text" >
-                </div>
-
-                <div>
-                    <label for="postal_code">Postal Code</label>
-                    <input id="pcode" name="postal_code" type="number" >
+                    <label for="birthdate">Birthdate</label>
+                    <input id="birthday" name="birthdate" type="date"  >
                 </div>
 
                 <div>
                     <label for="ssn">Philippine SSN</label>
-                    <input id="ssn" name="ssn" type="text" >
+                    <input id="ssn" name="ssn" type="text"  >
                 </div>
 
                 <input class = "btn btn-primary" class="font-weight-bold" type="submit" name="submit" value="Register">
@@ -94,60 +84,9 @@
         
         
 
-        <!-- <section id="choicesCont" class="hide right-sec right-sec--choices-cont">
-            <h1>
-                Thank you for creating an account!
-                <br>
-                Tell us which are you.
-            </h1>
-            <div>
-                <button id="choosePatientBtn">Patient</button>
-                <button id="chooseDocBtn">Doctor</button>
-                <button id="chooseSecBtn">Secretary</button>
-            </div>
-        </section>
-
-        <section id="patientFormCont" class="hide right-sec right-sec--position">
-            <h1>Hi Patient! Please fill up the blanks.</h1>
-            <form class="right-sec__form" method="">
-                <div>
-                    <label for="fname">First Name</label>
-                    <input id="a" name="fname" type="text" >
-                </div>
-
-                <button id="regBtnPatient" type="submit">Register</button>
-            </form>
-            <button class="backBtn"><-- Back</button>
-        </section>
-
-        <section id="doctorFormCont" class="hide right-sec right-sec--position">
-            <h1>Hi Doctor! Please fill up the blanks.</h1>
-            <form class="right-sec__form" method="">
-                <div>
-                    <label for="fname">First Name</label>
-                    <input id="b" name="fname" type="text" >
-                </div>
-                
-                <button id="regBtnDoc" type="submit">Register</button>
-            </form>
-            <button class="backBtn"><-- Back</button>
-        </section>
-
-        <section id="secretaryFormCont" class="hide right-sec right-sec--position">
-            <h1>Hi Secretary! Please fill up the blanks.</h1>
-            <form class="right-sec__form" method="">
-                <div>
-                    <label for="fname">First Name</label>
-                    <input id="c" name="fname" type="text" >
-                </div>
-                
-                <button id="regBtnSec" type="submit">Register</button>
-            </form>
-            <button class="backBtn"><-- Back</button>
-        </section> -->
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <!-- <script src="../src/js/registration.js"></script> -->
+    <script src="../src/js/registration.js"></script>
 </body>
 </html>
