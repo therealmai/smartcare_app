@@ -1,8 +1,5 @@
 let profRes = "#profRes";
 
-let showDocProfBtn = "#showDocProfBtn";
-let showDocAppointBtn = "#showDocAppointBtn";
-
 let showPatProfBtn = "#showPatProfBtn";
 let showPatAppointBtn = "#showPatAppointBtn";
 
@@ -98,8 +95,6 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
 //              PATIENTS
 
 $(window).on("load", (evt) => {
-    $(showDocProfBtn).trigger('click');
-    $(showDocProfBtn).trigger('focus');
     $(showPatProfBtn).trigger('click');
     $(showPatProfBtn).trigger('focus');
 })
