@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +21,7 @@
             <p class="left-sec__p1">
                 <span class="left-sec__span--font-size-m">Let's Get</span> <br>
                 <span class="left-sec__span--font-size-xl">Started!</span> <br>
-                 Signing up for a Doctor account is fast and easy. <br>
+                Signing up for a Doctor account is fast and easy. <br>
                 It will only take a few minutes.
             </p>
 
@@ -26,12 +30,20 @@
                 <br>
             </p>
 
-           <a href="./homepage.php"><button class="btn btn-primary btn-lg" style="margin-top: 50px;" > Back to Home</button></a>
+        <a href="./homepage.php"><button class="btn btn-primary btn-lg" style="margin-top: 50px;" > Back to Home</button></a>
         </section>
 
         <section id="userFormCont" class="right-sec">
             <h1>Registration Form</h1>
             <center><h3>Please fill up the blanks</h3></center>
+            <?php
+                // Have fun with these errors hehe :>
+                if (isset($_SESSION['reg_err'])) {
+                    foreach($_SESSION['reg_err'] as $regErr) {
+                        echo "<p>{$regErr}</p>";
+                    }
+                }
+            ?>
             <form class="right-sec__form" method="POST" action="../src/php/registration_logic.php">
                 <div>
                     <label for="first_name">First Name</label>
@@ -44,23 +56,28 @@
                 </div>
 
                 <div>
-                    <label for="email">Email</label>
-                    <input id="email" name="email" type="text" >
+                    <label for="email" class="required">Email</label>
+                    <input id="email" name="email" type="email" required>
                 </div>
 
                 <div>
                     <label for="password">Password</label>
-                    <input id="password" name="password" type="password" >
+                    <input id="password" name="password" type="password" required>
                 </div>
 
                 <div>
                     <label for="confirm_password">Confirm Password</label>
-                    <input id="confirm-pass" name="confirm_password-pass" type="password" >
+                    <input id="confirm-pass" name="confirm_password" type="password" required>
+                </div>
+
+                <div>
+                    <label for="contact">Contact #</label>
+                    <input id="birthday" name="contact" type="tel" required>
                 </div>
 
                 <div>
                     <label for="birthdate">Birthday</label>
-                    <input id="birthday" name="birthdate" type="date" >
+                    <input id="birthday" name="birthdate" type="date">
                 </div>
 
                 <div>
@@ -85,7 +102,7 @@
 
                 <div>
                     <label for="ssn">Philippine SSN</label>
-                    <input id="ssn" name="ssn" type="text" >
+                    <input id="ssn" name="ssn" type="text" required>
                 </div>
 
                 <input class = "btn btn-primary" class="font-weight-bold" type="submit" name="submit" value="Register">
