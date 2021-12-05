@@ -1,8 +1,5 @@
 let profRes = "#profRes";
 
-let showDocProfBtn = "#showDocProfBtn";
-let showDocAppointBtn = "#showDocAppointBtn";
-
 let showPatProfBtn = "#showPatProfBtn";
 let showPatAppointBtn = "#showPatAppointBtn";
 let showPatDocBtn ="#showPatDocBtn";
@@ -11,7 +8,9 @@ let AccSetBtn = "#AccSetBtn";
 let ProfDetBtn = "#ProfDetBtn";
 
 
+let showPatPresBtn = "#showPatPresBtn";
 let profResAppCont = "#profResAppCont";
+
 let profResUnApp = "#profResUnApp";
 let profResFinApp = "#profResFinApp";
 let appIdArr = [];
@@ -54,20 +53,6 @@ function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastn
 //     `;
 //     // $(profRes).children().remove();
 //     $(profRes).append(html);
-var x = document.getElementById("Docprof");
-var y = document.getElementById("DocAppoint");
-
-//              DOCTORS
-addEventGlobalListener('click', showDocProfBtn, (e) => {
-    x.style.display = "block";
-    y.style.display = "none";
-})
-addEventGlobalListener('click', showDocAppointBtn, (e) => {
-    x.style.display = "none";
-    y.style.display = "block";
-})
-//              DOCTORS
-
 
 //              PATIENTS
 addEventGlobalListener('click', showPatProfBtn, (e) => {
@@ -145,7 +130,7 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
     $.ajax({
         type: "GET",
         data: "appIdArr=" + JSON.stringify(appIdArr),
-        url: "../src/php/get-appoints_act.php",
+        url: "../src/php/get-appoints-pat_act.php",
         success: (resp) => {
             let {finished, unfinished} = JSON.parse(resp);
             for(var i of finished) {
@@ -165,8 +150,28 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
 //              PATIENTS
 
 $(window).on("load", (evt) => {
-    $(showDocProfBtn).trigger('click');
-    $(showDocProfBtn).trigger('focus');
     $(showPatProfBtn).trigger('click');
     $(showPatProfBtn).trigger('focus');
+})
+
+addEventGlobalListener('click', showPatPresBtn, (e) => {
+    $(profPresAppCont).removeClass("hide");
+    // $.ajax({
+    //     type: "GET",
+    //     data: "appIdArr=" + JSON.stringify(appIdArr),
+    //     url: "../src/php/get-appoints_act.php",
+    //     success: (resp) => {
+    //         let {finished, unfinished} = JSON.parse(resp);
+    //         for(var i of finished) {
+    //             generateAppointment(i, "Delete", profResFinApp);
+    //             if(!appIdArr.includes(i.ID)) 
+    //                 appIdArr.push(i.ID);
+    //         } 
+    //         for(var i of unfinished){
+    //             generateAppointment(i, "Cancel", profResUnApp);
+    //             if(!appIdArr.includes(i.ID))
+    //                 appIdArr.push(i.ID);
+    //         }
+    //     }
+    // })
 })

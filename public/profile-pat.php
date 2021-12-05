@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <?php include('session_check.php') ?>
     <?php include "./header.php" ?>
 
     <main class="prof">
@@ -23,6 +24,7 @@
             <br>
             <button id="showPatProfBtn">Profile</button>
             <button id="showPatAppointBtn">Appointments</button>
+            <button id="showPatPresBtn">Prescriptions</button>
             <button id="showPatDocBtn">Doctors</button>
         </section>
 
@@ -131,7 +133,7 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="../src/js/profile.js"></script>
+    <script src="../src/js/profile-pat.js"></script>
 </body>
 
 </html>

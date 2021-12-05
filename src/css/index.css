@@ -1,18 +1,19 @@
 body{
     font-family: 'Roboto', sans-serif;
 }
-.container-nav{
+/* .container-nav1{
     background-image: url('../img/section1.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-}
+} */
 
 .logo-image{
     position: absolute;
     overflow: hidden;
     float: left;
 }
+
 
 .medical-services{
     background-color: white;

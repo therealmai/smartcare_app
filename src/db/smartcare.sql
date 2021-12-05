@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2021 at 03:34 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.3.33
+-- Generation Time: Dec 05, 2021 at 02:58 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.4.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,7 +70,8 @@ CREATE TABLE `doctors` (
 INSERT INTO `doctors` (`id`, `userID`, `specialization`, `license_number`, `degree`) VALUES
 (2, 3, 'Cardiologist', '', ''),
 (3, 4, 'Pediatrician', '', ''),
-(4, 5, 'Pediatrician', '', '');
+(4, 5, 'Pediatrician', '', ''),
+(6, 11, 'Pediatrician', '', '');
 
 -- --------------------------------------------------------
 
@@ -252,6 +253,7 @@ CREATE TABLE `users` (
   `firstname` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastname` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `middle_initial` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` enum('doctor','patient') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'patient',
   `year` int(11) DEFAULT NULL,
   `month` int(11) DEFAULT NULL,
   `day` smallint(6) DEFAULT NULL
@@ -261,13 +263,15 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `ssn`, `contact`, `firstname`, `lastname`, `middle_initial`, `year`, `month`, `day`) VALUES
-(3, 'user1@gmail.com', '', '', '09123426921', 'User1', 'User1', 'U1', NULL, NULL, NULL),
-(4, 'user2@gmail.com', '', '', '09123422121', 'User2', 'User2', 'U2', NULL, NULL, NULL),
-(5, 'user3@gmail.com', '', '', '09132126921', 'User3', 'User3', 'U3', NULL, NULL, NULL),
-(6, 'user4@gmail.com', '', '', '09123431242', 'User4', 'User4', 'U4', NULL, NULL, NULL),
-(7, 'user5@gmail.com', '', '', '09178431242', 'User5', 'User5', 'U5', NULL, NULL, NULL),
-(8, 'user6@gmail.com', '', '', '09122861242', 'User6', 'User6', 'U6', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `email`, `password`, `ssn`, `contact`, `firstname`, `lastname`, `middle_initial`, `role`, `year`, `month`, `day`) VALUES
+(3, 'user1@gmail.com', '', '', '09123426921', 'User1', 'User1', 'U1', 'doctor', NULL, NULL, NULL),
+(4, 'user2@gmail.com', '', '', '09123422121', 'User2', 'User2', 'U2', 'doctor', NULL, NULL, NULL),
+(5, 'user3@gmail.com', '', '', '09132126921', 'User3', 'User3', 'U3', 'doctor', NULL, NULL, NULL),
+(6, 'user4@gmail.com', '', '', '09123431242', 'User4', 'User4', 'U4', 'patient', NULL, NULL, NULL),
+(7, 'user5@gmail.com', '', '', '09178431242', 'User5', 'User5', 'U5', 'patient', NULL, NULL, NULL),
+(8, 'user6@gmail.com', '', '', '09122861242', 'User6', 'User6', 'U6', 'patient', NULL, NULL, NULL),
+(11, '20102650@usc.edu.ph', '$2y$10$tX5fjIidYK1qh5nxkgnkT.sfi13E2oi/n8GlMSEUB7dB3fcTi1LUq', '1234', '920516409', 'Jomar', 'Leano', 'M', 'doctor', 2021, 12, 5),
+(12, 'jose@gmail.com', '$2y$10$DHKyYSvWEuTXne5/LfGGNOqXHn/g78MkZI2N5xexZRnSiKV1yfddm', '12312', '092131211231', 'Jose Glenn', 'Samson', 'G.', 'patient', 2021, 12, 5);
 
 --
 -- Indexes for dumped tables
@@ -368,7 +372,7 @@ ALTER TABLE `appointments`
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `doctors_fees`
@@ -428,7 +432,7 @@ ALTER TABLE `prescriptions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
