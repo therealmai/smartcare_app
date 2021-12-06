@@ -103,8 +103,10 @@ include '../src/php/dbconnect.php';
                             LEFT JOIN `doctors` `d` ON `p`.`doctor_id` = `d`.`id`
                             LEFT JOIN `patients` `pa` ON `p`.`patient_id` = `pa`.`id`
                             LEFT JOIN `users` `du` ON `du`.`id` = `d`.`userID`
-                            LEFT JOIN `users` `pu` ON `pu`.`id` = `pa`.`userID`
-                            WHERE `du`.`id` = {$_SESSION['currUser']['id']}";
+                            LEFT JOIN `users` `pu` ON `pu`.`id` = `pa`.`userID` ".
+                            (($_SESSION['currUser']['role'] == 'doctor')
+                                ?" WHERE `du`.`id` = {$_SESSION['currUser']['id']}"
+                                :" WHERE `pu`.`id` = {$_SESSION['currUser']['id']}");
 
                         $prescriptionsResults = mysqli_query($mysqli, $prescriptionsSql);
                         $prescriptionsRows = mysqli_fetch_all($prescriptionsResults, MYSQLI_ASSOC);
@@ -112,7 +114,7 @@ include '../src/php/dbconnect.php';
                         if (count($prescriptionsRows)) {
 
                             foreach ($prescriptionsRows AS $prescriptionRow) {
-                                var_dump($prescriptionRow);
+                                // var_dump($prescriptionRow);
                                 $formattedDate = date('m/d/Y', strtotime($prescriptionRow['date']));
                                 ?>
                                     <tr>
@@ -147,7 +149,9 @@ include '../src/php/dbconnect.php';
 
                 </tbody>
             </table>
-            <a href="./addPrescription.php">Add</a>
+            <?php if ($_SESSION['currUser']['role'] == 'doctor') { ?>
+                <a href="./addPrescription.php">Add</a>
+            <?php } ?>
             
             
         </section>
