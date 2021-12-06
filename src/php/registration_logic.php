@@ -101,11 +101,11 @@
 
             if ($rows > 0) {
                 $row = mysqli_fetch_assoc($results);
-                $_SESSION['id'] = $row['id'];
-                $_SESSION['email'] = $row['email']; 
+                $_SESSION['currUser'] = $row;
 
                 mysqli_close($mysqli);
                 header("location: ../../public/homepage.php");
+                exit();
             }            
         }
 
