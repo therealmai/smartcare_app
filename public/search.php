@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <?php include('session_check.php') ?>
+
     <?php include "./header.php" ?>
 
     <main>

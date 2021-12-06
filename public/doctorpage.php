@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-<?php include('session_check.php')?>
+
     <?php echo $_SESSION['email']; ?>
     doctorpage
 </body>
