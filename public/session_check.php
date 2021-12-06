@@ -1,8 +1,5 @@
-<!-- <?php
-
-if(isset($_SESSION['isLoggedIn'])){
-?>
-
-<?php }else{
+<?php
+session_start();
+if(!isset($_SESSION['id']))
     header("location:loginpage.php");
-} ?> -->
+?>

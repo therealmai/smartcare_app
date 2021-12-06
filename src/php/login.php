@@ -31,9 +31,7 @@
                 $row = mysqli_fetch_assoc($results);
                 if (password_verify($password, $row['password'])) {
                     $_SESSION['id'] = $row['id']; 
-                    $_SESSION['isLoggedIn'] = '1';
                     $_SESSION['email'] = $row['email']; 
-                    $_SESSION['password'] = $row['password'];
                     mysqli_close($mysqli);
                     if($row['role'] == "doctor"){
                         header("location:../../public/doctorpage.php"); 
