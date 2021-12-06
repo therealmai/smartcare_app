@@ -1,3 +1,8 @@
+<?php
+include './session_check.php';
+include '../src/php/dbconnect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +16,7 @@
 </head>
 
 <body>
-
+    <?php include('session_check.php') ?>
     <?php include "./header.php" ?>
 
     <main class="prof">
@@ -60,6 +65,95 @@
                 </div>
 
             </div>
+        </section>
+
+        <section>
+            <h1>Patients' Prescriptions</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Patient
+                        </th>
+                        <th>
+                            Prescription
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <?php if ($_SESSION['currUser']['role'] == 'doctor') { ?>
+                            <th>
+                                Actions
+                            </th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <?php
+                        // var_dump($_SESSION);
+                        // exit();
+                        $prescriptionsSql = "SELECT `p`.*, ".
+                                (($_SESSION['currUser']['role'] == 'doctor')
+                                    ? "`pu`.`firstname`, `pu`.`lastname`, `pu`.`middle_initial`,"
+                                    : "`du`.`firstname`, `du`.`lastname`, `du`.`middle_initial`,"
+                                )
+                                ."`du`.`id` AS `doc_user_id`, `pu`.`id` AS `patient_user_id`
+                            FROM `prescriptions` `p`
+                            LEFT JOIN `doctors` `d` ON `p`.`doctor_id` = `d`.`id`
+                            LEFT JOIN `patients` `pa` ON `p`.`patient_id` = `pa`.`id`
+                            LEFT JOIN `users` `du` ON `du`.`id` = `d`.`userID`
+                            LEFT JOIN `users` `pu` ON `pu`.`id` = `pa`.`userID` ".
+                            (($_SESSION['currUser']['role'] == 'doctor')
+                                ?" WHERE `du`.`id` = {$_SESSION['currUser']['id']}"
+                                :" WHERE `pu`.`id` = {$_SESSION['currUser']['id']}");
+
+                        $prescriptionsResults = mysqli_query($mysqli, $prescriptionsSql);
+                        $prescriptionsRows = mysqli_fetch_all($prescriptionsResults, MYSQLI_ASSOC);
+
+                        if (count($prescriptionsRows)) {
+
+                            foreach ($prescriptionsRows AS $prescriptionRow) {
+                                // var_dump($prescriptionRow);
+                                $formattedDate = date('m/d/Y', strtotime($prescriptionRow['date']));
+                                ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo "{$prescriptionRow['firstname']} ".
+                                                    (!empty($prescriptionRow['middle_initial'])
+                                                        ?"{$prescriptionRow['middle_initial']}. "
+                                                        :"")
+                                                    ."{$prescriptionRow['lastname']}"; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo "{$prescriptionRow['text']}"; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo "{$formattedDate}"; ?>
+                                        </td>
+
+                                        <?php if ($_SESSION['currUser']['role'] == 'doctor') { ?>
+
+                                        <td>
+                                            <a href="./editPrescription.php?prescId=<?php echo $prescriptionRow['id']?>">Edit</a><br>
+                                            <a href="./deletePrescription.php?prescId=<?php echo $prescriptionRow['id']?>">Delete</a>
+                                        </td>
+
+
+                                        <?php } ?>
+                                    </tr>
+                                <?php
+                            }
+                        }
+                    ?>
+
+                </tbody>
+            </table>
+            <?php if ($_SESSION['currUser']['role'] == 'doctor') { ?>
+                <a href="./addPrescription.php">Add</a>
+            <?php } ?>
+            
+            
         </section>
 
     </main>
