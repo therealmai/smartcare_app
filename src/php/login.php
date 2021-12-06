@@ -1,5 +1,5 @@
 <?php
-    session_start(); 
+    session_start();
     include 'dbconnect.php'; 
 
 
@@ -30,15 +30,16 @@
             if ($rows > 0) {
                 $row = mysqli_fetch_assoc($results);
                 if (password_verify($password, $row['password'])) {
-                    $_SESSION['id'] = $row['id']; 
-                    $_SESSION['email'] = $row['email']; 
-                    $_SESSION['password'] = $row['password'];
+                    $_SESSION['currUser'] = $row;
+                    var_dump($_SESSION, $row);
+                    // exit();
                     mysqli_close($mysqli);
                     if($row['role'] == "doctor"){
                         header("location:../../public/doctorpage.php"); 
                     }else{
                         header("location:../../public/homepage.php");
                     }
+                    exit();
                     // redirect to "login success" page would be a better solution
                     
                     //      } else {
