@@ -2,6 +2,12 @@ let profRes = "#profRes";
 
 let showPatProfBtn = "#showPatProfBtn";
 let showPatAppointBtn = "#showPatAppointBtn";
+let showPatDocBtn ="#showPatDocBtn";
+
+let AccSetBtn = "#AccSetBtn";
+let ProfDetBtn = "#ProfDetBtn";
+
+
 let showPatPresBtn = "#showPatPresBtn";
 let profResAppCont = "#profResAppCont";
 
@@ -47,20 +53,6 @@ function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastn
 //     `;
 //     // $(profRes).children().remove();
 //     $(profRes).append(html);
-var x = document.getElementById("Docprof");
-var y = document.getElementById("DocAppoint");
-
-//              DOCTORS
-addEventGlobalListener('click', showDocProfBtn, (e) => {
-    x.style.display = "block";
-    y.style.display = "none";
-})
-addEventGlobalListener('click', showDocAppointBtn, (e) => {
-    x.style.display = "none";
-    y.style.display = "block";
-})
-//              DOCTORS
-
 
 //              PATIENTS
 addEventGlobalListener('click', showPatProfBtn, (e) => {
@@ -72,12 +64,73 @@ addEventGlobalListener('click', showPatProfBtn, (e) => {
     // $(profRes).children().remove();
     // $(profRes).append(html);
 })
+
+var acc = document.getElementById("AccSetBtn");
+var prof = document.getElementById("ProfDetBtn");
+var accInfo = document.getElementById("acc-info");
+var profInfo = document.getElementById("prof-info");
+var ProfProfBtn = document.getElementById("showPatProfBtn");
+var PatAppointBtn = document.getElementById("showPatAppointBtn");
+var PatDocBtn = document.getElementById("showPatDocBtn");
+var lineA = document.getElementById("line-selected-a");
+var lineB = document.getElementById("line-selected-b");
+
+lineA.style.display = "block";
+lineB.style.display = "none";
+accInfo.style.display = "block";
+profInfo.style.display = "none";
+ProfProfBtn.style.backgroundColor = " #2240aa";
+acc.style.color = "black";
+
+
+
+addEventGlobalListener('click', AccSetBtn, (e) => {
+    lineA.style.display = "block";
+    lineB.style.display = "none";
+    accInfo.style.display = "block";
+    profInfo.style.display = "none";
+    acc.style.color = "black";
+    prof.style.color = "grey";
+})
+
+addEventGlobalListener('click', ProfDetBtn, (e) => {
+    lineA.style.display = "none";
+    lineB.style.display = "block";
+    accInfo.style.display = "none";
+    profInfo.style.display = "block";
+    acc.style.color = "grey";
+    prof.style.color = "black";
+})
+
+addEventGlobalListener('click', showPatProfBtn, (e) => {
+    ProfProfBtn.style.backgroundColor = "#2240aa";
+    PatDocBtn.style.backgroundColor = "#5f7de0";
+    PatAppointBtn.style.backgroundColor = "#5f7de0";
+    $(profResAppCont).addClass("hide");
+    $(profPatDocCont).addClass("hide");
+    $(profPatCont).removeClass("hide");
+})
+
+addEventGlobalListener('click', showPatDocBtn, (e) => {
+    ProfProfBtn.style.backgroundColor = "#5f7de0";
+    PatDocBtn.style.backgroundColor = "#2240aa";
+    PatAppointBtn.style.backgroundColor = "#5f7de0";
+    $(profResAppCont).addClass("hide");
+    $(profPatCont).addClass("hide");
+    $(profPatDocCont).removeClass("hide");
+})
+
 addEventGlobalListener('click', showPatAppointBtn, (e) => {
+    ProfProfBtn.style.backgroundColor = "#5f7de0";
+    PatDocBtn.style.backgroundColor = "#5f7de0";
+    PatAppointBtn.style.backgroundColor = "#2240aa";
+    $(profPatCont).addClass("hide");
+    $(profPatDocCont).addClass("hide");
     $(profResAppCont).removeClass("hide");
     $.ajax({
         type: "GET",
         data: "appIdArr=" + JSON.stringify(appIdArr),
-        url: "../src/php/get-appoints_act.php",
+        url: "../src/php/get-appoints-pat_act.php",
         success: (resp) => {
             let {finished, unfinished} = JSON.parse(resp);
             for(var i of finished) {
@@ -93,6 +146,7 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
         }
     })
 })
+
 //              PATIENTS
 
 $(window).on("load", (evt) => {

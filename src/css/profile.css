@@ -1,3 +1,17 @@
+body{
+  background-image: url('../img/section1.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.prof-container{
+  background-color: white;
+  width:100%;
+  height:450px;
+  padding: 2% 2% 2% 2%;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -7,14 +21,6 @@
 
 a {
   text-decoration: none;
-}
-
-button {
-  border: none;
-}
-
-button:hover {
-  cursor: pointer;
 }
 
 .hide {
@@ -37,39 +43,85 @@ button:hover {
 }
 
 .prof-btn-cont {
-
-  display: -webkit-box;
-  display: -ms-flexbox;
+  height: 450px;
+  background-color: #5f7de0;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 15px;
-  padding: 20px;
+  gap: 0px;
+  padding:0px;
   width: 200px;
 }
 
 .prof-btn-cont button {
+  font-size:16px;
   padding: 25px;
 }
 
-.prof-btn-cont button:focus {
-  background-color: white;
-  color: black;
-}
+
 
 .prof-btn-cont button {
-  background-color: black;
-  border: 1px solid black;
+  background-color: transparent;
+  width:180px;
+  border:none;
+  margin-left:0;
   color: white;
 }
 
-.prof-btn-cont button:hover {
-  background-color: white;
-  border: 1px solid black;
-  color: black;
+.profile-settings-nav button{
+  color:grey;
+  padding-left:5px;
+  background-color: transparent;
+  font-size:16px;
+  padding-right:15px;
 }
+
+
+.unselected{
+  display: inline-block;
+  color:grey;
+}
+
+
+.editBtn{
+  background-color: transparent;
+  color:rgb(51, 51, 187);
+}
+
+.line{
+  width: 60%;
+  height: 4.5px;
+  border-bottom: 3px solid #c6c7c9;
+  position: absolute;
+}
+
+.line-selected-a{
+  width: 8.5%;
+  height: 4.5px;
+  border-bottom: 3px solid #5f7de0;
+  position: absolute;
+  display:block;
+}
+
+.line-selected-b{
+  width: 9.5%;
+  right: 51.8%;  
+  height: 4.5px;
+  border-bottom: 3px solid #5f7de0;
+  position: absolute;
+  display:block;
+}
+
+.profile-settings-nav{
+    padding-top:82px;
+}
+
+.prof-info, .acc-info{
+  display:block;
+  padding-top:18px;
+} 
 
 .prof-res {
   width: 80%;
@@ -139,7 +191,7 @@ button:hover {
 }
 
 .profile-button:active {
-  background: #682773;
+  background: #403f41;
   box-shadow: none
 }
 
