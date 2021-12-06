@@ -31,15 +31,17 @@
                 $row = mysqli_fetch_assoc($results);
                 if (password_verify($password, $row['password'])) {
                     $_SESSION['currUser'] = $row;
-                    var_dump($_SESSION, $row);
-                    // exit();
+                    
+                    if (isset($_SESSION['login_err'])) {
+                        unset($_SESSION['login_err']);
+                    }
                     mysqli_close($mysqli);
                     if($row['role'] == "doctor"){
                         header("location:../../public/doctorpage.php"); 
                     }else{
                         header("location:../../public/homepage.php");
                     }
-                    exit();
+                    // exit();
                     // redirect to "login success" page would be a better solution
                     
                     //      } else {

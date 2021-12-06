@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <?php echo $_SESSION['email']; ?>
+    <?php echo $_SESSION['currUser']['email']; ?>
     doctorpage
 </body>
 </html>

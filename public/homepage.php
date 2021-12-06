@@ -1,4 +1,5 @@
 
+<?php include('session_check.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,6 @@
 
 
 <?php include('header.php') ?>
-<?php include('session_check.php') ?>
  <div class="container-nav">
     <main>
         <section class="main-sectinon-1">
