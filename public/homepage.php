@@ -25,12 +25,8 @@
 <?php include('session_check.php') ?>
 
 <?php include('header.php') ?>
-<<<<<<< HEAD
- <div class="container-nav">
-=======
 
  <div class="container-nav1">
->>>>>>> ec8d88050e3ce4c6c12d945ca122293e951afb45
     <main>
         <section class="main-sectinon-1">
             <!-- start of Card -->
