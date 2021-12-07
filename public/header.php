@@ -47,9 +47,6 @@
                         <a class="nav-link" href="search.php">Search</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="appointment.php">Appointments</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="profile-doc.php">Profile</a>
                     </li> 
                     <li class="nav-item">
