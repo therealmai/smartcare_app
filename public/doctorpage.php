@@ -8,13 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-<<<<<<< HEAD
-
-    <?php echo $_SESSION['currUser']['email']; ?>
-=======
-<?php include('session_check.php') ?>
+<!-- <?php include('session_check.php') ?> -->
     <?php echo $_SESSION['currUser']['email'] ?>
->>>>>>> ec8d88050e3ce4c6c12d945ca122293e951afb45
     doctorpage
 </body>
 </html>
