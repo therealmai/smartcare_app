@@ -1,8 +1,8 @@
 <?php
-    // include './session_check.php';
-    // if ($_SESSION['currUser']['role'] != 'doctor') {
-    //     header('location: ./prescriptions.php');
-    // }
+    include './session_check.php';
+    if ($_SESSION['currUser']['role'] != 'doctor') {
+        header('location: ./prescriptions.php');
+    }
 
     include '../src/php/dbconnect.php';
 ?>
