@@ -1,5 +1,5 @@
 <?php
-include './session_check.php';
+// include './session_check.php';
 include '../src/php/dbconnect.php';
 ?>
 
@@ -16,7 +16,7 @@ include '../src/php/dbconnect.php';
 </head>
 
 <body>
-    <?php include('session_check.php') ?>
+
     <?php include "./header.php" ?>
 
     <main class="prof">
