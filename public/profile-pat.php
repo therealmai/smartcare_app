@@ -84,9 +84,9 @@ if ($check2 != 0) {
                                         <button type="button" class="editBtn">edit</button><br>
                                     </td>
                                 </table>
-                                <table class="prof-info" id="prof-info" style="width:100%;">
-                                    <col span="1" style="width: 10%;">
+                                <table class="prof-info" id="prof-info">
                                     <col span="1" style="width: 20%;">
+                                    <col span="1" style="width: 25%;">
                                     <td>
                                         <label for="fname">First name: </label>
                                         <br>
@@ -113,7 +113,7 @@ if ($check2 != 0) {
                                         <label for="heart rate">70 bpm</label><br>
                                     </td>
                                     <td>
-                                        <br><br><br><br>
+                                        <br><br><br><br><br>
                                         <button type="button" class="editBtn">edit</button><br>
                                         <button type="button" class="editBtn">edit</button><br>
                                         <button type="button" class="editBtn">edit</button><br>
@@ -134,6 +134,12 @@ if ($check2 != 0) {
                     <div class="prof-res__appoint-cont" id="profResFinApp">
                         <h1>Finished Appointments</h1>
                     </div>
+                </div>
+            </section>
+
+            <section class="prof-prescription" id="profPatPres">
+                <div class="hide" id="profPatPresCont">
+                    insert prescription here
                 </div>
             </section>
 

@@ -3,13 +3,11 @@ let profRes = "#profRes";
 let showPatProfBtn = "#showPatProfBtn";
 let showPatAppointBtn = "#showPatAppointBtn";
 let showPatDocBtn ="#showPatDocBtn";
+let showPatPresBtn = "#showPatPresBtn";
+let profResAppCont = "#profResAppCont";
 
 let AccSetBtn = "#AccSetBtn";
 let ProfDetBtn = "#ProfDetBtn";
-
-
-let showPatPresBtn = "#showPatPresBtn";
-let profResAppCont = "#profResAppCont";
 
 let profResUnApp = "#profResUnApp";
 let profResFinApp = "#profResFinApp";
@@ -71,6 +69,7 @@ var accInfo = document.getElementById("acc-info");
 var profInfo = document.getElementById("prof-info");
 var ProfProfBtn = document.getElementById("showPatProfBtn");
 var PatAppointBtn = document.getElementById("showPatAppointBtn");
+var PatPresBtn = document.getElementById("showPatPresBtn");
 var PatDocBtn = document.getElementById("showPatDocBtn");
 var lineA = document.getElementById("line-selected-a");
 var lineB = document.getElementById("line-selected-b");
@@ -106,6 +105,8 @@ addEventGlobalListener('click', showPatProfBtn, (e) => {
     ProfProfBtn.style.backgroundColor = "#2240aa";
     PatDocBtn.style.backgroundColor = "#5f7de0";
     PatAppointBtn.style.backgroundColor = "#5f7de0";
+    PatPresBtn.style.backgroundColor = "#5f7de0";
+    $(profPatPresCont).addClass("hide");
     $(profResAppCont).addClass("hide");
     $(profPatDocCont).addClass("hide");
     $(profPatCont).removeClass("hide");
@@ -115,6 +116,8 @@ addEventGlobalListener('click', showPatDocBtn, (e) => {
     ProfProfBtn.style.backgroundColor = "#5f7de0";
     PatDocBtn.style.backgroundColor = "#2240aa";
     PatAppointBtn.style.backgroundColor = "#5f7de0";
+    PatPresBtn.style.backgroundColor = "#5f7de0";
+    $(profPatPresCont).addClass("hide");
     $(profResAppCont).addClass("hide");
     $(profPatCont).addClass("hide");
     $(profPatDocCont).removeClass("hide");
@@ -124,6 +127,8 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
     ProfProfBtn.style.backgroundColor = "#5f7de0";
     PatDocBtn.style.backgroundColor = "#5f7de0";
     PatAppointBtn.style.backgroundColor = "#2240aa";
+    PatPresBtn.style.backgroundColor = "#5f7de0";
+    $(profPatPresCont).addClass("hide");
     $(profPatCont).addClass("hide");
     $(profPatDocCont).addClass("hide");
     $(profResAppCont).removeClass("hide");
@@ -155,7 +160,15 @@ $(window).on("load", (evt) => {
 })
 
 addEventGlobalListener('click', showPatPresBtn, (e) => {
-    $(profPresAppCont).removeClass("hide");
+    ProfProfBtn.style.backgroundColor = "#5f7de0";
+    PatDocBtn.style.backgroundColor = "#5f7de0";
+    PatAppointBtn.style.backgroundColor = "#5f7de0";
+    PatPresBtn.style.backgroundColor = "#2240aa";
+    $(profPatPresCont).removeClass("hide");
+    $(profPatCont).addClass("hide");
+    $(profPatDocCont).addClass("hide");
+    $(profResAppCont).addClass("hide");
+
     // $.ajax({
     //     type: "GET",
     //     data: "appIdArr=" + JSON.stringify(appIdArr),
