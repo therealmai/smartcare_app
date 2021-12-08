@@ -1,6 +1,10 @@
 <?php
     session_start();
     require 'dbconnect.php';
+    $height = '';
+    $weight = '';
+    $blood_pressure = '';
+    $heart_rate = '';
    //  var_dump($_POST);
     if(isset($_POST['submit'])){
 
@@ -102,12 +106,21 @@
             if ($rows > 0) {
                 $row = mysqli_fetch_assoc($results);
                 $_SESSION['currUser'] = $row;
-
+                echo $_SESSION['currUser']['id']."heelo";
+                $id = $_SESSION['currUser']['id'];
+                
+                $query = "INSERT INTO patients (userID, height, `weight`, blood_pressure, heart_rate)
+                                        VALUES('$id','$height', '$weight', '$blood_pressure', '$heart_rate')";
+                if (mysqli_query($mysqli, $query)){
+                    header("location: ../../public/homepage.php");
+                }else{
+                    echo "Error: " . $query . ":-" . mysqli_error($mysqli);
+                }
                 mysqli_close($mysqli);
-                header("location: ../../public/homepage.php");
                 exit();
             }            
         }
+
 
         $_SESSION['reg_error']['server_err'] = "A server error has occurred";
         $_SESSION['reg_error']['sql_err'] = "Error: " . $sql . ":-" . mysqli_error($mysqli);

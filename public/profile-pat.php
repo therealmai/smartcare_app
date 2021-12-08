@@ -1,6 +1,8 @@
+<?php include('session_check.php');
+      include('../src/php/dbconnect.php')
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +13,21 @@
 </head>
 
 <body>
-    <!-- <?php include('session_check.php') ?> -->
+<?php
+$email = $_SESSION['currUser']['id'];
+// $sql = "SELECT * FROM users WHERE email ='$email'";
+// $check = mysqli_query($mysqli, $sql) or die ("err $id " . mysqli_error ($mysqli));
+// $check2 = mysqli_num_rows($check);
+// if ($check2 != 0) {
+//     while ($row = mysqli_fetch_assoc($check)) {
+//         $email = $row['email'];
+//         $fname = $row['fname'];
+//         $lname = $row['lname']; // repeat for all db columns you want
+//         $id = $row['id'];
+//     }
+// }
+?>
+    <?php echo "$email"; ?>
     <?php include "./header.php" ?>
 
     <main class="prof">
