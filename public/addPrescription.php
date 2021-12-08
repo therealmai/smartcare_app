@@ -3,7 +3,6 @@
     if ($_SESSION['currUser']['role'] != 'doctor') {
         header('location: ./prescriptions.php');
     }
-
     include '../src/php/dbconnect.php';
 ?>
 

@@ -22,11 +22,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 </head>
 <body>
-<!-- <?php include('session_check.php') ?> -->
+
 
 <?php include('header.php') ?>
 
  <div class="container-nav1">
+
     <main>
         <section class="main-sectinon-1">
             <!-- start of Card -->
