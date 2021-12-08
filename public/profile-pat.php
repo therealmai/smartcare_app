@@ -22,6 +22,7 @@ if ($check2 != 0) {
     while ($row = mysqli_fetch_assoc($check)) {
         $profile['user'] = $row;
     }
+$password = $profile['user']['password'];
 }
 ?>
   <?php var_dump($profile['user']); ?>
@@ -76,7 +77,7 @@ if ($check2 != 0) {
                                     </td>   
                                     <td>
                                         <label for="email"><?php echo $profile['user']['email']; ?></label><br>
-                                        <label for="password"> ********</label><br>
+                                        <label for="password"><?php echo $password ?> ********</label><br>
                                     </td>
                                     <td>
 
