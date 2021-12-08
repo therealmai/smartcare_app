@@ -14,22 +14,18 @@
 
 <body>
 <?php
-$email = $_SESSION['currUser']['id'];
-// $sql = "SELECT * FROM users WHERE email ='$email'";
-// $check = mysqli_query($mysqli, $sql) or die ("err $id " . mysqli_error ($mysqli));
-// $check2 = mysqli_num_rows($check);
-// if ($check2 != 0) {
-//     while ($row = mysqli_fetch_assoc($check)) {
-//         $email = $row['email'];
-//         $fname = $row['fname'];
-//         $lname = $row['lname']; // repeat for all db columns you want
-//         $id = $row['id'];
-//     }
-// }
+$id = $_SESSION['currUser']['id'];
+$sql = "SELECT * FROM `users` LEFT JOIN patients ON users.id  = patients.userID WHERE users.id = '$id'";
+$check = mysqli_query($mysqli, $sql) or die ("err $id " . mysqli_error ($mysqli));
+$check2 = mysqli_num_rows($check);
+if ($check2 != 0) {
+    while ($row = mysqli_fetch_assoc($check)) {
+        $profile['user'] = $row;
+    }
+}
 ?>
-    <?php echo "$email"; ?>
+  <?php var_dump($profile['user']); ?>
     <?php include "./header.php" ?>
-
     <main class="prof">
         <section class="prof-btn-cont">
             <br>
@@ -43,7 +39,7 @@ $email = $_SESSION['currUser']['id'];
             <button id="showPatPresBtn">Prescriptions</button>
             <button id="showPatDocBtn">Doctors</button>
         </section>
-
+ 
         <div class="prof-container">
             <section class="prof-pat" id="profPat">
                 <div class="hide" id="profPatCont">
@@ -60,7 +56,8 @@ $email = $_SESSION['currUser']['id'];
                                 <br><br><br>
                             </td>
                             <td>
-                                <h1>Jose Glen A. Samson</h1>
+                                
+                                <h1><?php echo $profile['user']['firstname']." ". $profile['user']['middle_initial'].". ". $profile['user']['lastname']; ?></h1>
                                 <h3>Patient</h3>
                                 <div class="profile-settings-nav">                  
                                         <button type="button" id="AccSetBtn">Account Settings</button>
@@ -78,7 +75,7 @@ $email = $_SESSION['currUser']['id'];
                                         <label for="password">Password: </label>
                                     </td>   
                                     <td>
-                                        <label for="email"> 18104218@usc.edu.ph</label><br>
+                                        <label for="email"><?php echo $profile['user']['email']; ?></label><br>
                                         <label for="password"> ********</label><br>
                                     </td>
                                     <td>
