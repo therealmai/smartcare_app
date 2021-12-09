@@ -28,9 +28,11 @@ include('../src/php/dbconnect.php')
         $password = $profile['password'];
         $dateOfBirth = $profile['year'] . "-" . $profile['month'] . "-" . $profile['day'];
         $today = date("Y-m-d");
-
         $diff = date_diff(date_create($dateOfBirth), date_create($today));
+        $profile['created_at'] = "";
+        $profile['updated_at'] = ""; 
     }
+
     ?>
     <?php var_dump($profile); ?>
     <?php include "./header.php" ?>
@@ -138,7 +140,8 @@ include('../src/php/dbconnect.php')
                                                                 echo $noData;
                                                             } ?></label><br>
                                     <div class="pt-3">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick=showData(<?php echo json_encode($profile)?>,<?php echo $diff->format('%y').")" ?> )>
                                             Change Personal Details
                                         </button>
                                     </div>

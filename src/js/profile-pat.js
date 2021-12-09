@@ -63,6 +63,18 @@ addEventGlobalListener('click', showPatProfBtn, (e) => {
     // $(profRes).append(html);
 })
 
+function showData(arr,age){
+    console.log(age);
+
+    document.getElementById("firstname").value=arr['firstname'];
+    document.getElementById("lastname").value=arr['lastname'];
+    document.getElementById("age").value=age
+    document.getElementById("contact").value=arr['contact'];
+    document.getElementById("height").value=arr['height'];
+    document.getElementById("weight").value=arr['weight'];
+    document.getElementById("heartRate").value=arr['heart_rate'];
+}
+
 var acc = document.getElementById("AccSetBtn");
 var prof = document.getElementById("ProfDetBtn");
 var accInfo = document.getElementById("acc-info");
