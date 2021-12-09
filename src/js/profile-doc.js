@@ -76,8 +76,77 @@ function isolateResultCont(resultCont) {
     $(resultCont).removeClass("hide");
 }
 
+var acc = document.getElementById("AccSetBtn");
+var prof = document.getElementById("ProfDetBtn");
+var accInfo = document.getElementById("acc-info");
+var profInfo = document.getElementById("prof-info");
+var ProfProfBtn = document.getElementById("showDocProfBtn");
+var DocAppointBtn = document.getElementById("showDocAppointBtn");
+var DocPatBtn = document.getElementById("showDocPatBtn");
+var lineA = document.getElementById("line-selected-a");
+var lineB = document.getElementById("line-selected-b");
+
+
+$(profDocCont).removeClass("hide");
+
+lineA.style.display = "block";
+lineB.style.display = "none";
+accInfo.style.display = "block";
+profInfo.style.display = "none";
+ProfProfBtn.style.backgroundColor = " #2240aa";
+acc.style.color = "black";
+
+
+
+addEventGlobalListener('click', AccSetBtn, (e) => {
+    console.log("im here again");
+    lineA.style.display = "block";
+    lineB.style.display = "none";
+    accInfo.style.display = "block";
+    profInfo.style.display = "none";
+    acc.style.color = "black";
+    prof.style.color = "grey";
+})
+
+addEventGlobalListener('click', ProfDetBtn, (e) => {
+    console.log("im here");
+    lineA.style.display = "none";
+    lineB.style.display = "block";
+    accInfo.style.display = "none";
+    profInfo.style.display = "block";
+    acc.style.color = "grey";
+    prof.style.color = "black";
+})
+
+addEventGlobalListener('click', showDocProfBtn, (e) => {
+    console.log("im here");
+    ProfProfBtn.style.backgroundColor = "#2240aa";
+    DocPatBtn.style.backgroundColor = "#5f7de0";
+    DocAppointBtn.style.backgroundColor = "#5f7de0";
+    $(profResAppCont).addClass("hide");
+    $(profDocPatCont).addClass("hide");
+    $(profDocCont).removeClass("hide");
+})
+
+addEventGlobalListener('click', showDocPatBtn, (e) => {
+    console.log("im here");
+    ProfProfBtn.style.backgroundColor = "#5f7de0";
+    DocPatBtn.style.backgroundColor = "#2240aa";
+    DocAppointBtn.style.backgroundColor = "#5f7de0";
+    $(profResAppCont).addClass("hide");
+    $(profDocCont).addClass("hide");
+    $(profDocPatCont).removeClass("hide");
+})
+
 addEventGlobalListener('click', showDocAppointBtn, e => {
-    isolateResultCont(docAppCont);
+    console.log("im here");
+    ProfProfBtn.style.backgroundColor = "#5f7de0";
+    DocPatBtn.style.backgroundColor = "#5f7de0";
+    DocAppointBtn.style.backgroundColor = "#2240aa";
+    $(profResAppCont).removeClass("hide");
+    $(profDocCont).addClass("hide");
+    $(profDocPatCont).addClass("hide");
+    isolateResultCont(profResAppCont);
     $.ajax({
         type: "GET",
         data: "appIdArr=" + JSON.stringify(appIdArr),

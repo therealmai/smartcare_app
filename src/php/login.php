@@ -12,8 +12,6 @@
         } else {
             $email = trim($_POST['email']);
         }
-
-        
         if (empty(trim($_POST['password']))) {
             $_SESSION['login_err']['password_err'] = "Password is required";
         } else {
@@ -62,7 +60,6 @@
             }
         }
     }
-
     header('location: ../../public/loginpage.php');
 
 ?>

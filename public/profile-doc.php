@@ -19,57 +19,94 @@
 
     <main class="prof">
         <section class="prof-btn-cont">
+            <br>
+            <br>
+            <center>
+            <img src="../src/img/blankPP.png"/ width=60%;>
+            </center>
+            <br>
             <button id="showDocProfBtn">Profile</button>
             <button id="showDocPatBtn">Patients</button>
             <button id="showDocAppointBtn">Appointments</button>
         </section>
 
-        <section class="prof-res" id="profRes">
-            <section class="prof-res" id="Docprof">
-                <div class="container rounded bg-white">
-                    <div class="row">
-                        <div class="col-md border-right">
-                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
-                        </div>
-                        <div class="col-md-5 border-right">
-                            <div class="p-3 py-5">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="text-right">Profile Settings</h4>
+        <div class="prof-container"">
+            <section class="prof-pat" id="profPat">
+                <div class="hide" id="profDocCont">
+                    <form action="/action_page.php">
+                        <table style="width:100%;">
+                            <col span="1" style="width: 15%;">
+                            <col span="1" style="width: 85%;">
+                            <td style="padding-right:20px; vertical-align:top">
+                                <img src="../src/img/blankPP.png"/ width=100%;>
+                                <br>
+                                <center>
+                                <a href="">Change profile picture</a>
+                                </center>
+                                <br><br><br>
+                            </td>
+                            <td>
+                                <h1>Jomar Leano</h1>
+                                <h3>Doctor</h3>
+                                <div class="profile-settings-nav">                  
+                                        <button type="button" id="AccSetBtn">Account Settings</button>
+                                        <button type="button" id="ProfDetBtn">Personal Details</button>
                                 </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-                                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                                    <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-                                    <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                                    <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                                    <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                                    <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-                                    <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-                                    <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
-                                </div>
-                                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="p-3 py-5">
-                                <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-                                <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-                                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="line"></div>
+                                <div class="line-selected-a" id="line-selected-a"></div>
+                                <div class="line-selected-b" id="line-selected-b"></div>
+                                <table class="acc-info" id="acc-info" style="width:100%;">
+                                    <col span="1" style="width: 1%;">
+                                    <col span="1" style="width: 20%;">
+                                    <td>
+                                        <label for="email">Email: </label>
+                                        <br>
+                                        <label for="password">Password: </label>
+                                    </td>   
+                                    <td>
+                                        <label for="email"> 18104218@usc.edu.ph</label><br>
+                                        <label for="password"> ********</label><br>
+                                    </td>
+                                </table>
+                                <table class="prof-info" id="prof-info">
+                                    <col span="1" style="width: 1%;">
+                                    <col span="1" style="width: 25%;">
+                                    <td>
+                                        <label for="fname">First name: </label>
+                                        <br>
+                                        <label for="lname">Last name: </label>
+                                        <br>
+                                        <label for="age">Age: </label>
+                                        <br>
+                                        <label for="contact">Contact: </label>
+                                        <br>
+                                        <label for="specialization">Specialization: </label>
+                                        <br>
+                                        <label for="license-no">License No:</label>
+                                        <br>
+                                        <label for="degree">Degree:</label>
+                                        <br>
+                                    </td>   
+                                    <td>
+                                        <label for="fname">Jose Glen</label><br>
+                                        <label for="lname">Samson</label><br>
+                                        <label for="age">19</label><br>
+                                        <label for="contact"> 09778416426</label><br>
+                                        <label for="height">181cm </label><br>
+                                        <label for="weight">60kg</label><br>
+                                        <label for="heart rate">70 bpm</label><br>
+                                    </td>
+                                </table>
+                            </td>
+                        </table>
+                    </form>
                 </div>
             </section>
-            <section class="prof-res" id="DocPatients">
+
+            <section class="prof-doc-pat" id="profDocPat">
+                <div class="hide" id="profDocPatCont">
                 <h1>
-                    REPLACE THIS DOCTORPATIENTS DUMMY CODE WITH THE CORRECT ONE. Hello
+                    REPLACE THIS DOCTORPATIENTS DUMMY CODE WITH THE CORRECT ONE.
                 </h1>
                 <p>
                     Must be included:
@@ -85,6 +122,7 @@
 
                     view person's appointments and
                 </p>
+                </div>
             </section>
             <div class="hide prof-res" id="docAppCont">
                 <div class="doc__app-btns">

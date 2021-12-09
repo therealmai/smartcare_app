@@ -1,3 +1,6 @@
+<?php include('session_check.php');
+include('../src/php/dbconnect.php')
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,18 +11,35 @@
     <link rel="stylesheet" href="../src/css/search.css">
     <link rel="stylesheet" href="../src/css/profile.css">
     <title>SmartCare - Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
-    <!-- <?php include('session_check.php') ?> -->
-    <?php include "./header.php" ?>
+    <?php
+    $noData = "No Data Found";
+    $id = $_SESSION['currUser']['id'];
+    $sql = "SELECT * FROM `users` LEFT JOIN patients ON users.id  = patients.userID WHERE users.id = '$id'";
+    $check = mysqli_query($mysqli, $sql) or die("err $id " . mysqli_error($mysqli));
+    $check2 = mysqli_num_rows($check);
+    if ($check2 != 0) {
+        while ($row = mysqli_fetch_assoc($check)) {
+            $profile['user'] = $row;
+        }
+        $password = $profile['user']['password'];
+        $dateOfBirth = $profile['user']['year'] . "-" . $profile['user']['month'] . "-" . $profile['user']['day'];
+        $today = date("Y-m-d");
 
+        $diff = date_diff(date_create($dateOfBirth), date_create($today));
+    }
+    ?>
+    <?php var_dump($profile['user']); ?>
+    <?php include "./header.php" ?>
     <main class="prof">
         <section class="prof-btn-cont">
             <br>
             <br>
             <center>
-            <img src="../src/img/blankPP.png"/ width=60%;>
+                <img src="../src/img/blankPP.png" / width=60%;>
             </center>
             <br>
             <button id="showPatProfBtn">Profile</button>
@@ -36,19 +56,20 @@
                             <col span="1" style="width: 15%;">
                             <col span="1" style="width: 85%;">
                             <td style="padding-right:20px; vertical-align:top">
-                                <img src="../src/img/blankPP.png"/ width=100%;>
+                                <img src="../src/img/blankPP.png" / width=100%;>
                                 <br>
                                 <center>
-                                <a href="">Change profile picture</a>
+                                    <a href="">Change profile picture</a>
                                 </center>
                                 <br><br><br>
                             </td>
                             <td>
-                                <h1>Jose Glen A. Samson</h1>
+
+                                <h1><?php echo $profile['user']['firstname'] . " " . $profile['user']['middle_initial'] . " " . $profile['user']['lastname']; ?></h1>
                                 <h3>Patient</h3>
-                                <div class="profile-settings-nav">                  
-                                        <button type="button" id="AccSetBtn">Account Settings</button>
-                                        <button type="button" id="ProfDetBtn">Personal Details</button>
+                                <div class="profile-settings-nav">
+                                    <button type="button" id="AccSetBtn">Account Settings</button>
+                                    <button type="button" id="ProfDetBtn">Personal Details</button>
                                 </div>
                                 <div class="line"></div>
                                 <div class="line-selected-a" id="line-selected-a"></div>
@@ -60,10 +81,10 @@
                                         <label for="email">Email: </label>
                                         <br>
                                         <label for="password">Password: </label>
-                                    </td>   
+                                    </td>
                                     <td>
-                                        <label for="email"> 18104218@usc.edu.ph</label><br>
-                                        <label for="password"> ********</label><br>
+                                        <label for="email"><?php echo $profile['user']['email']; ?></label><br>
+                                        <label for="password"><?php echo $password ?></label><br>
                                     </td>
                                     <td>
 
@@ -71,9 +92,9 @@
                                         <button type="button" class="editBtn">edit</button><br>
                                     </td>
                                 </table>
-                                <table class="prof-info" id="prof-info" style="width:100%;">
-                                    <col span="1" style="width: 10%;">
+                                <table class="prof-info" id="prof-info">
                                     <col span="1" style="width: 20%;">
+                                    <col span="1" style="width: 25%;">
                                     <td>
                                         <label for="fname">First name: </label>
                                         <br>
@@ -89,24 +110,33 @@
                                         <br>
                                         <label for="heart rate">Heart Rate:</label>
                                         <br>
-                                    </td>   
-                                    <td>
-                                        <label for="fname">Jose Glen</label><br>
-                                        <label for="lname">Samson</label><br>
-                                        <label for="age">19</label><br>
-                                        <label for="contact"> 09778416426</label><br>
-                                        <label for="height">181cm </label><br>
-                                        <label for="weight">60kg</label><br>
-                                        <label for="heart rate">70 bpm</label><br>
                                     </td>
                                     <td>
-                                        <br><br><br><br>
-                                        <button type="button" class="editBtn">edit</button><br>
-                                        <button type="button" class="editBtn">edit</button><br>
-                                        <button type="button" class="editBtn">edit</button><br>
-                                        <button type="button" class="editBtn">edit</button><br><br>
+                                        <label for="fname"><?php echo $profile['user']['firstname']; ?></label><br>
+                                        <label for="lname"><?php echo $profile['user']['lastname'] ?></label><br>
+                                        <label for="age"><?php echo $diff->format('%y'); ?></label><br>
+                                        <label for="contact"><?php echo $profile['user']['contact'] ?></label><br>
+                                        <label for="height"><?php if ($profile['user']['height'] != NULL) {
+                                                                echo $profile['user']['firstname'];
+                                                            } else {
+                                                                echo $noData;
+                                                            } ?></label><br>
+                                        <label for="weight"><?php if ($profile['user']['weight'] != NULL) {
+                                                                echo $profile['user']['firstname'];
+                                                            } else {
+                                                                echo $noData;
+                                                            } ?></label><br>
+                                        <label for="heart rate"><?php if ($profile['user']['heart_rate'] != NULL) {
+                                                                    echo $profile['user']['firstname'];
+                                                                } else {
+                                                                    echo $noData;
+                                                                } ?></label><br>
+                                                                
+                                    <button class="btn btn-primary"></button>
+
                                     </td>
                                 </table>
+                               
                             </td>
                         </table>
                     </form>
@@ -121,6 +151,12 @@
                     <div class="prof-res__appoint-cont" id="profResFinApp">
                         <h1>Finished Appointments</h1>
                     </div>
+                </div>
+            </section>
+
+            <section class="prof-prescription" id="profPatPres">
+                <div class="hide" id="profPatPresCont">
+                    insert prescription here
                 </div>
             </section>
 
