@@ -23,16 +23,16 @@ include('../src/php/dbconnect.php')
     $check2 = mysqli_num_rows($check);
     if ($check2 != 0) {
         while ($row = mysqli_fetch_assoc($check)) {
-            $profile['user'] = $row;
+            $profile = $row;
         }
-        $password = $profile['user']['password'];
-        $dateOfBirth = $profile['user']['year'] . "-" . $profile['user']['month'] . "-" . $profile['user']['day'];
+        $password = $profile['password'];
+        $dateOfBirth = $profile['year'] . "-" . $profile['month'] . "-" . $profile['day'];
         $today = date("Y-m-d");
 
         $diff = date_diff(date_create($dateOfBirth), date_create($today));
     }
     ?>
-    <?php var_dump($profile['user']); ?>
+    <?php var_dump($profile); ?>
     <?php include "./header.php" ?>
     <main class="prof">
         <section class="prof-btn-cont">
@@ -65,7 +65,7 @@ include('../src/php/dbconnect.php')
                             </td>
                             <td>
 
-                                <h1><?php echo $profile['user']['firstname'] . " " . $profile['user']['middle_initial'] . " " . $profile['user']['lastname']; ?></h1>
+                                <h1><?php echo $profile['firstname'] . " " . $profile['middle_initial'] . " " . $profile['lastname']; ?></h1>
                                 <h3>Patient</h3>
                                 <div class="profile-settings-nav">
                                     <button type="button" id="AccSetBtn">Account Settings</button>
@@ -83,13 +83,13 @@ include('../src/php/dbconnect.php')
                                         <label for="password">Password: </label>
                                     </td>
                                     <td>
-                                        <label for="email"><?php echo $profile['user']['email']; ?></label><br>
+                                        <label for="email"><?php echo $profile['email']; ?></label><br>
                                         <label for="password"><?php echo $password ?></label><br>
                                     </td>
                                     <td>
-
-                                        <button type="button" class="editBtn">edit</button><br>
-                                        <button type="button" class="editBtn">edit</button><br>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+  Launch static backdrop modal
+</button>
                                     </td>
                                 </table>
                                 <table class="prof-info" id="prof-info">
@@ -109,34 +109,36 @@ include('../src/php/dbconnect.php')
                                         <label for="weight">Weight: </label>
                                         <br>
                                         <label for="heart rate">Heart Rate:</label>
-                                        <br>
+                                        <br><br><br>
                                     </td>
                                     <td>
-                                        <label for="fname"><?php echo $profile['user']['firstname']; ?></label><br>
-                                        <label for="lname"><?php echo $profile['user']['lastname'] ?></label><br>
+                                        <label for="fname"><?php echo $profile['firstname']; ?></label><br>
+                                        <label for="lname"><?php echo $profile['lastname'] ?></label><br>
                                         <label for="age"><?php echo $diff->format('%y'); ?></label><br>
-                                        <label for="contact"><?php echo $profile['user']['contact'] ?></label><br>
-                                        <label for="height"><?php if ($profile['user']['height'] != NULL) {
-                                                                echo $profile['user']['firstname'];
+                                        <label for="contact"><?php echo $profile['contact'] ?></label><br>
+                                        <label for="height"><?php if ($profile['height'] != NULL) {
+                                                                echo $profile['firstname'];
                                                             } else {
                                                                 echo $noData;
                                                             } ?></label><br>
-                                        <label for="weight"><?php if ($profile['user']['weight'] != NULL) {
-                                                                echo $profile['user']['firstname'];
+                                        <label for="weight"><?php if ($profile['weight'] != NULL) {
+                                                                echo $profile['firstname'];
                                                             } else {
                                                                 echo $noData;
                                                             } ?></label><br>
-                                        <label for="heart rate"><?php if ($profile['user']['heart_rate'] != NULL) {
-                                                                    echo $profile['user']['firstname'];
+                                        <label for="heart rate"><?php if ($profile['heart_rate'] != NULL) {
+                                                                    echo $profile['firstname'];
                                                                 } else {
                                                                     echo $noData;
                                                                 } ?></label><br>
-                                                                
-                                    <button class="btn btn-primary"></button>
-
+                                        <div class="pt-3">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch static backdrop modal
+</button>
+                                        </div>
                                     </td>
                                 </table>
-                               
+
                             </td>
                         </table>
                     </form>
@@ -162,7 +164,7 @@ include('../src/php/dbconnect.php')
 
             <section class="prof-pat-doc" id="profPatDoc">
                 <div class="hide" id="profPatDocCont">
-                    insert doctors here
+                    insert doctors heres
                 </div>
             </section>
         </div>
