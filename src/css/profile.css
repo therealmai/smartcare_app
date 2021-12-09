@@ -1,5 +1,5 @@
 body{
-  background-image: url('../img/section1.jpg');
+  /* background-image: url('../img/section1.jpg'); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -124,7 +124,8 @@ a {
 } 
 
 .prof-res {
-  width: 80%;
+  margin-left: 15px;
+  width: 90%;
 }
 
 .prof-res__appoint-cont {

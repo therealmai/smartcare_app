@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../src/css/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../src/css/search.css">
     <link rel="stylesheet" href="../src/css/profile.css">
+    <link rel="stylesheet" href="../src/css/profile-ivan.css">
     <title>SmartCare - Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -84,12 +86,14 @@
                     view person's appointments and
                 </p>
             </section>
-            <div class="hide" id="profResAppCont">
-                <div class="prof-res__appoint-cont" id="profResUnApp">
-                    <h1>Unfinished Appointments</h1>
+            <div class="hide prof-res" id="docAppCont">
+                <div class="doc__app-btns">
+                    <button id="showUnAppBtn">Unfinished</button>
+                    <button id="showFinAppBtn">Finished</button>
                 </div>
-                <div class="prof-res__appoint-cont" id="profResFinApp">
-                    <h1>Finished Appointments</h1>
+                <div id="docAppResCont">
+                    <div class="doc__app-cont hide" id="docAppFinResCont"></div>
+                    <div class="doc__app-cont hide" id="docAppUnResCont"></div>
                 </div>
             </div>
         </section>

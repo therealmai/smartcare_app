@@ -7,10 +7,10 @@
     $unfinished = [];
     $appIdArr = json_decode($_GET["appIdArr"]);
 
-    $docId = 3;
+    $docId = 2;
 
     $query = <<<EOT
-        SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, users.firstname, users.lastname, users.middle_initial 
+        SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, users.firstname, users.lastname, users.middle_initial, users.contact, users.year AS "userYear", users.month AS "userMon", users.day AS "userDay"
         FROM appointments
         INNER JOIN patients
         ON patients.id = appointments.PatientID
@@ -22,6 +22,7 @@
     $stmt = $con->query($query);
 
     while($result = $stmt->fetch_assoc()) {
+        $result["length"] = $result["Month"] + $result["Day"] + $result["Year"];
         if(in_array($result["ID"], $appIdArr))
             break;
         if($result["IsFinished"] == 1)
@@ -29,6 +30,18 @@
         else 
             array_push($unfinished, $result);
     }
+
+    $keys = array();
+    foreach($finished as $key => $row) {
+        $keys[$key] = $row["length"];
+    }
+    array_multisort($keys, SORT_DESC, $finished);
+
+    $keys = array();
+    foreach($unfinished as $key => $row) {
+        $keys[$key] = $row["length"];
+    }
+    array_multisort($keys, SORT_DESC, $unfinished);
 
     $stmt->close();
 
