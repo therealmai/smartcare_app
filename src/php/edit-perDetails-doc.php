@@ -15,10 +15,12 @@ include 'dbconnect.php';
         $weight = $_POST['weight'];
         $blood_pressure = $_POST['blood_pressure'];
         $heartRate = $_POST['heartRate'];
-
-        $sql = "UPDATE `patients` SET `height` = '$height', `weight` = '$weight', `blood_pressure` = '$blood_pressure', `heart_rate` = '$heartRate' WHERE `patients`.`id` = '$id';";
+        echo $id;
+   
+        $sql = "UPDATE `patients` SET `height` = '$height', `weight` = '$weight', `blood_pressure` = '$blood_pressure', `heart_rate` = '$heartRate' WHERE `patients`.`userID` = '$id';";
         if(mysqli_query($mysqli, $sql)){
-            $query = "UPDATE `users` SET `firstname` = '$firstname', `lastname` = '$lastname', `middle_initial` = '$middle_initial', `year` = '$year', `month` = '$month', `day` = '$day' WHERE `id` = '$id';";
+            
+            $query = "UPDATE `users` SET `firstname` = '$firstname', `lastname` = '$lastname', `middle_initial` = '$middle_initial', `contact`='$contact', `month` = '$month', `day` = '$day', `year` = '$year' WHERE `users`.`id` = '$id';";
             if(mysqli_query($mysqli, $query)){
                 header("location: ../../public/profile-pat.php");
             }else{

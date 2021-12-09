@@ -125,7 +125,7 @@ include('../src/php/dbconnect.php')
                                     <label for="fname"><?php echo $profile['firstname']; ?></label><br>
                                     <label for="lname"><?php echo $profile['lastname'] ?></label><br>
                                     <label for="age"><?php echo $diff->format('%y'); ?></label><br>
-                                    <label for="contact"><?php echo $profile['contact'] ?></label><br>
+                                    <label for="contact"><?php echo "0".$profile['contact'] ?></label><br>
                                     <label for="height"><?php if ($profile['height'] != NULL) {
                                                             echo $profile['height'];
                                                         } else {

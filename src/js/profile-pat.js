@@ -65,7 +65,8 @@ addEventGlobalListener('click', showPatProfBtn, (e) => {
 
 function showData(arr,age){
     console.log(age);
-    document.getElementById("patient_id").value=arr['id'];
+    console.log(arr['userID']);
+    document.getElementById("patient_id").value=arr['userID'];
     document.getElementById("firstname").value=arr['firstname'];
     document.getElementById("lastname").value=arr['lastname'];
     document.getElementById("middle_initial").value=arr['middle_initial'];
