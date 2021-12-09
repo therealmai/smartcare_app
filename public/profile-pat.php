@@ -30,7 +30,7 @@ include('../src/php/dbconnect.php')
         $today = date("Y-m-d");
         $diff = date_diff(date_create($dateOfBirth), date_create($today));
         $profile['created_at'] = "";
-        $profile['updated_at'] = ""; 
+        $profile['updated_at'] = "";
     }
 
     ?>
@@ -116,6 +116,8 @@ include('../src/php/dbconnect.php')
                                     <br>
                                     <label for="weight">Weight: </label>
                                     <br>
+                                    <label for="weight">Blood Pressure: </label>
+                                    <br>
                                     <label for="heart rate">Heart Rate:</label>
                                     <br><br><br>
                                 </td>
@@ -125,23 +127,28 @@ include('../src/php/dbconnect.php')
                                     <label for="age"><?php echo $diff->format('%y'); ?></label><br>
                                     <label for="contact"><?php echo $profile['contact'] ?></label><br>
                                     <label for="height"><?php if ($profile['height'] != NULL) {
-                                                            echo $profile['firstname'];
+                                                            echo $profile['height'];
                                                         } else {
                                                             echo $noData;
                                                         } ?></label><br>
                                     <label for="weight"><?php if ($profile['weight'] != NULL) {
-                                                            echo $profile['firstname'];
+                                                            echo $profile['weight'];
                                                         } else {
                                                             echo $noData;
                                                         } ?></label><br>
+                                                         <label for="heart rate"><?php if ($profile['heart_rate'] != NULL) {
+                                                                echo $profile['blood_pressure'];
+                                                            } else {
+                                                                echo $noData;
+                                                            } ?></label><br>
                                     <label for="heart rate"><?php if ($profile['heart_rate'] != NULL) {
-                                                                echo $profile['firstname'];
+                                                                echo $profile['heart_rate'];
                                                             } else {
                                                                 echo $noData;
                                                             } ?></label><br>
                                     <div class="pt-3">
-                                        
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick=showData(<?php echo json_encode($profile)?>,<?php echo $diff->format('%y').")" ?> )>
+
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
                                             Change Personal Details
                                         </button>
                                     </div>
@@ -215,40 +222,51 @@ include('../src/php/dbconnect.php')
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="firstname" name="firstname" placeholder="name@gmail.com">
-                        <label for="floatingInput">First Name</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="lastname" name="lastname" placeholder="name@gmail.com">
-                        <label for="floatingInput">Last Name</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="age" name="age" placeholder="name@gmail.com">
-                        <label for="floatingInput">Age</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="contact" name="contact" placeholder="name@gmail.com">
-                        <label for="floatingInput">Contact</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="height" name="height" placeholder="name@gmail.com">
-                        <label for="floatingInput">Height</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="weight" name="weight" placeholder="name@gmail.com">
-                        <label for="floatingInput">Weight</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="heartRate" name="heartRate" placeholder="name@gmail.com">
-                        <label for="floatingInput">Heart Rate</label>
-                    </div>
+                    <form action="../src/php/edit-perDetails-doc.php" method="POST">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name@gmail.com">
+                            <label for="floatingInput">First Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="name@gmail.com">
+                            <label for="floatingInput">Last Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="middle_initial" name="middle_initial" placeholder="name@gmail.com">
+                            <label for="floatingInput">Middle Initial</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="age" name="age" placeholder="name@gmail.com">
+                            <label for="floatingInput">Birthdate</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="contact" class="form-control" id="contact" name="contact" placeholder="name@gmail.com">
+                            <label for="floatingInput">Contact</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="height" name="height" placeholder="name@gmail.com">
+                            <label for="floatingInput">Height</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="weight" name="weight" placeholder="name@gmail.com">
+                            <label for="floatingInput">Weight</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="blood_pressure" name="blood_pressure" placeholder="name@gmail.com">
+                            <label for="floatingInput">Blood Pressure</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="heartRate" name="heartRate" placeholder="name@gmail.com">
+                            <label for="floatingInput">Heart Rate</label>
+                        </div>
+                        <input type="text" hidden name="patient_id" id="patient_id">
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Change Details</button>
-                </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" name="submit" value="submit" class="btn btn-primary">Change Details</button>
+                        </div>
+                </form>
             </div>
         </div>
     </div>

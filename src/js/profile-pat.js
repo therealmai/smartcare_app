@@ -65,13 +65,15 @@ addEventGlobalListener('click', showPatProfBtn, (e) => {
 
 function showData(arr,age){
     console.log(age);
-
+    document.getElementById("patient_id").value=arr['id'];
     document.getElementById("firstname").value=arr['firstname'];
     document.getElementById("lastname").value=arr['lastname'];
+    document.getElementById("middle_initial").value=arr['middle_initial'];
     document.getElementById("age").value=age
     document.getElementById("contact").value=arr['contact'];
     document.getElementById("height").value=arr['height'];
     document.getElementById("weight").value=arr['weight'];
+    document.getElementById("blood_pressure").value=arr['blood_pressure'];
     document.getElementById("heartRate").value=arr['heart_rate'];
 }
 
