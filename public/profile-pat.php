@@ -51,97 +51,101 @@ include('../src/php/dbconnect.php')
         <div class="prof-container">
             <section class="prof-pat" id="profPat">
                 <div class="hide" id="profPatCont">
-                    <form action="/action_page.php">
-                        <table style="width:100%;">
-                            <col span="1" style="width: 15%;">
-                            <col span="1" style="width: 85%;">
-                            <td style="padding-right:20px; vertical-align:top">
-                                <img src="../src/img/blankPP.png" / width=100%;>
-                                <br>
-                                <center>
-                                    <a href="">Change profile picture</a>
-                                </center>
-                                <br><br><br>
-                            </td>
-                            <td>
-
-                                <h1><?php echo $profile['firstname'] . " " . $profile['middle_initial'] . " " . $profile['lastname']; ?></h1>
-                                <h3>Patient</h3>
-                                <div class="profile-settings-nav">
-                                    <button type="button" id="AccSetBtn">Account Settings</button>
-                                    <button type="button" id="ProfDetBtn">Personal Details</button>
+                    <table style="width:100%;">
+                        <col span="1" style="width: 15%;">
+                        <col span="1" style="width: 85%;">
+                        <td style="padding-right:20px; vertical-align:top">
+                            <img src="../src/img/blankPP.png" / width=100%;>
+                            <br>
+                            <center>
+                                <div class="pt-3">
+                                    <button type="button" class="btn btn-primary">
+                                        Change Profile Picture
+                                    </button>
                                 </div>
-                                <div class="line"></div>
-                                <div class="line-selected-a" id="line-selected-a"></div>
-                                <div class="line-selected-b" id="line-selected-b"></div>
-                                <table class="acc-info" id="acc-info" style="width:100%;">
-                                    <col span="1" style="width: 10%;">
-                                    <col span="1" style="width: 20%;">
-                                    <td>
-                                        <label for="email">Email: </label>
-                                        <br>
-                                        <label for="password">Password: </label>
-                                    </td>
-                                    <td>
-                                        <label for="email"><?php echo $profile['email']; ?></label><br>
-                                        <label for="password"><?php echo $password ?></label><br>
-                                    </td>
-                                    <td>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-  Launch static backdrop modal
-</button>
-                                    </td>
-                                </table>
-                                <table class="prof-info" id="prof-info">
-                                    <col span="1" style="width: 20%;">
-                                    <col span="1" style="width: 25%;">
-                                    <td>
-                                        <label for="fname">First name: </label>
-                                        <br>
-                                        <label for="lname">Last name: </label>
-                                        <br>
-                                        <label for="age">Age: </label>
-                                        <br>
-                                        <label for="contact">Contact: </label>
-                                        <br>
-                                        <label for="height">Height: </label>
-                                        <br>
-                                        <label for="weight">Weight: </label>
-                                        <br>
-                                        <label for="heart rate">Heart Rate:</label>
-                                        <br><br><br>
-                                    </td>
-                                    <td>
-                                        <label for="fname"><?php echo $profile['firstname']; ?></label><br>
-                                        <label for="lname"><?php echo $profile['lastname'] ?></label><br>
-                                        <label for="age"><?php echo $diff->format('%y'); ?></label><br>
-                                        <label for="contact"><?php echo $profile['contact'] ?></label><br>
-                                        <label for="height"><?php if ($profile['height'] != NULL) {
-                                                                echo $profile['firstname'];
-                                                            } else {
-                                                                echo $noData;
-                                                            } ?></label><br>
-                                        <label for="weight"><?php if ($profile['weight'] != NULL) {
-                                                                echo $profile['firstname'];
-                                                            } else {
-                                                                echo $noData;
-                                                            } ?></label><br>
-                                        <label for="heart rate"><?php if ($profile['heart_rate'] != NULL) {
-                                                                    echo $profile['firstname'];
-                                                                } else {
-                                                                    echo $noData;
-                                                                } ?></label><br>
-                                        <div class="pt-3">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Launch static backdrop modal
-</button>
-                                        </div>
-                                    </td>
-                                </table>
+                            </center>
+                            <br><br><br>
+                        </td>
+                        <td>
 
-                            </td>
-                        </table>
-                    </form>
+                            <h1><?php echo $profile['firstname'] . " " . $profile['middle_initial'] . ". " . $profile['lastname']; ?></h1>
+                            <h3>Patient</h3>
+                            <div class="profile-settings-nav">
+                                <button type="button" id="AccSetBtn">Account Settings</button>
+                                <button type="button" id="ProfDetBtn">Personal Details</button>
+                            </div>
+                            <div class="line"></div>
+                            <div class="line-selected-a" id="line-selected-a"></div>
+                            <div class="line-selected-b" id="line-selected-b"></div>
+                            <table class="acc-info" id="acc-info" style="width:100%;">
+                                <col span="1" style="width: 10%;">
+                                <col span="1" style="width: 20%;">
+                                <td>
+                                    <label for="email">Email: </label>
+                                    <br>
+                                    <label for="password">Password: </label><br><br><br>
+                                </td>
+                                <td>
+                                    <label for="email"><?php echo $profile['email']; ?></label><br>
+                                    <label for="password"><?php echo $password ?></label><br>
+                                    <div class="pt-3">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                                            Change Account Settings
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+
+                                </td>
+                            </table>
+                            <table class="prof-info" id="prof-info">
+                                <col span="1" style="width: 20%;">
+                                <col span="1" style="width: 25%;">
+                                <td>
+                                    <label for="fname">First name: </label>
+                                    <br>
+                                    <label for="lname">Last name: </label>
+                                    <br>
+                                    <label for="age">Age: </label>
+                                    <br>
+                                    <label for="contact">Contact: </label>
+                                    <br>
+                                    <label for="height">Height: </label>
+                                    <br>
+                                    <label for="weight">Weight: </label>
+                                    <br>
+                                    <label for="heart rate">Heart Rate:</label>
+                                    <br><br><br>
+                                </td>
+                                <td>
+                                    <label for="fname"><?php echo $profile['firstname']; ?></label><br>
+                                    <label for="lname"><?php echo $profile['lastname'] ?></label><br>
+                                    <label for="age"><?php echo $diff->format('%y'); ?></label><br>
+                                    <label for="contact"><?php echo $profile['contact'] ?></label><br>
+                                    <label for="height"><?php if ($profile['height'] != NULL) {
+                                                            echo $profile['firstname'];
+                                                        } else {
+                                                            echo $noData;
+                                                        } ?></label><br>
+                                    <label for="weight"><?php if ($profile['weight'] != NULL) {
+                                                            echo $profile['firstname'];
+                                                        } else {
+                                                            echo $noData;
+                                                        } ?></label><br>
+                                    <label for="heart rate"><?php if ($profile['heart_rate'] != NULL) {
+                                                                echo $profile['firstname'];
+                                                            } else {
+                                                                echo $noData;
+                                                            } ?></label><br>
+                                    <div class="pt-3">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                            Change Personal Details
+                                        </button>
+                                    </div>
+                                </td>
+                            </table>
+                        </td>
+                    </table>
                 </div>
             </section>
 
@@ -169,6 +173,82 @@ include('../src/php/dbconnect.php')
             </section>
         </div>
     </main>
+
+    <!-- Edit Account Settings -->
+    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Edit Account Settings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Personal Detail -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Edit Personal Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="firstname" name="firstname" placeholder="name@gmail.com">
+                        <label for="floatingInput">First Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="lastname" name="lastname" placeholder="name@gmail.com">
+                        <label for="floatingInput">Last Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="age" name="age" placeholder="name@gmail.com">
+                        <label for="floatingInput">Age</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="contact" name="contact" placeholder="name@gmail.com">
+                        <label for="floatingInput">Contact</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="height" name="height" placeholder="name@gmail.com">
+                        <label for="floatingInput">Height</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="weight" name="weight" placeholder="name@gmail.com">
+                        <label for="floatingInput">Weight</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="heartRate" name="heartRate" placeholder="name@gmail.com">
+                        <label for="floatingInput">Heart Rate</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Change Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="../src/js/profile-pat.js"></script>
