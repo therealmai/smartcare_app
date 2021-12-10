@@ -7,8 +7,17 @@
     $unfinished = [];
     $appIdArr = json_decode($_GET["appIdArr"]);
 
-    $patId = 1;
-    //$patId = $_SESSION["patId"];
+    $userId = $_SESSION["currUser"]["id"];
+
+    $query = <<<EOT
+        SELECT patients.id FROM patients
+        WHERE userID = $userId
+    EOT;
+
+    $stmt = $con->query($query);
+
+    $result = $stmt->fetch_row();
+    $patId = $result[0];
 
     $query = <<<EOT
         SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, users.firstname, users.lastname, users.middle_initial, users.contact, doctors.specialization 
@@ -17,7 +26,8 @@
         ON doctors.id = appointments.DoctorID
         INNER JOIN users
         ON users.id = doctors.userID
-        WHERE appointments.PatientID = $patId
+        WHERE appointments.PatientID = $patId AND
+        appointments.IsCancelled = 0
     EOT;
     
     $stmt = $con->query($query);
@@ -37,7 +47,9 @@
     $obj = [
         "finished" => $finished,
         "unfinished" => $unfinished,
-        "appIdArr" => $appIdArr
+        "appIdArr" => $appIdArr,
+        "patId" => $patId,
+        "userId" => $userId
     ];
     $obj = json_encode($obj);
     echo $obj;

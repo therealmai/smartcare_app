@@ -13,7 +13,7 @@
     $time = $_POST["time"];
     $type = $_POST["appoint-type"];
     $docId = $_POST["docId"];
-    $patientId = 1;
+    $patientId = $_SESSION['currUser']["id"];
     //$patientId = $_SESSION["patientId"];
 
     $query = <<<EOT

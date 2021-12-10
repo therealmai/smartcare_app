@@ -59,13 +59,12 @@ function generateBtnHtmlApp(type) {
         `
     } else {
         return `
-            <button class="doc__app--remove">Remove</button>
+            <button class="doc__app--remove">View</button>
         `
     }
 }
 function addFocusClassToAppBtn(button) {
     $(".doc__app-btns").children().removeClass("doc__app-btn--focus");
-    console.log($(".doc__app-btns").children())
     $(button).addClass("doc__app-btn--focus");
 }
 //              PATIENTS
@@ -197,6 +196,30 @@ addEventGlobalListener('click', "#showUnAppBtn", e => {
     $("#profResUnApp").removeClass("hide");
     $("#profResFinApp").addClass("hide");
     addFocusClassToAppBtn("#showUnAppBtn");
+})
+addEventGlobalListener('click', ".doc__app--cancel", e => {
+    if(confirm("Do you really want to cancel this appointment?")) {
+        let app = $(e.target).parent();
+        let id = app.attr("data-id");
+        $.ajax({
+            type: "POST",
+            url: "../src/php/cancel-app_act.php",
+            data: `id=${id}`,
+            success: res => {
+                let index, {message, success} = JSON.parse(res);
+                if(success) {
+                    alert(message);
+                    index = appIdArr.indexOf(id);
+                    if(index != -1)
+                        appIdArr.splice(index, 1)
+                    app.remove();
+                }
+            },
+            error: err => {
+                console.log(err);
+            }
+        })
+    }
 })
 addEventGlobalListener('click', "#showFinAppBtn", e => {
     $("#profResUnApp").addClass("hide");

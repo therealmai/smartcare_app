@@ -7,7 +7,7 @@
     $unfinished = [];
     $appIdArr = json_decode($_GET["appIdArr"]);
 
-    $docId = 2;
+    $docId = $_SESSION["currUser"]["id"];
 
     $query = <<<EOT
         SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, users.firstname, users.lastname, users.middle_initial, users.contact, users.year AS "userYear", users.month AS "userMon", users.day AS "userDay"
