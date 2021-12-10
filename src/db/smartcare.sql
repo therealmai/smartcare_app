@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2021 at 02:58 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.4.22
+-- Generation Time: Dec 10, 2021 at 02:44 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,18 +36,26 @@ CREATE TABLE `appointments` (
   `Month` int(11) NOT NULL,
   `Year` int(11) NOT NULL,
   `Time` varchar(5) NOT NULL,
-  `IsFinished` tinyint(1) DEFAULT NULL
+  `IsFinished` tinyint(1) DEFAULT NULL,
+  `IsCancelled` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`ID`, `DoctorID`, `PatientID`, `Type`, `Day`, `Month`, `Year`, `Time`, `IsFinished`) VALUES
-(1, 2, 1, 'f2f', 6, 11, 2021, '21:33', 0),
-(2, 3, 1, 'online', 11, 11, 2021, '21:37', 1),
-(3, 3, 1, 'online', 15, 11, 2021, '19:37', 1),
-(4, 4, 1, 'f2f', 9, 11, 2021, '21:48', 0);
+INSERT INTO `appointments` (`ID`, `DoctorID`, `PatientID`, `Type`, `Day`, `Month`, `Year`, `Time`, `IsFinished`, `IsCancelled`) VALUES
+(1, 2, 1, 'f2f', 6, 11, 2021, '21:33', 0, 0),
+(2, 2, 2, 'online', 11, 11, 2021, '21:37', 1, 0),
+(3, 2, 3, 'online', 15, 11, 2021, '19:37', 1, 0),
+(4, 2, 1, 'f2f', 9, 11, 2021, '21:48', 0, 0),
+(5, 6, 1, 'f2f', 9, 12, 2021, '08:12', 0, 0),
+(6, 3, 1, 'online', 18, 12, 2021, '08:14', 0, 0),
+(7, 3, 1, 'f2f', 10, 12, 2021, '22:15', 0, 0),
+(8, 2, 1, 'f2f', 10, 12, 2021, '20:15', 0, 0),
+(9, 2, 5, 'f2f', 9, 12, 2021, '20:32', 1, 0),
+(10, 6, 5, 'online', 11, 12, 2021, '20:32', 1, 0),
+(11, 3, 5, 'f2f', 10, 12, 2021, '20:29', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -68,7 +76,7 @@ CREATE TABLE `doctors` (
 --
 
 INSERT INTO `doctors` (`id`, `userID`, `specialization`, `license_number`, `degree`) VALUES
-(2, 3, 'Cardiologist', '', ''),
+(2, 13, 'Cardiologist', '', ''),
 (3, 4, 'Pediatrician', '', ''),
 (4, 5, 'Pediatrician', '', ''),
 (6, 11, 'Pediatrician', '', '');
@@ -173,7 +181,9 @@ CREATE TABLE `patients` (
 INSERT INTO `patients` (`id`, `userID`, `height`, `weight`, `blood_pressure`, `heart_rate`, `created_at`, `updated_at`) VALUES
 (1, 6, '', '', '', '', NULL, NULL),
 (2, 7, '', '', '', '', NULL, NULL),
-(3, 8, '', '', '', '', NULL, NULL);
+(3, 8, '', '', '', '', NULL, NULL),
+(4, 15, '', '', '', '', NULL, NULL),
+(5, 14, '', '', '', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -232,6 +242,7 @@ CREATE TABLE `payer_for_patients` (
 CREATE TABLE `prescriptions` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `doctor_id` bigint(20) UNSIGNED NOT NULL,
+  `patient_id` bigint(20) UNSIGNED NOT NULL,
   `date` date NOT NULL,
   `text` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -271,7 +282,10 @@ INSERT INTO `users` (`id`, `email`, `password`, `ssn`, `contact`, `firstname`, `
 (7, 'user5@gmail.com', '', '', '09178431242', 'User5', 'User5', 'U5', 'patient', NULL, NULL, NULL),
 (8, 'user6@gmail.com', '', '', '09122861242', 'User6', 'User6', 'U6', 'patient', NULL, NULL, NULL),
 (11, '20102650@usc.edu.ph', '$2y$10$tX5fjIidYK1qh5nxkgnkT.sfi13E2oi/n8GlMSEUB7dB3fcTi1LUq', '1234', '920516409', 'Jomar', 'Leano', 'M', 'doctor', 2021, 12, 5),
-(12, 'jose@gmail.com', '$2y$10$DHKyYSvWEuTXne5/LfGGNOqXHn/g78MkZI2N5xexZRnSiKV1yfddm', '12312', '092131211231', 'Jose Glenn', 'Samson', 'G.', 'patient', 2021, 12, 5);
+(12, 'jose@gmail.com', '$2y$10$DHKyYSvWEuTXne5/LfGGNOqXHn/g78MkZI2N5xexZRnSiKV1yfddm', '12312', '092131211231', 'Jose Glenn', 'Samson', 'G.', 'patient', 2021, 12, 5),
+(13, 'doc1@gmail.com', '$2y$10$Qm/7B35Wl1sRE4JIwnx2zebbCs9.4JRgnIPyBANcar7t8V9CtnIlm', '1343214', '12341243', 'doc1', 'doc1', 'd1', 'doctor', 2021, 12, 8),
+(14, 'pat1@gmail.com', '$2y$10$1QaGFsOe3Um9E8ojcvD8huR.vggG7/iOu37C3pucr3CFakjbCzhhS', '123423asdfas', '12343214234', 'pat1', 'pat1', 'P1', 'patient', 2021, 12, 8),
+(15, 'pat2@gmail.com', '$2y$10$56V8EVUsQ4.apaq3HsPIaOrQPRIFqKwhgM6CABKooEstTqrBnCwPm', 'sdfasdfsf3', '2341243432', 'pat2', 'pat2', 'p2', 'patient', 2021, 11, 30);
 
 --
 -- Indexes for dumped tables
@@ -349,7 +363,8 @@ ALTER TABLE `payer_for_patients`
 --
 ALTER TABLE `prescriptions`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `prescriptions_doctor_id_foreign` (`doctor_id`);
+  ADD KEY `prescriptions_doctor_id_foreign` (`doctor_id`),
+  ADD KEY `prescriptions_patient_id_foreign` (`patient_id`);
 
 --
 -- Indexes for table `users`
@@ -366,7 +381,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `doctors`
@@ -408,7 +423,7 @@ ALTER TABLE `insurances`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `patients_table`
@@ -432,7 +447,7 @@ ALTER TABLE `prescriptions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
@@ -479,7 +494,8 @@ ALTER TABLE `payer_for_patients`
 -- Constraints for table `prescriptions`
 --
 ALTER TABLE `prescriptions`
-  ADD CONSTRAINT `prescriptions_doctor_id_foreign` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`);
+  ADD CONSTRAINT `prescriptions_doctor_id_foreign` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`),
+  ADD CONSTRAINT `prescriptions_patient_id_foreign` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
