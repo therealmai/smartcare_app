@@ -5,12 +5,22 @@
     $obj = [];
     $finished = [];
     $unfinished = [];
+    $notifications = [];
     $appIdArr = json_decode($_GET["appIdArr"]);
 
-    $docId = $_SESSION["currUser"]["id"];
+    $userId = $_SESSION["currUser"]["id"];
 
     $query = <<<EOT
-        SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, users.firstname, users.lastname, users.middle_initial, users.contact, users.year AS "userYear", users.month AS "userMon", users.day AS "userDay"
+        SELECT id FROM doctors
+        WHERE userID = $userId
+    EOT;
+
+    $stmt = $con->query($query);
+    $result = $stmt->fetch_row();
+    $docId = $result[0];
+
+    $query = <<<EOT
+        SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, appointments.IsCancelled, users.firstname, users.lastname, users.middle_initial, users.contact, users.year AS "userYear", users.month AS "userMon", users.day AS "userDay"
         FROM appointments
         INNER JOIN patients
         ON patients.id = appointments.PatientID
@@ -27,8 +37,10 @@
             break;
         if($result["IsFinished"] == 1)
             array_push($finished, $result);
-        else 
+        else if($result["IsCancelled"] == 0) 
             array_push($unfinished, $result);
+        else
+            array_push($notifications, $result);
     }
 
     $keys = array();
@@ -47,7 +59,8 @@
 
     $obj = [
         "finished" => $finished,
-        "unfinished" => $unfinished
+        "unfinished" => $unfinished,
+        "notifications" => $notifications
     ];
     $obj = json_encode($obj);
     echo $obj;

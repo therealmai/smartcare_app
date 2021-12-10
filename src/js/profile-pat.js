@@ -33,6 +33,7 @@ function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastn
     let month = (Month).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
     let day = (Day).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
     let buttonHtml = generateBtnHtmlApp(action);
+    let time = formatTime(Time);
     let html = `
     <div data-id="${ID}" class="doc__app">
         <span class="fa-stack fa-3x">
@@ -45,7 +46,7 @@ function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastn
         <h5 class="doc__app--type">${type}</h5>
         <h5 class="doc__app--time">
             <i class="fa fa-clock-o" aria-hidden="true"></i>
-            ${Time} &nbsp &nbsp ${month}/${day}/${Year}
+            ${time} &nbsp &nbsp ${month}/${day}/${Year}
         </h5>
         ${buttonHtml}
     </div>
@@ -59,13 +60,27 @@ function generateBtnHtmlApp(type) {
         `
     } else {
         return `
-            <button class="doc__app--remove">View</button>
+            <button class="doc__app--remove doc__app--blue">View</button>
         `
     }
 }
 function addFocusClassToAppBtn(button) {
     $(".doc__app-btns").children().removeClass("doc__app-btn--focus");
     $(button).addClass("doc__app-btn--focus");
+}
+function formatTime(time) {
+    let timeStart = time.split(":");
+    let tsampm;
+
+    if(timeStart[0] >= 12) {
+        tsampm = "PM"
+        timeStart[0] -= 12;
+        timeStart[0] = timeStart[0] === 0 ? 12 : timeStart[0];
+        timeStart[0] = timeStart[0].toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
+    } else {
+        tsampm = "AM"
+    }
+    return timeStart[0] + ":" + timeStart[1] + " " + tsampm;
 }
 //              PATIENTS
 
@@ -192,11 +207,6 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
         }
     })
 })
-addEventGlobalListener('click', "#showUnAppBtn", e => {
-    $("#profResUnApp").removeClass("hide");
-    $("#profResFinApp").addClass("hide");
-    addFocusClassToAppBtn("#showUnAppBtn");
-})
 addEventGlobalListener('click', ".doc__app--cancel", e => {
     if(confirm("Do you really want to cancel this appointment?")) {
         let app = $(e.target).parent();
@@ -225,6 +235,11 @@ addEventGlobalListener('click', "#showFinAppBtn", e => {
     $("#profResUnApp").addClass("hide");
     $("#profResFinApp").removeClass("hide");
     addFocusClassToAppBtn("#showFinAppBtn");
+})
+addEventGlobalListener('click', "#showUnAppBtn", e => {
+    $("#profResUnApp").removeClass("hide");
+    $("#profResFinApp").addClass("hide");
+    addFocusClassToAppBtn("#showUnAppBtn");
 })
 
 //              PATIENTS

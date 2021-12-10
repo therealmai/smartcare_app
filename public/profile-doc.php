@@ -127,10 +127,12 @@
                 <div class="doc__app-btns">
                     <button class="doc__app-btn" id="showUnAppBtn">Unfinished</button>
                     <button class="doc__app-btn" id="showFinAppBtn">Finished</button>
+                    <button class="doc__app-btn" id="showNotifsBtn">Notifications</button>
                 </div>
                 <div id="docAppResCont">
                     <div class="doc__app-cont hide" id="docAppFinResCont"></div>
                     <div class="doc__app-cont hide" id="docAppUnResCont"></div>
+                    <div class="doc__app-cont hide" id="docNotifsCont"></div>
                 </div>
             </section>
         </section>

@@ -47,9 +47,7 @@
     $obj = [
         "finished" => $finished,
         "unfinished" => $unfinished,
-        "appIdArr" => $appIdArr,
-        "patId" => $patId,
-        "userId" => $userId
+        "appIdArr" => $appIdArr
     ];
     $obj = json_encode($obj);
     echo $obj;
