@@ -47,22 +47,25 @@ $app-cancel: red;
 
     &-btns {
         margin-bottom: 20px;
-        
-        @include modifyButton(rgb(98, 98, 255), white, black);
-        button {
-            padding: 10px;
+    }
 
-            &:focus {
-                background-color: white;
-                border-color: rgb(98, 98, 255);
-                color: black;
-            }
+    &-btn {
+        background-color: rgb(98, 98, 255);
+        border: 1px solid black;
+        color: white;
+        padding: 10px;
+
+        &--focus, &:hover {
+            background-color: white;
+            border-color: rgb(98, 98, 255);
+            color: black;
         }
     }
 
     &-cont {
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-between;
         gap: 15px;
         margin-bottom: 15px;
 

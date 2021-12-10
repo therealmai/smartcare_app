@@ -30,7 +30,7 @@
             <button id="showDocAppointBtn">Appointments</button>
         </section>
 
-        <div class="prof-container"">
+        <div class="prof-container" id="profRes">
             <section class="prof-pat" id="profPat">
                 <div class="hide" id="profDocCont">
                     <form action="/action_page.php">
@@ -102,7 +102,6 @@
                     </form>
                 </div>
             </section>
-
             <section class="prof-doc-pat" id="profDocPat">
                 <div class="hide" id="profDocPatCont">
                 <h1>
@@ -124,16 +123,16 @@
                 </p>
                 </div>
             </section>
-            <div class="hide prof-res" id="docAppCont">
+            <section class="hide prof-res" id="docAppCont">
                 <div class="doc__app-btns">
-                    <button id="showUnAppBtn">Unfinished</button>
-                    <button id="showFinAppBtn">Finished</button>
+                    <button class="doc__app-btn" id="showUnAppBtn">Unfinished</button>
+                    <button class="doc__app-btn" id="showFinAppBtn">Finished</button>
                 </div>
                 <div id="docAppResCont">
                     <div class="doc__app-cont hide" id="docAppFinResCont"></div>
                     <div class="doc__app-cont hide" id="docAppUnResCont"></div>
                 </div>
-            </div>
+            </section>
         </section>
     </main>
     <script src="../src/js/jquery-3.6.0.min.js"></script>

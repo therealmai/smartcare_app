@@ -10,6 +10,8 @@ include('../src/php/dbconnect.php')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/search.css">
     <link rel="stylesheet" href="../src/css/profile.css">
+    <link rel="stylesheet" href="../src/css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../src/css/profile-ivan.css">
     <title>SmartCare - Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -50,7 +52,7 @@ include('../src/php/dbconnect.php')
             <button id="showPatDocBtn">Doctors</button>
         </section>
 
-        <div class="prof-container">
+        <div class="prof-container" id="profRes">
             <section class="prof-pat" id="profPat">
                 <div class="hide" id="profPatCont">
                     <table style="width:100%;">
@@ -158,24 +160,21 @@ include('../src/php/dbconnect.php')
                     </table>
                 </div>
             </section>
-
-            <section class="prof-res" id="profRes">
-                <div class="hide" id="profResAppCont">
-                    <div class="prof-res__appoint-cont" id="profResUnApp">
-                        <h1>Unfinished Appointments</h1>
-                    </div>
-                    <div class="prof-res__appoint-cont" id="profResFinApp">
-                        <h1>Finished Appointments</h1>
-                    </div>
+            <section class="prof-res" id="profResAppCont">     
+                <div class="doc__app-btns">
+                    <button class="doc__app-btn" id="showUnAppBtn">Unfinished</button>
+                    <button class="doc__app-btn" id="showFinAppBtn">Finished</button>
+                </div>
+                <div class="prof-res__appoint-cont hide" id="profResUnApp">
+                </div>
+                <div class="prof-res__appoint-cont hide" id="profResFinApp">
                 </div>
             </section>
-
             <section class="prof-prescription" id="profPatPres">
                 <div class="hide" id="profPatPresCont">
                     insert prescription here
                 </div>
             </section>
-
             <section class="prof-pat-doc" id="profPatDoc">
                 <div class="hide" id="profPatDocCont">
                     insert doctors heres

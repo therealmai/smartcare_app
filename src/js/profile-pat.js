@@ -19,25 +19,54 @@ function addEventGlobalListener(action, selector, callback) {
             callback(e);
     })
 }
+function isolateResultCont(resultCont) {
+    $(profRes).children().addClass("hide");
+    $(resultCont).removeClass("hide");
+}
 //              DOCTORS
 //       INSERT CODE LIKE generateAppointment for Doctor
 //              DOCTORS
 
 //              PATIENTS
-function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastname, middle_initial, specialization}, action, cont) {
+function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastname, middle_initial, contact, specialization}, action, cont) {
+    let type = Type == "f2f" ? "Face-to-face" : "Online"
     let month = (Month).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
     let day = (Day).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
+    let buttonHtml = generateBtnHtmlApp(action);
     let html = `
-        <div data-id=${ID} class="prof-res__appoint">
-            <h3>Dr. ${firstname} ${middle_initial}. ${lastname}</h3>
-            <h3>${specialization}</h3>
-            <h3>${Type}</h3>
-            <h3>${Year}-${month}-${day}</h3>
-            <h3>${Time}</h3>
-            <button>${action}</button>
-        </div>
+    <div data-id="${ID}" class="doc__app">
+        <span class="fa-stack fa-3x">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-stack-1x fa-user" aria-hidden="true"></i>
+        </span>
+        <h4>Dr. ${firstname} ${middle_initial}. ${lastname}</h4>
+        <h5 class="doc__app--contact">${contact}</h5>
+        <h6>${specialization}</h6>
+        <h5 class="doc__app--type">${type}</h5>
+        <h5 class="doc__app--time">
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            ${Time} &nbsp &nbsp ${month}/${day}/${Year}
+        </h5>
+        ${buttonHtml}
+    </div>
     `;
     $(cont).append(html);
+}
+function generateBtnHtmlApp(type) {
+    if(type === "Cancel") {
+        return `
+            <button class="doc__app--cancel">Cancel</button>
+        `
+    } else {
+        return `
+            <button class="doc__app--remove">Remove</button>
+        `
+    }
+}
+function addFocusClassToAppBtn(button) {
+    $(".doc__app-btns").children().removeClass("doc__app-btn--focus");
+    console.log($(".doc__app-btns").children())
+    $(button).addClass("doc__app-btn--focus");
 }
 //              PATIENTS
 
@@ -143,10 +172,8 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
     PatDocBtn.style.backgroundColor = "#5f7de0";
     PatAppointBtn.style.backgroundColor = "#2240aa";
     PatPresBtn.style.backgroundColor = "#5f7de0";
-    $(profPatPresCont).addClass("hide");
-    $(profPatCont).addClass("hide");
-    $(profPatDocCont).addClass("hide");
-    $(profResAppCont).removeClass("hide");
+    isolateResultCont(profResAppCont)
+    $("#showUnAppBtn").trigger("click");
     $.ajax({
         type: "GET",
         data: "appIdArr=" + JSON.stringify(appIdArr),
@@ -165,6 +192,16 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
             }
         }
     })
+})
+addEventGlobalListener('click', "#showUnAppBtn", e => {
+    $("#profResUnApp").removeClass("hide");
+    $("#profResFinApp").addClass("hide");
+    addFocusClassToAppBtn("#showUnAppBtn");
+})
+addEventGlobalListener('click', "#showFinAppBtn", e => {
+    $("#profResUnApp").addClass("hide");
+    $("#profResFinApp").removeClass("hide");
+    addFocusClassToAppBtn("#showFinAppBtn");
 })
 
 //              PATIENTS

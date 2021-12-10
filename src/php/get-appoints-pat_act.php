@@ -11,7 +11,7 @@
     //$patId = $_SESSION["patId"];
 
     $query = <<<EOT
-        SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, users.firstname, users.lastname, users.middle_initial, doctors.specialization 
+        SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, users.firstname, users.lastname, users.middle_initial, users.contact, doctors.specialization 
         FROM appointments
         INNER JOIN doctors
         ON doctors.id = appointments.DoctorID

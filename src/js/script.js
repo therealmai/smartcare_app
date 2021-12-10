@@ -43,18 +43,18 @@ function pushToArr(selector, arr, dataId) {
         arr.push($(elem).attr(dataId));
     })
 }
-function createSearchResultHtml(name, specialty, contact, id) {
+function createSearchResultHtml({id, specialization, firstname, lastname, middle_initial, contact}) {
     return `
         <div data-doc-id=${id} class="search-results__result">
             <i class="fa fa-user-md fa-2x" aria-hidden="true"></i>
             <div class="search-results__profile">
-                <h4>Dr. ${name}, MD</h4>
+                <h4>Dr. ${firstname} ${middle_initial}. ${lastname}, MD</h4>
                 <a href="" target="">View Profile</a>
             </div>
             <div class="search-results__addi-info">
                 <p>
                     <i class="fa fa-stethoscope" aria-hidden="true"></i>
-                    ${specialty}
+                    ${specialization}
                 </p>
                 <p>
                     <i class="fa fa-phone" aria-hidden="true"></i>
@@ -78,7 +78,7 @@ function createSearchResultHtml(name, specialty, contact, id) {
 }
 function createSearchResult(arr) {
     arr.forEach((elem) => {
-        $(searchResults).append(createSearchResultHtml(elem["name"], elem["specialization"], elem["contact"], elem["id"]));
+        $(searchResults).append(createSearchResultHtml(elem));
     })
 }
 function checkSearchInput() {

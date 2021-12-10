@@ -133,7 +133,10 @@ a {
 }
 
 .prof-res__appoint-cont {
-  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .prof-res__appoint-cont h1 {

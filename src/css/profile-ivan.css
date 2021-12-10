@@ -85,23 +85,14 @@ button:hover {
   margin-bottom: 20px;
 }
 
-.doc__app-btns button {
+.doc__app-btn {
   background-color: #6262ff;
-  border: 1px solid #6262ff;
+  border: 1px solid black;
   color: white;
-}
-
-.doc__app-btns button:hover {
-  background-color: white;
-  border: 1px solid #6262ff;
-  color: black;
-}
-
-.doc__app-btns button {
   padding: 10px;
 }
 
-.doc__app-btns button:focus {
+.doc__app-btn--focus, .doc__app-btn:hover {
   background-color: white;
   border-color: #6262ff;
   color: black;
@@ -113,6 +104,9 @@ button:hover {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   gap: 15px;
   margin-bottom: 15px;
 }
