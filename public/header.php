@@ -59,6 +59,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="prescriptions.php">Prescriptions</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="labtest.php">Lab Tests</a>
+                    </li>
                 </ul>
                 <!-- Left links -->
             </div>

@@ -10,3 +10,4 @@ src/registration.css.map
 src/search.css.map
 .vscode
 *.txt
+src/img/labTests/*

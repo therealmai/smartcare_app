@@ -16,11 +16,11 @@
 
     $docResults = mysqli_query($mysqli, $docSql);
     $docRow = mysqli_fetch_assoc($docResults);
-    $createSql = "UPDATE prescriptions 
+    $updateSql = "UPDATE prescriptions 
         SET doctor_id = {$docRow['id']}, patient_id = $patientId, `date` = '$date', `text` = '$prescription'
         WHERE id = $prescriptionId";
 
-    if (mysqli_query($mysqli, $createSql)) {
+    if (mysqli_query($mysqli, $updateSql)) {
         mysqli_free_result($docResults);
         mysqli_close($mysqli);
         header('location: ../../public/prescriptions.php');

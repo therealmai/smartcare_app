@@ -20,26 +20,8 @@ include '../src/php/dbconnect.php';
     <?php include "./header.php" ?>
 
     <main class="prof">
-        <section class="prof-btn-cont">
-            <button id="showPatProfBtn">Profile</button>
-            <button id="showPatAppointBtn">Appointments</button>
-            <button id="showPatPresBtn">Prescriptions</button>
-            <button id="showPatDocBtn">Doctors</button>
-        </section>
-
-        <section class="prof-res" id="profRes" style="display: none">
-            <div class="hide" id="profResAppCont">
-                <div class="prof-res__appoint-cont" id="profResUnApp">
-                    <h1>Unfinished Appointments</h1>
-                </div>
-                <div class="prof-res__appoint-cont" id="profResFinApp">
-                    <h1>Finished Appointments</h1>
-                </div>
-            </div>
-        </section>
-
         <section>
-            <h1>Patients' Prescriptions</h1>
+            <h1>Patients' Lab Tests</h1>
             <table>
                 <thead>
                     <tr>
@@ -47,7 +29,10 @@ include '../src/php/dbconnect.php';
                             Patient
                         </th>
                         <th>
-                            Prescription
+                            Lab Test
+                        </th>
+                        <th>
+                            Lab Description
                         </th>
                         <th>
                             Date
@@ -60,44 +45,46 @@ include '../src/php/dbconnect.php';
                     </tr>
                 </thead>
                 <tbody>
-
                     <?php
                         // var_dump($_SESSION);
                         // exit();
-                        $prescriptionsSql = "SELECT `p`.*, ".
+                        $labTestsSql = "SELECT `lb`.*, ".
                                 (($_SESSION['currUser']['role'] == 'doctor')
                                     ? "`pu`.`firstname`, `pu`.`lastname`, `pu`.`middle_initial`,"
                                     : "`du`.`firstname`, `du`.`lastname`, `du`.`middle_initial`,"
                                 )
                                 ."`du`.`id` AS `doc_user_id`, `pu`.`id` AS `patient_user_id`
-                            FROM `prescriptions` `p`
-                            LEFT JOIN `doctors` `d` ON `p`.`doctor_id` = `d`.`id`
-                            LEFT JOIN `patients` `pa` ON `p`.`patient_id` = `pa`.`id`
+                            FROM `lab_tests` `lb`
+                            LEFT JOIN `doctors` `d` ON `lb`.`doctor_id` = `d`.`id`
+                            LEFT JOIN `patients` `pa` ON `lb`.`patient_id` = `pa`.`id`
                             LEFT JOIN `users` `du` ON `du`.`id` = `d`.`userID`
                             LEFT JOIN `users` `pu` ON `pu`.`id` = `pa`.`userID` ".
                             (($_SESSION['currUser']['role'] == 'doctor')
                                 ?" WHERE `du`.`id` = {$_SESSION['currUser']['id']}"
                                 :" WHERE `pu`.`id` = {$_SESSION['currUser']['id']}");
 
-                        $prescriptionsResults = mysqli_query($mysqli, $prescriptionsSql);
-                        $prescriptionsRows = mysqli_fetch_all($prescriptionsResults, MYSQLI_ASSOC);
+                        $labTestsResults = mysqli_query($mysqli, $labTestsSql);
+                        $labTestsRows = mysqli_fetch_all($labTestsResults, MYSQLI_ASSOC);
 
-                        if (count($prescriptionsRows)) {
+                        if (count($labTestsRows)) {
 
-                            foreach ($prescriptionsRows AS $prescriptionRow) {
-                                // var_dump($prescriptionRow);
-                                $formattedDate = date('m/d/Y', strtotime($prescriptionRow['date']));
+                            foreach ($labTestsRows AS $labTestRow) {
+                                // var_dump($labTestRow);
+                                $formattedDate = date('m/d/Y', strtotime($labTestRow['date']));
                                 ?>
                                     <tr>
                                         <td>
-                                            <?php echo "{$prescriptionRow['firstname']} ".
-                                                    (!empty($prescriptionRow['middle_initial'])
-                                                        ?"{$prescriptionRow['middle_initial']}. "
+                                            <?php echo "{$labTestRow['firstname']} ".
+                                                    (!empty($labTestRow['middle_initial'])
+                                                        ?"{$labTestRow['middle_initial']}. "
                                                         :"")
-                                                    ."{$prescriptionRow['lastname']}"; ?>
+                                                    ."{$labTestRow['lastname']}"; ?>
                                         </td>
                                         <td>
-                                            <?php echo "{$prescriptionRow['text']}"; ?>
+                                            <img src="../src/img/labTests/<?php echo "{$labTestRow['lab_test_img_filepath']}"; ?>" alt="">
+                                        </td>
+                                        <td>
+                                            <?php echo "{$labTestRow['lab_test_desc']}"; ?>
                                         </td>
                                         <td>
                                             <?php echo "{$formattedDate}"; ?>
@@ -106,10 +93,9 @@ include '../src/php/dbconnect.php';
                                         <?php if ($_SESSION['currUser']['role'] == 'doctor') { ?>
 
                                         <td>
-                                            <a href="./editPrescription.php?prescId=<?php echo $prescriptionRow['id']?>">Edit</a><br>
-                                            <a href="./deletePrescription.php?prescId=<?php echo $prescriptionRow['id']?>">Delete</a>
+                                            <a href="./editLabTest.php?labTestId=<?php echo $labTestRow['id']?>">Edit</a><br>
+                                            <a href="./deleteLabTest.php?labTestId=<?php echo $labTestRow['id']?>">Delete</a>
                                         </td>
-
 
                                         <?php } ?>
                                     </tr>
@@ -120,9 +106,8 @@ include '../src/php/dbconnect.php';
 
                 </tbody>
             </table>
-            <?php 
-            if ($_SESSION['currUser']['role'] == 'doctor') { ?>
-                <a href="./addPrescription.php">Add</a>
+            <?php if ($_SESSION['currUser']['role'] == 'doctor') { ?>
+                <a href="./addLabTest.php">Add</a>
             <?php } ?>
             
             

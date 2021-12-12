@@ -1,24 +1,23 @@
 <?php
     include './session_check.php';
     if ($_SESSION['currUser']['role'] != 'doctor') {
-        header('location: ./prescriptions.php');
+        header('location: ./labTest.php');
     }
 
     include '../src/php/dbconnect.php';
 
     include "./header.php";
 
-    $prescriptionId = $_GET['prescId'];
-    $prescriptionsSql = "SELECT * FROM prescriptions WHERE id = $prescriptionId";
-    $prescriptionResult = mysqli_query($mysqli, $prescriptionsSql);
-    $currPrescription = mysqli_fetch_assoc($prescriptionResult);
-
+    $labTestId = $_GET['labTestId'];
+    $labTestsSql = "SELECT * FROM lab_tests WHERE id = $labTestId";
+    $labTestResult = mysqli_query($mysqli, $labTestsSql);
+    $currLabTest = mysqli_fetch_assoc($labTestResult);
 
 ?>
 
-    <form action="../src/php/updatePrescription.php" method="post">
+    <form action="../src/php/updateLabTest.php" method="POST" enctype="multipart/form-data">
         
-        <label for="patient">Patient</label>
+        <label for="patient">Lab Test</label>
         <select name="patientId" id="patient">
             <?php
                 $patientsSql = "SELECT `p`.*, `u`.`firstname`, `u`.`lastname`, `u`.`middle_initial`
@@ -32,7 +31,7 @@
                     foreach($patientsRows as $patient) {
                         ?>
                             <option value="<?php echo $patient['id']?>"
-                                <?php echo ($patient['id'] == $currPrescription['patient_id']) ? 'selected' : ''; ?>
+                                <?php echo ($patient['id'] == $currLabTest['patient_id']) ? 'selected' : ''; ?>
                                 ><?php echo "{$patient['firstname']} ".
                                                     (!empty($patient['middle_initial'])
                                                         ?"{$patient['middle_initial']}. "
@@ -45,15 +44,25 @@
 
         </select>
 
+        <br>
         <label for="date">Date</label>
-        <input type="date" name="date" id="date" value="<?php echo $currPrescription['date']; ?>">
+        <input type="date" name="date" id="date" value="<?php echo $currLabTest['date']; ?>">
 
-        <label for="prescription">Prescription</label>
-        <input type="text" name="prescription" id="prescription" value="<?php echo $currPrescription['text']; ?>">
-        
-        <input type="hidden" name="prescriptionId" value="<?php echo $currPrescription['id']?>">
+        <br>
+        <br>
+        <label for="lab">Laboratory Test</label><br>
+        <input type="file" name="labTest" id="lab">
+        <img src="../src/img/labTests/<?php echo $currLabTest['lab_test_img_filepath']; ?>" alt="">
 
-        <input type="submit" value="Update Prescription" >
+        <br>
+        <label for="labTestDesc">Laboratory Description</label>
+        <input type="text" name="desc" id="lab" value="<?php echo $currLabTest['lab_test_desc']; ?>">
+
+        <br>
+        <input type="hidden" name="labTestId" value="<?php echo $currLabTest['id']?>">
+
+        <br>
+        <input type="submit" value="Update labTest" >
     </form>
 </body>
 </html>
