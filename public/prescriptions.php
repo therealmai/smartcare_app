@@ -107,7 +107,10 @@ include '../src/php/dbconnect.php';
 
                                         <td>
                                             <a href="./editPrescription.php?prescId=<?php echo $prescriptionRow['id']?>">Edit</a><br>
-                                            <a href="./deletePrescription.php?prescId=<?php echo $prescriptionRow['id']?>">Delete</a>
+                                            <form action="../src/php/deletePrescription.php" method="POST">
+                                                <input type="hidden" value="<?php echo $prescriptionRow['id']?>" name="prescriptionId">
+                                                <input type="submit" value="Delete">
+                                            </form>
                                         </td>
 
 

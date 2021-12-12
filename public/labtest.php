@@ -94,7 +94,10 @@ include '../src/php/dbconnect.php';
 
                                         <td>
                                             <a href="./editLabTest.php?labTestId=<?php echo $labTestRow['id']?>">Edit</a><br>
-                                            <a href="./deleteLabTest.php?labTestId=<?php echo $labTestRow['id']?>">Delete</a>
+                                            <form action="../src/php/deleteLabTest.php" method="POST">
+                                                <input type="hidden" value="<?php echo $labTestRow['id']?>" name="labTestId">
+                                                <input type="submit" value="Delete">
+                                            </form>
                                         </td>
 
                                         <?php } ?>
