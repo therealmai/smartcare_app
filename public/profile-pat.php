@@ -27,7 +27,8 @@ include('../src/php/dbconnect.php')
         while ($row = mysqli_fetch_assoc($check)) {
             $profile = $row;
         }
-        $password = $profile['password'];
+        $num = strlen($profile['confirm_password']);
+        $password =  str_repeat("*",$num);
         $dateOfBirth = $profile['year'] . "-" . $profile['month'] . "-" . $profile['day'];
         $today = date("Y-m-d");
         $diff = date_diff(date_create($dateOfBirth), date_create($today));
@@ -93,7 +94,7 @@ include('../src/php/dbconnect.php')
                                     <label for="email"><?php echo $profile['email']; ?></label><br>
                                     <label for="password"><?php echo $password ?></label><br>
                                     <div class="pt-3">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
                                             Change Account Settings
                                         </button>
                                     </div>
@@ -129,30 +130,30 @@ include('../src/php/dbconnect.php')
                                     <label for="age"><?php echo $diff->format('%y'); ?></label><br>
                                     <label for="contact"><?php echo "0".$profile['contact'] ?></label><br>
                                     <label for="height"><?php if ($profile['height'] != NULL) {
-                                                            echo $profile['height'];
+                                                            echo $profile['height']. " cm";
                                                         } else {
                                                             echo $noData;
                                                         } ?></label><br>
                                     <label for="weight"><?php if ($profile['weight'] != NULL) {
-                                                            echo $profile['weight'];
+                                                            echo $profile['weight']. " kg";
                                                         } else {
                                                             echo $noData;
                                                         } ?></label><br>
                                                          <label for="heart rate"><?php if ($profile['heart_rate'] != NULL) {
-                                                                echo $profile['blood_pressure'];
+                                                                echo $profile['blood_pressure']. " mmHg";
                                                             } else {
                                                                 echo $noData;
                                                             } ?></label><br>
                                     <label for="heart rate"><?php if ($profile['heart_rate'] != NULL) {
-                                                                echo $profile['heart_rate'];
+                                                                echo $profile['heart_rate']. " bpm";
                                                             } else {
                                                                 echo $noData;
                                                             } ?></label><br>
                                     <div class="pt-3">
 
-                                        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
                                             Change Personal Details
-                                        </button> -->
+                                        </button>
                                     </div>
                                 </td>
                             </table>
@@ -192,20 +193,24 @@ include('../src/php/dbconnect.php')
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    <form action="../src/php/edit-perDetails-pat.php" method="POST">
+                    <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="email" name="firstname" placeholder="name@gmail.com">
+                            <label for="floatingInput">Email</label>
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="confirm_password" name="confirm_password" placeholder="name@gmail.com">
+                            <label for="floatingInput">Confirm Password</label>
                         </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="password" name="password" placeholder="name@gmail.com">
+                            <label for="floatingInput">New Password</label>
+                        </div>
+                        <input type="text" hidden name="patient_id" id="patient_id">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
+                    <button type="submit" name= submit value = submit class="btn btn-primary">Change</button>
                 </div>
                 </form>
             </div>
@@ -221,7 +226,7 @@ include('../src/php/dbconnect.php')
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="../src/php/edit-perDetails-doc.php" method="POST">
+                    <form action="../src/php/edit-perDetails-pat.php" method="POST">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name@gmail.com">
                             <label for="floatingInput">First Name</label>
