@@ -54,7 +54,7 @@ if (isset($_SESSION['currUser']))
             }
 
             ?>
-            <form class="right-sec__form" method="POST" action="../src/php/registration_logic.php">
+            <form class="right-sec__form" method="POST" action="../src/php/registration_logic.php" enctype="multipart/form-data">
                 <div>
                     <label for="first_name">First Name</label>
                     <input id="fname" name="first_name" type="text">
@@ -81,8 +81,8 @@ if (isset($_SESSION['currUser']))
                 </div>
 
                 <div>
-                    <label for="confirm_password">Confirm Password</label>
-                    <input id="confirm-pass" name="confirm_password" type="password" required>
+                    <label for="password">Confirm Password</label>
+                    <input id="confirm_password" name="confirm_password" type="password" required>
                 </div>
 
                 <div>
@@ -92,12 +92,17 @@ if (isset($_SESSION['currUser']))
 
                 <div>
                     <label for="birthdate">Birthdate</label>
-                    <input id="birthday" name="birthdate" type="date">
+                    <input id="birthday" name="birthdate" type="date" required>
                 </div>
 
                 <div>
-                    <label for="ssn">Philippine SSN</label>
-                    <input id="ssn" name="ssn" type="text" required>
+                    <label for="ssn">Upload File SSN</label>
+                    <input id="ssn" name="ssn" type="file">
+                </div>
+
+                <div>
+                    <label for="ssn">Upload Health Record</label>
+                    <input id="image_health" name="image_health" type="file">
                 </div>
 
                 <input class="btn btn-primary" class="font-weight-bold" type="submit" name="submit" value="Register">

@@ -6,6 +6,12 @@
     $blood_pressure = '';
     $heart_rate = '';
    //  var_dump($_POST);
+//    $fileName = basename($_FILES["file"]["name"]);
+//    $dirpath = dirname(getcwd());
+//    $targetFilePath = "C:/xampp/htdocs/smartcare_app/src/uploads/".$fileName; 
+//    $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+//    $allowTypes = array('jpg','png','jpeg','gif','pdf');
+//    echo $fileType;
     if(isset($_POST['submit'])){
 
         // array init
@@ -36,10 +42,16 @@
             $contact = trim($_POST['contact']);
         }
 
-        if (empty(trim($_POST['ssn']))) {
+        if (empty(trim($_FILES['ssn']))) {
             $_SESSION['reg_err']['ssnErr'] = "SSN is required";
         } else {
             $ssn = trim($_POST['ssn']);
+        }
+
+        if (empty(trim($_POST['image_health']))) {
+            $_SESSION['reg_err']['image_health'] = "Health Record is required";
+        } else {
+            $health_record = trim($_POST['image_health']);
         }
 
 
@@ -86,7 +98,7 @@
         if (!empty($_SESSION['reg_err']))
             header('location: ../../public/registration.php');
 
-
+        
         $first_name =  $_POST['first_name'] ?? '';
         $last_name = $_POST['last_name'] ?? '';
         $middle_initial = $_POST['middle_initial'] ?? '';
@@ -94,8 +106,9 @@
         $year = date('Y', strtotime($birthdate));
         $month = date('m', strtotime($birthdate));
         $day = date('d', strtotime($birthdate));
-        $sql = "INSERT INTO users (email, `password`, ssn, contact, firstname, lastname, middle_initial, `year`, `month`, `day`) 
-            VALUES ('$email','$hashedPass','$ssn','$contact','$first_name','$last_name','$middle_initial','$year','$month','$day')";        // var_dump(mysqli_query($mysqli, $sql));
+        
+        $sql = "INSERT INTO users (email, `password`, confirm_password, contact, firstname, lastname, middle_initial, `year`, `month`, `day`) 
+            VALUES ('$email','$hashedPass', '$confPass','$contact','$first_name','$last_name','$middle_initial','$year','$month','$day')";        // var_dump(mysqli_query($mysqli, $sql));
         
         if (mysqli_query($mysqli, $sql)) {
 

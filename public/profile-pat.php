@@ -150,9 +150,9 @@ include('../src/php/dbconnect.php')
                                                             } ?></label><br>
                                     <div class="pt-3">
 
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
+                                        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
                                             Change Personal Details
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </td>
                             </table>
