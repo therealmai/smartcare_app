@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2021 at 02:44 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.3.33
+-- Generation Time: Dec 13, 2021 at 02:18 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.4.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -160,6 +160,21 @@ CREATE TABLE `insurances` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `lab_tests`
+--
+
+CREATE TABLE `lab_tests` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `doctor_id` bigint(20) UNSIGNED NOT NULL,
+  `patient_id` bigint(20) UNSIGNED NOT NULL,
+  `lab_test_img_filepath` varchar(191) NOT NULL,
+  `lab_test_desc` varchar(255) DEFAULT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `patients`
 --
 
@@ -259,7 +274,7 @@ CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ssn` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `confirm_password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `firstname` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastname` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -267,25 +282,27 @@ CREATE TABLE `users` (
   `role` enum('doctor','patient') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'patient',
   `year` int(11) DEFAULT NULL,
   `month` int(11) DEFAULT NULL,
-  `day` smallint(6) DEFAULT NULL
+  `day` smallint(6) DEFAULT NULL,
+  `ssn_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `health_record` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `ssn`, `contact`, `firstname`, `lastname`, `middle_initial`, `role`, `year`, `month`, `day`) VALUES
-(3, 'user1@gmail.com', '', '', '09123426921', 'User1', 'User1', 'U1', 'doctor', NULL, NULL, NULL),
-(4, 'user2@gmail.com', '', '', '09123422121', 'User2', 'User2', 'U2', 'doctor', NULL, NULL, NULL),
-(5, 'user3@gmail.com', '', '', '09132126921', 'User3', 'User3', 'U3', 'doctor', NULL, NULL, NULL),
-(6, 'user4@gmail.com', '', '', '09123431242', 'User4', 'User4', 'U4', 'patient', NULL, NULL, NULL),
-(7, 'user5@gmail.com', '', '', '09178431242', 'User5', 'User5', 'U5', 'patient', NULL, NULL, NULL),
-(8, 'user6@gmail.com', '', '', '09122861242', 'User6', 'User6', 'U6', 'patient', NULL, NULL, NULL),
-(11, '20102650@usc.edu.ph', '$2y$10$tX5fjIidYK1qh5nxkgnkT.sfi13E2oi/n8GlMSEUB7dB3fcTi1LUq', '1234', '920516409', 'Jomar', 'Leano', 'M', 'doctor', 2021, 12, 5),
-(12, 'jose@gmail.com', '$2y$10$DHKyYSvWEuTXne5/LfGGNOqXHn/g78MkZI2N5xexZRnSiKV1yfddm', '12312', '092131211231', 'Jose Glenn', 'Samson', 'G.', 'patient', 2021, 12, 5),
-(13, 'doc1@gmail.com', '$2y$10$Qm/7B35Wl1sRE4JIwnx2zebbCs9.4JRgnIPyBANcar7t8V9CtnIlm', '1343214', '12341243', 'doc1', 'doc1', 'd1', 'doctor', 2021, 12, 8),
-(14, 'pat1@gmail.com', '$2y$10$1QaGFsOe3Um9E8ojcvD8huR.vggG7/iOu37C3pucr3CFakjbCzhhS', '123423asdfas', '12343214234', 'pat1', 'pat1', 'P1', 'patient', 2021, 12, 8),
-(15, 'pat2@gmail.com', '$2y$10$56V8EVUsQ4.apaq3HsPIaOrQPRIFqKwhgM6CABKooEstTqrBnCwPm', 'sdfasdfsf3', '2341243432', 'pat2', 'pat2', 'p2', 'patient', 2021, 11, 30);
+INSERT INTO `users` (`id`, `email`, `password`, `confirm_password`, `contact`, `firstname`, `lastname`, `middle_initial`, `role`, `year`, `month`, `day`, `ssn_image`, `health_record`) VALUES
+(3, 'user1@gmail.com', '', '', '09123426921', 'User1', 'User1', 'U1', 'doctor', NULL, NULL, NULL, NULL, NULL),
+(4, 'user2@gmail.com', '', '', '09123422121', 'User2', 'User2', 'U2', 'doctor', NULL, NULL, NULL, NULL, NULL),
+(5, 'user3@gmail.com', '', '', '09132126921', 'User3', 'User3', 'U3', 'doctor', NULL, NULL, NULL, NULL, NULL),
+(6, 'user4@gmail.com', '', '', '09123431242', 'User4', 'User4', 'U4', 'patient', NULL, NULL, NULL, NULL, NULL),
+(7, 'user5@gmail.com', '', '', '09178431242', 'User5', 'User5', 'U5', 'patient', NULL, NULL, NULL, NULL, NULL),
+(8, 'user6@gmail.com', '', '', '09122861242', 'User6', 'User6', 'U6', 'patient', NULL, NULL, NULL, NULL, NULL),
+(11, '20102650@usc.edu.ph', '$2y$10$tX5fjIidYK1qh5nxkgnkT.sfi13E2oi/n8GlMSEUB7dB3fcTi1LUq', '', '920516409', 'Jomar', 'Leano', 'M', 'doctor', 2021, 12, 5, NULL, NULL),
+(12, 'jose@gmail.com', '$2y$10$DHKyYSvWEuTXne5/LfGGNOqXHn/g78MkZI2N5xexZRnSiKV1yfddm', '', '092131211231', 'Jose Glenn', 'Samson', 'G.', 'patient', 2021, 12, 5, NULL, NULL),
+(13, 'doc1@gmail.com', '$2y$10$Qm/7B35Wl1sRE4JIwnx2zebbCs9.4JRgnIPyBANcar7t8V9CtnIlm', '', '12341243', 'doc1', 'doc1', 'd1', 'doctor', 2021, 12, 8, NULL, NULL),
+(14, 'pat1@gmail.com', '$2y$10$1QaGFsOe3Um9E8ojcvD8huR.vggG7/iOu37C3pucr3CFakjbCzhhS', '', '12343214234', 'pat1', 'pat1', 'P1', 'patient', 2021, 12, 8, NULL, NULL),
+(15, 'pat2@gmail.com', '$2y$10$56V8EVUsQ4.apaq3HsPIaOrQPRIFqKwhgM6CABKooEstTqrBnCwPm', '', '2341243432', 'pat2', 'pat2', 'p2', 'patient', 2021, 11, 30, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -337,6 +354,14 @@ ALTER TABLE `insurances`
   ADD PRIMARY KEY (`id`),
   ADD KEY `insurances_userid_foreign` (`userID`),
   ADD KEY `insurances_feeid_foreign` (`feeID`);
+
+--
+-- Indexes for table `lab_tests`
+--
+ALTER TABLE `lab_tests`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `doctor_id` (`doctor_id`),
+  ADD KEY `patient_id` (`patient_id`);
 
 --
 -- Indexes for table `patients`
@@ -420,6 +445,12 @@ ALTER TABLE `insurances`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `lab_tests`
+--
+ALTER TABLE `lab_tests`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
@@ -477,6 +508,13 @@ ALTER TABLE `doctors_lab_tests`
 ALTER TABLE `insurances`
   ADD CONSTRAINT `insurances_feeid_foreign` FOREIGN KEY (`feeID`) REFERENCES `doctors_fees` (`id`),
   ADD CONSTRAINT `insurances_userid_foreign` FOREIGN KEY (`userID`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `lab_tests`
+--
+ALTER TABLE `lab_tests`
+  ADD CONSTRAINT `lab_tests_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`),
+  ADD CONSTRAINT `lab_tests_ibfk_2` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`);
 
 --
 -- Constraints for table `patients`
