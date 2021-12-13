@@ -28,7 +28,7 @@ include('../src/php/dbconnect.php')
             $profile = $row;
         }
         $num = strlen($profile['confirm_password']);
-        $password =  str_repeat("*",$num);
+        $password =  str_repeat("*", $num);
         $dateOfBirth = $profile['year'] . "-" . $profile['month'] . "-" . $profile['day'];
         $today = date("Y-m-d");
         $diff = date_diff(date_create($dateOfBirth), date_create($today));
@@ -75,6 +75,16 @@ include('../src/php/dbconnect.php')
 
                             <h1><?php echo $profile['firstname'] . " " . $profile['middle_initial'] . ". " . $profile['lastname']; ?></h1>
                             <h3>Patient</h3>
+                            <?php
+                            if (isset($_SESSION['acc_error'])) {
+                                foreach ($_SESSION['acc_error'] as $accErr) { ?>
+                                    <div class="alert alert-primary" role="alert">
+                                        <?php echo $accErr ?>
+                                    </div>
+                            <?php }
+                                unset($_SESSION['acc_error']);
+                            }
+                            ?>
                             <div class="profile-settings-nav">
                                 <button type="button" id="AccSetBtn">Account Settings</button>
                                 <button type="button" id="ProfDetBtn">Personal Details</button>
@@ -128,24 +138,24 @@ include('../src/php/dbconnect.php')
                                     <label for="fname"><?php echo $profile['firstname']; ?></label><br>
                                     <label for="lname"><?php echo $profile['lastname'] ?></label><br>
                                     <label for="age"><?php echo $diff->format('%y'); ?></label><br>
-                                    <label for="contact"><?php echo "0".$profile['contact'] ?></label><br>
+                                    <label for="contact"><?php echo "0" . $profile['contact'] ?></label><br>
                                     <label for="height"><?php if ($profile['height'] != NULL) {
-                                                            echo $profile['height']. " cm";
+                                                            echo $profile['height'] . " cm";
                                                         } else {
                                                             echo $noData;
                                                         } ?></label><br>
                                     <label for="weight"><?php if ($profile['weight'] != NULL) {
-                                                            echo $profile['weight']. " kg";
+                                                            echo $profile['weight'] . " kg";
                                                         } else {
                                                             echo $noData;
                                                         } ?></label><br>
-                                                         <label for="heart rate"><?php if ($profile['heart_rate'] != NULL) {
-                                                                echo $profile['blood_pressure']. " mmHg";
+                                    <label for="heart rate"><?php if ($profile['heart_rate'] != NULL) {
+                                                                echo $profile['blood_pressure'] . " mmHg";
                                                             } else {
                                                                 echo $noData;
                                                             } ?></label><br>
                                     <label for="heart rate"><?php if ($profile['heart_rate'] != NULL) {
-                                                                echo $profile['heart_rate']. " bpm";
+                                                                echo $profile['heart_rate'] . " bpm";
                                                             } else {
                                                                 echo $noData;
                                                             } ?></label><br>
@@ -161,7 +171,7 @@ include('../src/php/dbconnect.php')
                     </table>
                 </div>
             </section>
-            <section class="prof-res" id="profResAppCont">     
+            <section class="prof-res" id="profResAppCont">
                 <div class="doc__app-btns">
                     <button class="doc__app-btn" id="showUnAppBtn">Unfinished</button>
                     <button class="doc__app-btn" id="showFinAppBtn">Finished</button>
@@ -193,24 +203,24 @@ include('../src/php/dbconnect.php')
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="../src/php/edit-perDetails-pat.php" method="POST">
-                    <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="email" name="firstname" placeholder="name@gmail.com">
+                    <form action="../src/php/edit-accDetails-pat.php" method="POST">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="name@gmail.com" required>
                             <label for="floatingInput">Email</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="confirm_password" name="confirm_password" placeholder="name@gmail.com">
+                            <input type="text" class="form-control" id="confirm_password" name="confirm_password" placeholder="name@gmail.com" required>
                             <label for="floatingInput">Confirm Password</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="password" name="password" placeholder="name@gmail.com">
+                            <input type="text" class="form-control" id="password" name="password" placeholder="name@gmail.com" required>
                             <label for="floatingInput">New Password</label>
                         </div>
-                        <input type="text" hidden name="patient_id" id="patient_id">
+                        <input type="text" hidden name="patient_id" id="Accpatient_id">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name= submit value = submit class="btn btn-primary">Change</button>
+                    <button type="submit" name=submit value=submit class="btn btn-primary">Change</button>
                 </div>
                 </form>
             </div>
@@ -228,48 +238,16 @@ include('../src/php/dbconnect.php')
                 <div class="modal-body">
                     <form action="../src/php/edit-perDetails-pat.php" method="POST">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name@gmail.com">
-                            <label for="floatingInput">First Name</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="name@gmail.com">
-                            <label for="floatingInput">Last Name</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="middle_initial" name="middle_initial" placeholder="name@gmail.com">
-                            <label for="floatingInput">Middle Initial</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="age" name="age" placeholder="name@gmail.com">
-                            <label for="floatingInput">Birthdate</label>
-                        </div>
-                        <div class="form-floating mb-3">
                             <input type="contact" class="form-control" id="contact" name="contact" placeholder="name@gmail.com">
                             <label for="floatingInput">Contact</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="height" name="height" placeholder="name@gmail.com">
-                            <label for="floatingInput">Height</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="weight" name="weight" placeholder="name@gmail.com">
-                            <label for="floatingInput">Weight</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="blood_pressure" name="blood_pressure" placeholder="name@gmail.com">
-                            <label for="floatingInput">Blood Pressure</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="heartRate" name="heartRate" placeholder="name@gmail.com">
-                            <label for="floatingInput">Heart Rate</label>
                         </div>
                         <input type="text" hidden name="patient_id" id="patient_id">
 
                 </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" name="submit" value="submit" class="btn btn-primary">Change Details</button>
-                        </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary">Change Details</button>
+                </div>
                 </form>
             </div>
         </div>
