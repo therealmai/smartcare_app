@@ -43,9 +43,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="homepage.php">Home</a>
                     </li>
+                    <?php if ($_SESSION['currUser']['role'] != "doctor") { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="search.php">Search</a>
                     </li>
+                    <?php } ?>
                     <?php if ($_SESSION['currUser']['role'] == "doctor") { ?>
                         <li class="nav-item">
                             <a class="nav-link" href="profile-doc.php">Profile Doctor</a>
