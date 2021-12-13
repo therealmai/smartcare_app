@@ -6,12 +6,8 @@
     $blood_pressure = '';
     $heart_rate = '';
    //  var_dump($_POST);
-//    $fileName = basename($_FILES["file"]["name"]);
-//    $dirpath = dirname(getcwd());
-//    $targetFilePath = "C:/xampp/htdocs/smartcare_app/src/uploads/".$fileName; 
-//    $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-//    $allowTypes = array('jpg','png','jpeg','gif','pdf');
-//    echo $fileType;
+   $allowTypes = array('jpg','png','jpeg','gif','pdf');
+   $target_dir = "../uploads/";
     if(isset($_POST['submit'])){
 
         // array init
@@ -42,16 +38,21 @@
             $contact = trim($_POST['contact']);
         }
 
-        if (empty(trim($_FILES['ssn']))) {
+        if (empty(basename($_FILES['ssn']['name']))) {
+            
             $_SESSION['reg_err']['ssnErr'] = "SSN is required";
         } else {
-            $ssn = trim($_POST['ssn']);
+            $ssn = basename($_FILES['ssn']['name']);
+            $targetFileSSN =$target_dir . $ssn; 
+            $fileSSN = strtolower(pathinfo($targetFileSSN,PATHINFO_EXTENSION));
         }
 
-        if (empty(trim($_POST['image_health']))) {
+        if (empty(basename($_FILES['image_health']['name']))) {
             $_SESSION['reg_err']['image_health'] = "Health Record is required";
         } else {
-            $health_record = trim($_POST['image_health']);
+            $health = basename($_FILES['image_health']['name']);
+            $targetFileHealth = $target_dir . $health; 
+            $filehealth = strtolower(pathinfo($targetFileHealth ,PATHINFO_EXTENSION));
         }
 
 
@@ -94,6 +95,12 @@
             }
         }
 
+        if ((move_uploaded_file($_FILES["image_health"]["tmp_name"], $targetFileHealth)) && (move_uploaded_file($_FILES["ssn"]["tmp_name"], $targetFileSSN))) {
+            echo "sucess health and ssn";
+        }else{
+            echo "no health and ssn";
+        }
+
         // Redirect if input validation fails
         if (!empty($_SESSION['reg_err']))
             header('location: ../../public/registration.php');
@@ -106,33 +113,34 @@
         $year = date('Y', strtotime($birthdate));
         $month = date('m', strtotime($birthdate));
         $day = date('d', strtotime($birthdate));
-        
-        $sql = "INSERT INTO users (email, `password`, confirm_password, contact, firstname, lastname, middle_initial, `year`, `month`, `day`) 
-            VALUES ('$email','$hashedPass', '$confPass','$contact','$first_name','$last_name','$middle_initial','$year','$month','$day')";        // var_dump(mysqli_query($mysqli, $sql));
-        
-        if (mysqli_query($mysqli, $sql)) {
-
-            $selectQuery = "SELECT * FROM users WHERE email= '$email' LIMIT 1";
-            $results = mysqli_query($mysqli, $selectQuery);
-            $rows = mysqli_num_rows($results);
-
-            if ($rows > 0) {
-                $row = mysqli_fetch_assoc($results);
-                $_SESSION['currUser'] = $row;
-                echo $_SESSION['currUser']['id']."heelo";
-                $id = $_SESSION['currUser']['id'];
-                
-                $query = "INSERT INTO patients (userID, height, `weight`, blood_pressure, heart_rate)
-                                        VALUES('$id','$height', '$weight', '$blood_pressure', '$heart_rate')";
-                if (mysqli_query($mysqli, $query)){
-                    header("location: ../../public/homepage.php");
-                }else{
-                    echo "Error: " . $query . ":-" . mysqli_error($mysqli);
-                }
-                mysqli_close($mysqli);
-                exit();
-            }            
+        if( (in_array($fileSSN, $allowTypes)) && (in_array($filehealth, $allowTypes))  ){
+        $sql = "INSERT INTO users (email, `password`, confirm_password, contact, firstname, lastname, middle_initial, `year`, `month`, `day`,ssn_image,health_record) 
+            VALUES ('$email','$hashedPass', '$confPass','$contact','$first_name','$last_name','$middle_initial','$year','$month','$day','$health', '$ssn')";        // var_dump(mysqli_query($mysqli, $sql));
+        }else{
+            $_SESSION['reg_err']['filetype_error'] = "Filetype not accepted";
         }
+        if (mysqli_query($mysqli, $sql)) {
+                $selectQuery = "SELECT * FROM users WHERE email= '$email' LIMIT 1";
+                $results = mysqli_query($mysqli, $selectQuery);
+                $rows = mysqli_num_rows($results);
+
+                if ($rows > 0) {
+                    $row = mysqli_fetch_assoc($results);
+                    $_SESSION['currUser'] = $row;
+                    echo $_SESSION['currUser']['id']."heelo";
+                    $id = $_SESSION['currUser']['id'];
+                    
+                    $query = "INSERT INTO patients (userID, height, `weight`, blood_pressure, heart_rate)
+                                            VALUES('$id','$height', '$weight', '$blood_pressure', '$heart_rate')";
+                    if (mysqli_query($mysqli, $query)){
+                        header("location: ../../public/homepage.php");
+                    }else{
+                        echo "Error: " . $query . ":-" . mysqli_error($mysqli);
+                    }
+                    mysqli_close($mysqli);
+                    exit();
+                }            
+         }
 
 
         $_SESSION['reg_error']['server_err'] = "A server error has occurred";
@@ -140,4 +148,3 @@
         header('location: ../../public/registration.php');
 
     };
-?>
