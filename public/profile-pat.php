@@ -44,7 +44,11 @@ include('../src/php/dbconnect.php')
             <br>
             <br>
             <center>
-                <img src="../src/img/profiles/<?php echo $profile['image_profile'] ?>"/ width=60%;>
+                <?php if ($profile['image_profile'] != NULL) { ?>
+                    <img src="../src/img/profiles/<?php echo $profile['image_profile'] ?>" / width=60%;>
+                <?php } else { ?>
+                    <img src="../src/img/blankPP.png" / width=60%;>
+                <?php } ?>
             </center>
             <br>
             <button id="showPatProfBtn">Profile</button>
@@ -60,12 +64,15 @@ include('../src/php/dbconnect.php')
                         <col span="1" style="width: 15%;">
                         <col span="1" style="width: 85%;">
                         <td style="padding-right:20px; vertical-align:top">
-                            <img src="../src/img/profiles/<?php echo $profile['image_profile'] ?>" / width=100%;>
+                            <?php if ($profile['image_profile'] != NULL) { ?> <img src="../src/img/profiles/<?php echo $profile['image_profile'] ?>" / width=100%;>
+                            <?php } else { ?>
+                                <img src="../src/img/blankPP.png" / width=100%;>
+                            <?php } ?>
                             <br>
                             <center>
                                 <div class="pt-3">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropProfile" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
-                                      Change Profile Picture
+                                        Change Profile Picture
                                     </button>
                                 </div>
                             </center>
@@ -161,7 +168,7 @@ include('../src/php/dbconnect.php')
                                                             } ?></label><br>
                                     <div class="pt-3">
 
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> ) >
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
                                             Change Personal Details
                                         </button>
                                     </div>
