@@ -44,7 +44,7 @@ include('../src/php/dbconnect.php')
             <br>
             <br>
             <center>
-                <img src="../src/img/blankPP.png" / width=60%;>
+                <img src="../src/img/profiles/<?php echo $profile['image_profile'] ?>"/ width=60%;>
             </center>
             <br>
             <button id="showPatProfBtn">Profile</button>
@@ -60,12 +60,12 @@ include('../src/php/dbconnect.php')
                         <col span="1" style="width: 15%;">
                         <col span="1" style="width: 85%;">
                         <td style="padding-right:20px; vertical-align:top">
-                            <img src="../src/img/blankPP.png" / width=100%;>
+                            <img src="../src/img/profiles/<?php echo $profile['image_profile'] ?>" / width=100%;>
                             <br>
                             <center>
                                 <div class="pt-3">
-                                    <button type="button" class="btn btn-primary">
-                                        Change Profile Picture
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropProfile" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
+                                      Change Profile Picture
                                     </button>
                                 </div>
                             </center>
@@ -161,7 +161,7 @@ include('../src/php/dbconnect.php')
                                                             } ?></label><br>
                                     <div class="pt-3">
 
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> ) >
                                             Change Personal Details
                                         </button>
                                     </div>
@@ -242,6 +242,48 @@ include('../src/php/dbconnect.php')
                             <label for="floatingInput">Contact</label>
                         </div>
                         <input type="text" hidden name="patient_id" id="patient_id">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary">Change Details</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Profile Pic -->
+    <div class="modal fade" id="staticBackdropProfile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Change Profile Picture</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="../src/php/add-profPat.php" method="POST" enctype="multipart/form-data">
+                        <div class="form mb-3">
+                            <input type="file" class="form-control" name="profile_image" accept="image/*" onchange="loadFile(event)">
+                            <br>
+                            <img id="image_preview" class="img-fluid">
+                            <img id="output" class="img-fluid">
+                            <script>
+                                var loadFile = function(event) {
+                                    var output = document.getElementById('output');
+                                    if (output && output.style) {
+                                        document.getElementById('image_preview').innerHTML = "Preview Image";
+                                        output.style.height = '400px';
+                                        output.style.width = '400px';
+                                    }
+                                    output.src = URL.createObjectURL(event.target.files[0]);
+                                    output.onload = function() {
+                                        URL.revokeObjectURL(output.src) // free memory
+                                    }
+                                };
+                            </script>
+                        </div>
+                        <input type="text" hidden name="patient_id" id="prof_id">
 
                 </div>
                 <div class="modal-footer">
