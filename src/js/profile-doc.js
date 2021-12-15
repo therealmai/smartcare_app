@@ -127,6 +127,11 @@ function addFocusClassToAppBtn(button) {
     $(".doc__app-btns").children().removeClass("doc__app-btn--focus");
     $(button).addClass("doc__app-btn--focus");
 }
+function showResultFromAppointBtn(cont, appBtn) {
+    isolateAppointmentCont(cont);
+    isAppContEmpty(cont)
+    addFocusClassToAppBtn(appBtn);
+}
 
 addEventGlobalListener('click', AccSetBtn, (e) => {
     console.log("im here again profacc");
@@ -206,19 +211,16 @@ addEventGlobalListener('click', showDocAppointBtn, e => {
     })
 })
 addEventGlobalListener("click", showUnAppBtn, e=> {
-    isolateAppointmentCont(docAppUnResCont);
-    isAppContEmpty(docAppUnResCont)
-    addFocusClassToAppBtn(showUnAppBtn);
+    showResultFromAppointBtn(docAppUnResCont, showUnAppBtn);
 })
 addEventGlobalListener("click", showFinAppBtn, e=> {
-    isolateAppointmentCont(docAppFinResCont);
-    isAppContEmpty(docAppFinResCont)
-    addFocusClassToAppBtn(showFinAppBtn);
+    showResultFromAppointBtn(docAppFinResCont, showFinAppBtn);
 })
 addEventGlobalListener("click", "#showNotifsBtn", e => {
-    isolateAppointmentCont("#docNotifsCont");
-    isAppContEmpty("#docNotifsCont");
-    addFocusClassToAppBtn("#showNotifsBtn");
+    showResultFromAppointBtn("#docNotifsCont", "#showNotifsBtn");
+})
+addEventGlobalListener("click", "#showSchedBtn", e => {
+    showResultFromAppointBtn("#docSchedCont", "#showSchedBtn");
 })
 addEventGlobalListener("click", ".doc__app--discard", e => {
     if(confirm("Do you want to discard this notification?")) {

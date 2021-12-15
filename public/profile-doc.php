@@ -124,6 +124,9 @@
                     <button class="doc__app-btn" id="showUnAppBtn">Unfinished</button>
                     <button class="doc__app-btn" id="showFinAppBtn">Finished</button>
                     <button class="doc__app-btn" id="showNotifsBtn">Notifications</button>
+                    <button class="doc__app-btn doc__app-btn--end" id="showSchedBtn">
+                        Schedule
+                    </button>
                 </div>
                 <div id="docAppResCont">
                     <div class="doc__app-cont hide" id="docAppFinResCont">
@@ -134,6 +137,31 @@
                     </div>
                     <div class="doc__app-cont hide" id="docNotifsCont">
                         <h1 class="doc__empty-msg hide">Nothing to see here.</h1>
+                    </div>
+                    <div class="doc__sched-cont hide" id="docSchedCont">
+                        <button class="doc__sched-cont--grid-top" id="addSchedBtn">
+                            Add
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>
+                        <div class="doc__weekday-cont" id="schedWeekdayCont">
+                            <button>Monday</button>
+                            <button>Monday</button>
+                            <button>Monday</button>
+                            <button>Monday</button>
+                            <button>Monday</button>
+                        </div>
+                        <div class="doc__time-cont" id="timeCont">
+                            <div data-id="" class="doc__time">
+                                <h3>9:00 AM - 9:30 AM</h3>
+                                <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
+                                <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+                            </div>
+                            <div class="doc__time">
+                                <h3>9:30 AM - 10:00 AM</h3>
+                                <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
+                                <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
