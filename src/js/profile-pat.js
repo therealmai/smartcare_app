@@ -50,7 +50,9 @@ function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastn
     let month = (Month).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
     let day = (Day).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
     let buttonHtml = generateBtnHtmlApp(action);
-    let time = formatTime(Time);
+    let time = Time.split("-");
+    let timeS = formatTime(time[0]);
+    let timeE = formatTime(time[1]);
     let html = `
     <div data-id="${ID}" class="doc__app">
         <span class="fa-stack fa-3x">
@@ -63,7 +65,7 @@ function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastn
         <h5 class="doc__app--type">${type}</h5>
         <h5 class="doc__app--time">
             <i class="fa fa-clock-o" aria-hidden="true"></i>
-            ${time} &nbsp &nbsp ${month}/${day}/${Year}
+            ${timeS} - ${timeE} &nbsp &nbsp ${month}/${day}/${Year}
         </h5>
         ${buttonHtml}
     </div>

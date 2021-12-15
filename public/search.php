@@ -94,7 +94,9 @@
 
                     <div>
                         <label for="time">Time of Appointment</label>
-                        <input name="time" id="time" type="time">
+                        <select name="time" id="time">
+                            <option disabled selected value> -- select an option -- </option>
+                        </select>
                     </div>
 
                     <div>
