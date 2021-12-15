@@ -175,10 +175,16 @@ include('../src/php/dbconnect.php')
                 <div class="doc__app-btns">
                     <button class="doc__app-btn" id="showUnAppBtn">Unfinished</button>
                     <button class="doc__app-btn" id="showFinAppBtn">Finished</button>
+                    <button class="doc__app-btn" id="showNotifsBtn">Notifications</button>
                 </div>
                 <div class="prof-res__appoint-cont hide" id="profResUnApp">
+                    <h1 class="doc__empty-msg hide">Nothing to see here.</h1>
                 </div>
                 <div class="prof-res__appoint-cont hide" id="profResFinApp">
+                    <h1 class="doc__empty-msg hide">Nothing to see here.</h1>
+                </div>
+                <div class="prof-res__appoint-cont hide" id="appNotifsCont">
+                        <h1 class="doc__empty-msg hide">Nothing to see here.</h1>
                 </div>
             </section>
             <section class="prof-prescription" id="profPatPres">

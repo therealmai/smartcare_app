@@ -13,12 +13,20 @@
     $time = $_POST["time"];
     $type = $_POST["appoint-type"];
     $docId = $_POST["docId"];
-    $patientId = $_SESSION['currUser']["id"];
-    //$patientId = $_SESSION["patientId"];
+    $userId = $_SESSION['currUser']["id"];
 
     $query = <<<EOT
-        INSERT INTO appointments(DoctorID, PatientID, Type, Day, Month, Year, Time, isFinished)
-        VALUES('$docId', '$patientId', '$type', '$day', '$month', '$year', '$time', 0)
+        SELECT id FROM patients
+        WHERE userID = $userId
+    EOT;
+
+    $stmt = $con->query($query);
+    $result = $stmt->fetch_row();
+    $patId = $result[0];
+
+    $query = <<<EOT
+        INSERT INTO appointments(DoctorID, PatientID, Type, Day, Month, Year, Time, isFinished, isCancelled)
+        VALUES('$docId', '$patId', '$type', '$day', '$month', '$year', '$time', 0, 0)
     EOT;
 
     $stmt = $con->query($query);

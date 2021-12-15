@@ -130,9 +130,15 @@
                     <button class="doc__app-btn" id="showNotifsBtn">Notifications</button>
                 </div>
                 <div id="docAppResCont">
-                    <div class="doc__app-cont hide" id="docAppFinResCont"></div>
-                    <div class="doc__app-cont hide" id="docAppUnResCont"></div>
-                    <div class="doc__app-cont hide" id="docNotifsCont"></div>
+                    <div class="doc__app-cont hide" id="docAppFinResCont">
+                        <h1 class="doc__empty-msg hide">Nothing to see here.</h1>
+                    </div>
+                    <div class="doc__app-cont hide" id="docAppUnResCont">
+                        <h1 class="doc__empty-msg hide">Nothing to see here.</h1>
+                    </div>
+                    <div class="doc__app-cont hide" id="docNotifsCont">
+                        <h1 class="doc__empty-msg hide">Nothing to see here.</h1>
+                    </div>
                 </div>
             </section>
         </section>

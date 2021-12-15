@@ -74,7 +74,7 @@ $app-cancel: red;
         }
     }
 
-    &--done, &--cancel, &--remove {
+    &--done, &--cancel, &--remove, &--discard {
         border: 1px solid black;
         color: white;
         grid-row: 3 / 4;
@@ -88,7 +88,7 @@ $app-cancel: red;
         }
     }
 
-    &--cancel, &--remove {
+    &--cancel, &--remove, &--discard {
         background-color: red;
     }
 
@@ -98,7 +98,7 @@ $app-cancel: red;
         grid-column: 3 / 4;
     }
 
-    &--remove {
+    &--remove, &--discard {
         grid-row: 3 / 4;
         grid-column: 5 / 6;
     }

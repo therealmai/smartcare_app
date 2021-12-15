@@ -115,7 +115,7 @@ button:hover {
   display: none;
 }
 
-.doc__app--done, .doc__app--cancel, .doc__app--remove {
+.doc__app--done, .doc__app--cancel, .doc__app--remove, .doc__app--discard {
   border: 1px solid black;
   color: white;
   -ms-grid-row: 3;
@@ -125,13 +125,13 @@ button:hover {
   padding: 10px;
 }
 
-.doc__app--done:hover, .doc__app--cancel:hover, .doc__app--remove:hover {
+.doc__app--done:hover, .doc__app--cancel:hover, .doc__app--remove:hover, .doc__app--discard:hover {
   background-color: white;
   border: 1px solid black;
   color: black;
 }
 
-.doc__app--cancel, .doc__app--remove {
+.doc__app--cancel, .doc__app--remove, .doc__app--discard {
   background-color: red;
 }
 
@@ -145,7 +145,7 @@ button:hover {
   grid-column: 3 / 4;
 }
 
-.doc__app--remove {
+.doc__app--remove, .doc__app--discard {
   -ms-grid-row: 3;
   -ms-grid-row-span: 1;
   grid-row: 3 / 4;
