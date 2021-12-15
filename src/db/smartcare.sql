@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2021 at 11:02 AM
+-- Generation Time: Dec 15, 2021 at 11:28 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -114,7 +114,7 @@ CREATE TABLE `doctors_schedules` (
   `doctor_id` bigint(20) UNSIGNED NOT NULL,
   `time_start` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `time_end` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `day` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `day` enum('sun','mon','tue','wed','thu','fri','sat') COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --

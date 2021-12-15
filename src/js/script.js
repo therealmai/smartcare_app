@@ -23,6 +23,8 @@ let specialties = {
     "pedia" : "Pediatrician",
     "radio" : "Radiologist"
 }
+
+const daysOfTheWeek = ["sun", "mon", 'tue', 'wed', 'thu', 'fri', 'sat'];
 // SEARCH PAGE
 
 // UTILITY FUNCTIONS
@@ -154,4 +156,8 @@ addEventGlobalListener('submit', appointForm, (e) => {
             alert(msg);
         }
     })
+})
+addEventGlobalListener('change', "#date", e => {
+    let a = new Date($("#date").val());
+    console.log(a.getDay());
 })
