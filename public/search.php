@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../src/css/search.css">
     <link rel="stylesheet" href="../src/css/appointment.css">
     <link rel="stylesheet" href="../src/css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script defer src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script defer src="../src/js/script.js"></script>
     <title>SmartCare - Search</title>
 </head>
 
@@ -39,10 +41,6 @@
                 <select name="order" id="searchOrder">
                     <option selected value="name-asc">Name - ASC</option>
                     <option value="name-desc">Name - DESC</option>
-                    <option value="f2f-price-asc">F2F Price - ASC</option>
-                    <option value="f2f-price-desc">F2F Price - DESC</option>
-                    <option value="v-price-asc">Virtual Price - ASC</option>
-                    <option value="v-price-desc">Virtual Price - DESC</option>
                 </select>
             </div>
         </form>
@@ -76,14 +74,14 @@
                 </div>
             </div>
 
-            <div class="right-sec__page">
+            <!-- <div class="right-sec__page">
                 <p class="right-sec__page--1">1</p>
                 <div class="line"></div>
                 <p class="right-sec__page--2">2</p>
 
                 <p class="right-sec__page--ad">Appointment Details</p>
                 <p class="right-sec__page--s">Summary</p>
-            </div>
+            </div> -->
 
             <div class="right-sec__form-cont">
                 <h4>Appointment Information</h4>
@@ -124,9 +122,6 @@
             </div>
         </section>
     </main>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="../src/js/script.js"></script>
 </body>
 
 </html>

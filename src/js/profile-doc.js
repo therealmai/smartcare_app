@@ -29,6 +29,7 @@ let today = new Date();
 let tday = today.getDate()
 let tmon = today.getMonth() + 1
 let tyear = today.getFullYear()
+let weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 lineA.style.display = "block";
 lineB.style.display = "none";
@@ -36,13 +37,21 @@ accInfo.style.display = "block";
 profInfo.style.display = "none";
 ProfProfBtn.style.backgroundColor = " #2240aa";
 acc.style.color = "black";
-isolateResultCont("#profPat");
+isolateProfileTab("#profPat");
 
 function addEventGlobalListener(action, selector, callback) {
     document.addEventListener(action, (e) => {
         if(e.target.matches(selector)) 
             callback(e);
     })
+}
+function isolateElemCont(cont , elem) {
+    $(cont).children(":not(.hide)").addClass("hide");
+    $(elem).removeClass("hide");
+}
+function addFocusClassToBtn(button, focus) {
+    $(`.${focus}`).removeClass(focus);
+    $(button).addClass(focus);
 }
 
 function generateAppointment({ID, Day, Month, Time, Year, userMon, userYear, userDay, Type, firstname, lastname, middle_initial, contact}, appType, cont) {
@@ -80,6 +89,18 @@ function generateAppointment({ID, Day, Month, Time, Year, userMon, userYear, use
     `;
     $(cont).append(html);
 }
+function generateSchedule({id, time_start, time_end}, day) {
+    timeS = formatTime(time_start);
+    timeE = formatTime(time_end);
+    let html = `
+        <div data-id="${id}" class="doc__time">
+            <h3>${timeS} - ${timeE}</h3>
+            <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
+            <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+        </div>
+    `;
+    $(`#${day}`).append(html);
+}
 function generateBtnHtmlApp(type) {
     if(type === "un") {
         return `
@@ -114,27 +135,11 @@ function formatTime(time) {
     }
     return timeStart[0] + ":" + timeStart[1] + " " + tsampm;
 }
-function isolateElemCont(cont , elem) {
-    $(cont).children(":not(.hide)").addClass("hide");
-    $(elem).removeClass("hide");
-}
 function isolateProfileTab(tab) {
     isolateElemCont(profRes, tab);
 }
-function isolateResultCont(resultCont) {
-    $(profRes).children(":not(.hide)").addClass("hide");
-    $(resultCont).removeClass("hide");
-}
-function isolateAppointmentCont(appcont) {
-    $(docAppResCont).children(":not(.hide)").addClass("hide");
-    $(appcont).removeClass("hide");
-}
-function addFocusClassToBtn(button, focus) {
-    $(`.${focus}`).removeClass(focus);
-    $(button).addClass(focus);
-}
 function showResultFromAppointBtn(cont, appBtn) {
-    isolateAppointmentCont(cont);
+    isolateElemCont(docAppResCont, cont);
     isAppContEmpty(cont)
     addFocusClassToBtn(appBtn, "doc__app-btn--focus");
 }
@@ -227,6 +232,33 @@ addEventGlobalListener("click", "#showNotifsBtn", e => {
 })
 addEventGlobalListener("click", "#showSchedBtn", e => {
     showResultFromAppointBtn("#docSchedCont", "#showSchedBtn");
+    $.ajax({
+        type: "GET",
+        url: "../src/php/get-schedules_act.php",
+        data: "",
+        success: res => {
+            let {data} = JSON.parse(res);
+            for(var i of data) {
+                console.log(i.day)
+                generateSchedule(i, i.day)
+            }
+        }
+    })
+})
+addEventGlobalListener("submit", "#addSchedForm", e => {
+    e.preventDefault();
+    if(confirm("Do you want to add this schedule?")) {
+        let data = $("#addSchedForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: "../src/php/add-schedule_act.php",
+            data: data,
+            success: res => {
+                let {message, success} = JSON.parse(res);
+                alert(message);
+            }
+        })
+    }
 })
 addEventGlobalListener("click", ".doc__app--discard", e => {
     if(confirm("Do you want to discard this notification?")) {
@@ -287,15 +319,17 @@ addEventGlobalListener("click", ".doc__app--cancel", e => {
         })
     }
 })
-addEventGlobalListener("click", "#addSchedBtn", e => {
-    alert("add");
-})
 addEventGlobalListener("click", ".doc__weekday-btn", e => {
-    let cont = $(e.target).attr("data-cont-id");
+    let weekday = `#${$(e.target).attr("data-weekday")}`;
+    let html = `<h1>No time set on this day.</h1>`;
 
-    $(`#timeCont`).children(":not(.hide)").addClass("hide");
-    $(`#${cont}`).removeClass("hide");
+    isolateElemCont("#timeCont", weekday);
+    addFocusClassToBtn(e.target, "doc__weekday-btn--focus");
 
-    $(".doc__weekday-btn--focus").removeClass("doc__weekday-btn--focus");
-    $(e.target).addClass("doc__weekday-btn--focus");
+    if($(weekday).children().length === 0) {
+        $(weekday).append(html);
+    }
+
+    $("#weekdayInput").text(weekday.substring(1))
+    $("#weekdayInput").attr("value", weekday.substring(1))
 })

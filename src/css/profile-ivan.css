@@ -215,13 +215,23 @@ button:hover {
   justify-items: center;
 }
 
-.doc__sched-cont--grid-top {
+.doc__add-sched-btn {
   background-color: rgb(10, 161, 18);
   border: 2px solid black;
   color: white;
+  padding: 10px;
+}
+
+.doc__sched-cont--grid-top {
+  display: flex;
+  gap: 15px;
+  align-items: center;
   grid-area: a;
   justify-self: flex-start;
-  padding: 10px;
+}
+
+.doc__sched-cont--grid-top select, .doc__sched-cont--grid-top input{
+  padding: 7.5px;
 }
 
 .doc__weekday-cont {

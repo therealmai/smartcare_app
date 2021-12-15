@@ -107,17 +107,6 @@ function formatTime(time) {
 }
 //              PATIENTS
 
-
-//              DOCTORS
-// addEventGlobalListener('click', showDocProfBtn, (e) => {
-//     let html = `
-//         <h1>
-//             REPLACE THIS DOCTOR PROFILE DUMMY CODE WITH THE CORRECT ONE.
-//         </h1>
-//     `;
-//     // $(profRes).children().remove();
-//     $(profRes).append(html);
-
 //              PATIENTS
 addEventGlobalListener('click', showPatProfBtn, (e) => {
     let html = `
