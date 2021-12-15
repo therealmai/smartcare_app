@@ -19,10 +19,14 @@ include '../src/php/dbconnect.php';
 
     <?php include "./header.php" ?>
 
-    <main class="prof">
+    <main class="profLabTest">
         <section>
             <h1>Patients' Lab Tests</h1>
-            <table>
+            <table style="width:100%;">
+                <col span="1" style="width: 30%;">
+                <col span="1" style="width: 30%;">
+                <col span="1" style="width: 30%;">
+                <col span="1" style="width: 10%;">
                 <thead>
                     <tr>
                         <th>

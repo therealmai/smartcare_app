@@ -2,8 +2,6 @@ let profRes = "#profRes";
 
 let showPatProfBtn = "#showPatProfBtn";
 let showPatAppointBtn = "#showPatAppointBtn";
-let showPatDocBtn ="#showPatDocBtn";
-let showPatPresBtn = "#showPatPresBtn";
 let profResAppCont = "#profResAppCont";
 let profPat = "#profPat";
 
@@ -20,8 +18,6 @@ var accInfo = document.getElementById("acc-info");
 var profInfo = document.getElementById("prof-info");
 var ProfProfBtn = document.getElementById("showPatProfBtn");
 var PatAppointBtn = document.getElementById("showPatAppointBtn");
-var PatPresBtn = document.getElementById("showPatPresBtn");
-var PatDocBtn = document.getElementById("showPatDocBtn");
 var lineA = document.getElementById("line-selected-a");
 var lineB = document.getElementById("line-selected-b");
 
@@ -172,27 +168,14 @@ addEventGlobalListener('click', ProfDetBtn, (e) => {
 addEventGlobalListener('click', showPatProfBtn, (e) => {
     console.log("im here patprof");
     ProfProfBtn.style.backgroundColor = "#2240aa";
-    PatDocBtn.style.backgroundColor = "#5f7de0";
     PatAppointBtn.style.backgroundColor = "#5f7de0";
-    PatPresBtn.style.backgroundColor = "#5f7de0";
     isolateResultCont(profPat);
-})
-
-addEventGlobalListener('click', showPatDocBtn, (e) => {
-    console.log("im here patdoc");
-    ProfProfBtn.style.backgroundColor = "#5f7de0";
-    PatDocBtn.style.backgroundColor = "#2240aa";
-    PatAppointBtn.style.backgroundColor = "#5f7de0";
-    PatPresBtn.style.backgroundColor = "#5f7de0";
-    isolateResultCont(profPatDoc);
 })
 
 addEventGlobalListener('click', showPatAppointBtn, (e) => {
     console.log("im here patappoint");
     ProfProfBtn.style.backgroundColor = "#5f7de0";
-    PatDocBtn.style.backgroundColor = "#5f7de0";
     PatAppointBtn.style.backgroundColor = "#2240aa";
-    PatPresBtn.style.backgroundColor = "#5f7de0";
     isolateResultCont(profResAppCont)
     $.ajax({
         type: "GET",
@@ -260,31 +243,4 @@ addEventGlobalListener("click", "#showNotifsBtn", e=> {
 $(window).on("load", (evt) => {
     $(showPatProfBtn).trigger('click');
     $(showPatProfBtn).trigger('focus');
-})
-
-addEventGlobalListener('click', showPatPresBtn, (e) => {
-    ProfProfBtn.style.backgroundColor = "#5f7de0";
-    PatDocBtn.style.backgroundColor = "#5f7de0";
-    PatAppointBtn.style.backgroundColor = "#5f7de0";
-    PatPresBtn.style.backgroundColor = "#2240aa";
-    isolateResultCont(profPatPres);
-
-    // $.ajax({
-    //     type: "GET",
-    //     data: "appIdArr=" + JSON.stringify(appIdArr),
-    //     url: "../src/php/get-appoints_act.php",
-    //     success: (resp) => {
-    //         let {finished, unfinished} = JSON.parse(resp);
-    //         for(var i of finished) {
-    //             generateAppointment(i, "Delete", profResFinApp);
-    //             if(!appIdArr.includes(i.ID)) 
-    //                 appIdArr.push(i.ID);
-    //         } 
-    //         for(var i of unfinished){
-    //             generateAppointment(i, "Cancel", profResUnApp);
-    //             if(!appIdArr.includes(i.ID))
-    //                 appIdArr.push(i.ID);
-    //         }
-    //     }
-    // })
 })

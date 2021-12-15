@@ -53,8 +53,6 @@ include('../src/php/dbconnect.php')
             <br>
             <button id="showPatProfBtn">Profile</button>
             <button id="showPatAppointBtn">Appointments</button>
-            <button id="showPatPresBtn">Prescriptions</button>
-            <button id="showPatDocBtn">Doctors</button>
         </section>
 
         <div class="prof-container" id="profRes">
@@ -79,7 +77,6 @@ include('../src/php/dbconnect.php')
                             <br><br><br>
                         </td>
                         <td>
-
                             <h1><?php echo $profile['firstname'] . " " . $profile['middle_initial'] . ". " . $profile['lastname']; ?></h1>
                             <h3>Patient</h3>
                             <?php
@@ -193,12 +190,6 @@ include('../src/php/dbconnect.php')
                 <div class="prof-res__appoint-cont hide" id="appNotifsCont">
                         <h1 class="doc__empty-msg hide">Nothing to see here.</h1>
                 </div>
-            </section>
-            <section class="prof-prescription" id="profPatPres">
-                    insert prescription here
-            </section>
-            <section class="prof-pat-doc" id="profPatDoc">
-                    insert doctors heres
             </section>
         </div>
     </main>
