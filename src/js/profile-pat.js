@@ -118,10 +118,12 @@ addEventGlobalListener('click', showPatProfBtn, (e) => {
 })
 
 function showData(arr,age){
-    console.log(arr['email']);
+    
     
     document.getElementById("patient_id").value=arr['userID'];
    document.getElementById("Accpatient_id").value=arr['userID'];
+   document.getElementById("prof_id").value=arr['userID'];
+   console.log(arr['userID']);
    document.getElementById("email").value = arr['email'];
     // document.getElementById("password").value = arr['password'];
   
