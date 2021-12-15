@@ -123,6 +123,10 @@ header {
   text-align: left;
 }
 
+.right-sec__form-cont h4 {
+  margin: 10px 0;
+}
+
 .right-sec__form-cont form {
   display: -ms-grid;
   display: grid;

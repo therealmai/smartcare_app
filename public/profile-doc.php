@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="../src/css/profile-ivan.css">
     <title>SmartCare - Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script defer src="../src/js/jquery-3.6.0.min.js"></script>
+    <script defer src="../src/js/profile-doc.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -124,6 +127,9 @@
                     <button class="doc__app-btn" id="showUnAppBtn">Unfinished</button>
                     <button class="doc__app-btn" id="showFinAppBtn">Finished</button>
                     <button class="doc__app-btn" id="showNotifsBtn">Notifications</button>
+                    <button class="doc__app-btn doc__app-btn--end" id="showSchedBtn">
+                        Schedule
+                    </button>
                 </div>
                 <div id="docAppResCont">
                     <div class="doc__app-cont hide" id="docAppFinResCont">
@@ -135,13 +141,46 @@
                     <div class="doc__app-cont hide" id="docNotifsCont">
                         <h1 class="doc__empty-msg hide">Nothing to see here.</h1>
                     </div>
+                    <div class="doc__sched-cont hide" id="docSchedCont">
+                        <form class="doc__sched-cont--grid-top" id="addSchedForm" action="">
+                            <button type="submit" class="doc__add-sched-btn">
+                                Add
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                            <select name="day">
+                                <option id="weekdayInput" value="" selected>
+                                    Choose a Day Below
+                                </option>
+                            </select>
+                            <input name="time-start" type="time">
+                            <input name="time-end" type="time">
+                        </form>
+                        <div class="doc__weekday-cont" id="schedWeekdayCont">
+                            <button class="doc__weekday-btn" data-weekday="sun">Sunday</button>
+                            <button  class="doc__weekday-btn" data-weekday="mon">Monday</button>
+                            <button  class="doc__weekday-btn" data-weekday="tue">Tuesday</button>
+                            <button  class="doc__weekday-btn" data-weekday="wed">Wednesday</button>
+                            <button  class="doc__weekday-btn" data-weekday="thu">Thursday</button>
+                            <button  class="doc__weekday-btn" data-weekday="fri">Friday</button>
+                            <button  class="doc__weekday-btn" data-weekday="sat">Saturday</button>
+                        </div>
+                        <div class="doc__time-cont" id="timeCont">
+                            <div class="hide" id="sun"></div>
+                            <div class="hide" id="mon">
+                            </div>
+                            <div class="hide" id="tue">
+                            </div>
+                            <div class="hide" id="wed"></div>
+                            <div class="hide" id="thu"></div>
+                            <div class="hide" id="fri"></div>
+                            <div class="hide" id="sat"></div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </section>
     </main>
-    <script src="../src/js/jquery-3.6.0.min.js"></script>
-    <script src="../src/js/profile-doc.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

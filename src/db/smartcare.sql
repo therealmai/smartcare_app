@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2021 at 02:18 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.4.22
+-- Generation Time: Dec 15, 2021 at 11:28 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -45,17 +45,10 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`ID`, `DoctorID`, `PatientID`, `Type`, `Day`, `Month`, `Year`, `Time`, `IsFinished`, `IsCancelled`) VALUES
-(1, 2, 1, 'f2f', 6, 11, 2021, '21:33', 0, 0),
-(2, 2, 2, 'online', 11, 11, 2021, '21:37', 1, 0),
-(3, 2, 3, 'online', 15, 11, 2021, '19:37', 1, 0),
-(4, 2, 1, 'f2f', 9, 11, 2021, '21:48', 0, 0),
-(5, 6, 1, 'f2f', 9, 12, 2021, '08:12', 0, 0),
-(6, 3, 1, 'online', 18, 12, 2021, '08:14', 0, 0),
-(7, 3, 1, 'f2f', 10, 12, 2021, '22:15', 0, 0),
-(8, 2, 1, 'f2f', 10, 12, 2021, '20:15', 0, 0),
-(9, 2, 5, 'f2f', 9, 12, 2021, '20:32', 1, 0),
-(10, 6, 5, 'online', 11, 12, 2021, '20:32', 1, 0),
-(11, 3, 5, 'f2f', 10, 12, 2021, '20:29', 0, 0);
+(13, 2, 7, 'f2f', 15, 12, 2021, '15:06', 1, 0),
+(14, 2, 7, 'f2f', 14, 12, 2021, '15:08', 1, 0),
+(17, 2, 6, 'online', 8, 12, 2021, '15:55', 1, 0),
+(18, 2, 5, 'f2f', 16, 12, 2021, '09:26', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -68,18 +61,17 @@ CREATE TABLE `doctors` (
   `userID` bigint(20) UNSIGNED NOT NULL,
   `specialization` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `license_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `degree` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `degree` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image_profile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `doctors`
 --
 
-INSERT INTO `doctors` (`id`, `userID`, `specialization`, `license_number`, `degree`) VALUES
-(2, 13, 'Cardiologist', '', ''),
-(3, 4, 'Pediatrician', '', ''),
-(4, 5, 'Pediatrician', '', ''),
-(6, 11, 'Pediatrician', '', '');
+INSERT INTO `doctors` (`id`, `userID`, `specialization`, `license_number`, `degree`, `image_profile`) VALUES
+(2, 13, 'Cardiologist', '', '', NULL),
+(6, 11, 'Pediatrician', '', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -119,11 +111,19 @@ CREATE TABLE `doctors_lab_tests` (
 
 CREATE TABLE `doctors_schedules` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `time` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` date NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `doctor_id` bigint(20) UNSIGNED NOT NULL,
+  `time_start` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `time_end` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `day` enum('sun','mon','tue','wed','thu','fri','sat') COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `doctors_schedules`
+--
+
+INSERT INTO `doctors_schedules` (`id`, `doctor_id`, `time_start`, `time_end`, `day`) VALUES
+(4, 2, '16:57', '16:58', 'sun'),
+(5, 2, '18:57', '19:58', 'sun');
 
 -- --------------------------------------------------------
 
@@ -185,6 +185,7 @@ CREATE TABLE `patients` (
   `weight` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `blood_pressure` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `heart_rate` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image_profile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -193,12 +194,11 @@ CREATE TABLE `patients` (
 -- Dumping data for table `patients`
 --
 
-INSERT INTO `patients` (`id`, `userID`, `height`, `weight`, `blood_pressure`, `heart_rate`, `created_at`, `updated_at`) VALUES
-(1, 6, '', '', '', '', NULL, NULL),
-(2, 7, '', '', '', '', NULL, NULL),
-(3, 8, '', '', '', '', NULL, NULL),
-(4, 15, '', '', '', '', NULL, NULL),
-(5, 14, '', '', '', '', NULL, NULL);
+INSERT INTO `patients` (`id`, `userID`, `height`, `weight`, `blood_pressure`, `heart_rate`, `image_profile`, `created_at`, `updated_at`) VALUES
+(4, 15, '', '', '', '', NULL, NULL, NULL),
+(5, 14, '', '', '', '', NULL, NULL, NULL),
+(6, 16, '', '', '', '', NULL, NULL, NULL),
+(7, 17, '', '', '', '', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -292,17 +292,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `confirm_password`, `contact`, `firstname`, `lastname`, `middle_initial`, `role`, `year`, `month`, `day`, `ssn_image`, `health_record`) VALUES
-(3, 'user1@gmail.com', '', '', '09123426921', 'User1', 'User1', 'U1', 'doctor', NULL, NULL, NULL, NULL, NULL),
-(4, 'user2@gmail.com', '', '', '09123422121', 'User2', 'User2', 'U2', 'doctor', NULL, NULL, NULL, NULL, NULL),
-(5, 'user3@gmail.com', '', '', '09132126921', 'User3', 'User3', 'U3', 'doctor', NULL, NULL, NULL, NULL, NULL),
-(6, 'user4@gmail.com', '', '', '09123431242', 'User4', 'User4', 'U4', 'patient', NULL, NULL, NULL, NULL, NULL),
-(7, 'user5@gmail.com', '', '', '09178431242', 'User5', 'User5', 'U5', 'patient', NULL, NULL, NULL, NULL, NULL),
-(8, 'user6@gmail.com', '', '', '09122861242', 'User6', 'User6', 'U6', 'patient', NULL, NULL, NULL, NULL, NULL),
 (11, '20102650@usc.edu.ph', '$2y$10$tX5fjIidYK1qh5nxkgnkT.sfi13E2oi/n8GlMSEUB7dB3fcTi1LUq', '', '920516409', 'Jomar', 'Leano', 'M', 'doctor', 2021, 12, 5, NULL, NULL),
 (12, 'jose@gmail.com', '$2y$10$DHKyYSvWEuTXne5/LfGGNOqXHn/g78MkZI2N5xexZRnSiKV1yfddm', '', '092131211231', 'Jose Glenn', 'Samson', 'G.', 'patient', 2021, 12, 5, NULL, NULL),
 (13, 'doc1@gmail.com', '$2y$10$Qm/7B35Wl1sRE4JIwnx2zebbCs9.4JRgnIPyBANcar7t8V9CtnIlm', '', '12341243', 'doc1', 'doc1', 'd1', 'doctor', 2021, 12, 8, NULL, NULL),
 (14, 'pat1@gmail.com', '$2y$10$1QaGFsOe3Um9E8ojcvD8huR.vggG7/iOu37C3pucr3CFakjbCzhhS', '', '12343214234', 'pat1', 'pat1', 'P1', 'patient', 2021, 12, 8, NULL, NULL),
-(15, 'pat2@gmail.com', '$2y$10$56V8EVUsQ4.apaq3HsPIaOrQPRIFqKwhgM6CABKooEstTqrBnCwPm', '', '2341243432', 'pat2', 'pat2', 'p2', 'patient', 2021, 11, 30, NULL, NULL);
+(15, 'pat2@gmail.com', '$2y$10$56V8EVUsQ4.apaq3HsPIaOrQPRIFqKwhgM6CABKooEstTqrBnCwPm', '', '2341243432', 'pat2', 'pat2', 'p2', 'patient', 2021, 11, 30, NULL, NULL),
+(16, 'pat3@gmail.com', '$2y$10$HzF0QpWFHGjWHmjqLFD3p.4AYZ08yqg.t6X4W1Vo2/eq6mMrE6juS', 'pat3', '12431234124', 'pat3', 'pat3', 'p3', 'patient', 1993, 9, 10, 'midterm practice exercise 2 -2.png', 'signature.png'),
+(17, 'pat4@gmail.com', '$2y$10$5mAvom6Jv13FFQBcMxDRA.vZD3RiKRkogO8s1AZZSx6V/M2IktcNK', 'pat4', '123423423', 'pat4', 'pat4', 'p4', 'patient', 2009, 2, 9, 'parent_s signature.jpg', 'parent_s signature.jpg');
 
 --
 -- Indexes for dumped tables
@@ -339,7 +335,8 @@ ALTER TABLE `doctors_lab_tests`
 -- Indexes for table `doctors_schedules`
 --
 ALTER TABLE `doctors_schedules`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `doctors_schedules_id_foreign` (`doctor_id`);
 
 --
 -- Indexes for table `emergency_contacts`
@@ -406,7 +403,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `doctors`
@@ -430,7 +427,7 @@ ALTER TABLE `doctors_lab_tests`
 -- AUTO_INCREMENT for table `doctors_schedules`
 --
 ALTER TABLE `doctors_schedules`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `emergency_contacts`
@@ -454,7 +451,7 @@ ALTER TABLE `lab_tests`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `patients_table`
@@ -478,7 +475,7 @@ ALTER TABLE `prescriptions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
@@ -501,6 +498,12 @@ ALTER TABLE `doctors_fees`
 --
 ALTER TABLE `doctors_lab_tests`
   ADD CONSTRAINT `doctors_lab_tests_prescriptionid_foreign` FOREIGN KEY (`prescriptionID`) REFERENCES `prescriptions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `doctors_schedules`
+--
+ALTER TABLE `doctors_schedules`
+  ADD CONSTRAINT `doctors_schedules_id_foreign` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`);
 
 --
 -- Constraints for table `insurances`

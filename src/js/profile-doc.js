@@ -29,6 +29,7 @@ let today = new Date();
 let tday = today.getDate()
 let tmon = today.getMonth() + 1
 let tyear = today.getFullYear()
+let weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 lineA.style.display = "block";
 lineB.style.display = "none";
@@ -36,13 +37,21 @@ accInfo.style.display = "block";
 profInfo.style.display = "none";
 ProfProfBtn.style.backgroundColor = " #2240aa";
 acc.style.color = "black";
-isolateResultCont("#profPat");
+isolateProfileTab("#profPat");
 
 function addEventGlobalListener(action, selector, callback) {
     document.addEventListener(action, (e) => {
         if(e.target.matches(selector)) 
             callback(e);
     })
+}
+function isolateElemCont(cont , elem) {
+    $(cont).children(":not(.hide)").addClass("hide");
+    $(elem).removeClass("hide");
+}
+function addFocusClassToBtn(button, focus) {
+    $(`.${focus}`).removeClass(focus);
+    $(button).addClass(focus);
 }
 
 function generateAppointment({ID, Day, Month, Time, Year, userMon, userYear, userDay, Type, firstname, lastname, middle_initial, contact}, appType, cont) {
@@ -59,7 +68,9 @@ function generateAppointment({ID, Day, Month, Time, Year, userMon, userYear, use
     let month = (Month).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
     let day = (Day).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
     let buttonHtml = generateBtnHtmlApp(appType);
-    let time = formatTime(Time);
+    let time = Time.split("-");
+    let timeS = formatTime(time[0]);
+    let timeE = formatTime(time[1]);
 
     let html = `
     <div data-id="${ID}" class="doc__app">
@@ -73,12 +84,24 @@ function generateAppointment({ID, Day, Month, Time, Year, userMon, userYear, use
         <h5 class="doc__app--type">${type}</h5>
         <h5 class="doc__app--time">
             <i class="fa fa-clock-o" aria-hidden="true"></i>
-            ${time} &nbsp ${month}/${day}/${Year}
+            ${timeS} - ${timeE} &nbsp ${month}/${day}/${Year}
         </h5>
         ${buttonHtml}
     </div>
     `;
     $(cont).append(html);
+}
+function generateSchedule({id, time_start, time_end}, day) {
+    timeS = formatTime(time_start);
+    timeE = formatTime(time_end);
+    let html = `
+        <div data-id="${id}" class="doc__time">
+            <h3>${timeS} - ${timeE}</h3>
+            <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
+            <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+        </div>
+    `;
+    $(`#${day}`).append(html);
 }
 function generateBtnHtmlApp(type) {
     if(type === "un") {
@@ -114,18 +137,13 @@ function formatTime(time) {
     }
     return timeStart[0] + ":" + timeStart[1] + " " + tsampm;
 }
-
-function isolateResultCont(resultCont) {
-    $(profRes).children().addClass("hide");
-    $(resultCont).removeClass("hide");
+function isolateProfileTab(tab) {
+    isolateElemCont(profRes, tab);
 }
-function isolateAppointmentCont(appcont) {
-    $(docAppResCont).children().addClass("hide");
-    $(appcont).removeClass("hide");
-}
-function addFocusClassToAppBtn(button) {
-    $(".doc__app-btns").children().removeClass("doc__app-btn--focus");
-    $(button).addClass("doc__app-btn--focus");
+function showResultFromAppointBtn(cont, appBtn) {
+    isolateElemCont(docAppResCont, cont);
+    isAppContEmpty(cont)
+    addFocusClassToBtn(appBtn, "doc__app-btn--focus");
 }
 
 addEventGlobalListener('click', AccSetBtn, (e) => {
@@ -163,7 +181,7 @@ addEventGlobalListener('click', showDocProfBtn, (e) => {
     ProfProfBtn.style.backgroundColor = "#2240aa";
     DocPatBtn.style.backgroundColor = "#5f7de0";
     DocAppointBtn.style.backgroundColor = "#5f7de0";
-    isolateResultCont("#profPat");
+    isolateProfileTab("#profPat");
 })
 
 addEventGlobalListener('click', showDocPatBtn, (e) => {
@@ -171,7 +189,7 @@ addEventGlobalListener('click', showDocPatBtn, (e) => {
     ProfProfBtn.style.backgroundColor = "#5f7de0";
     DocPatBtn.style.backgroundColor = "#2240aa";
     DocAppointBtn.style.backgroundColor = "#5f7de0";
-    isolateResultCont("#profDocPat");
+    isolateProfileTab("#profDocPat");
 })
 
 addEventGlobalListener('click', showDocAppointBtn, e => {
@@ -179,7 +197,7 @@ addEventGlobalListener('click', showDocAppointBtn, e => {
     ProfProfBtn.style.backgroundColor = "#5f7de0";
     DocPatBtn.style.backgroundColor = "#5f7de0";
     DocAppointBtn.style.backgroundColor = "#2240aa";
-    isolateResultCont("#docAppCont");
+    isolateProfileTab("#docAppCont");
     $.ajax({
         type: "GET",
         data: "appIdArr=" + JSON.stringify(appIdArr),
@@ -206,19 +224,43 @@ addEventGlobalListener('click', showDocAppointBtn, e => {
     })
 })
 addEventGlobalListener("click", showUnAppBtn, e=> {
-    isolateAppointmentCont(docAppUnResCont);
-    isAppContEmpty(docAppUnResCont)
-    addFocusClassToAppBtn(showUnAppBtn);
+    showResultFromAppointBtn(docAppUnResCont, showUnAppBtn);
 })
 addEventGlobalListener("click", showFinAppBtn, e=> {
-    isolateAppointmentCont(docAppFinResCont);
-    isAppContEmpty(docAppFinResCont)
-    addFocusClassToAppBtn(showFinAppBtn);
+    showResultFromAppointBtn(docAppFinResCont, showFinAppBtn);
 })
 addEventGlobalListener("click", "#showNotifsBtn", e => {
-    isolateAppointmentCont("#docNotifsCont");
-    isAppContEmpty("#docNotifsCont");
-    addFocusClassToAppBtn("#showNotifsBtn");
+    showResultFromAppointBtn("#docNotifsCont", "#showNotifsBtn");
+})
+addEventGlobalListener("click", "#showSchedBtn", e => {
+    showResultFromAppointBtn("#docSchedCont", "#showSchedBtn");
+    $.ajax({
+        type: "GET",
+        url: "../src/php/get-schedules_act.php",
+        data: "",
+        success: res => {
+            let {data} = JSON.parse(res);
+            for(var i of data) {
+                console.log(i.day)
+                generateSchedule(i, i.day)
+            }
+        }
+    })
+})
+addEventGlobalListener("submit", "#addSchedForm", e => {
+    e.preventDefault();
+    if(confirm("Do you want to add this schedule?")) {
+        let data = $("#addSchedForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: "../src/php/add-schedule_act.php",
+            data: data,
+            success: res => {
+                let {message, success} = JSON.parse(res);
+                alert(message);
+            }
+        })
+    }
 })
 addEventGlobalListener("click", ".doc__app--discard", e => {
     if(confirm("Do you want to discard this notification?")) {
@@ -279,10 +321,17 @@ addEventGlobalListener("click", ".doc__app--cancel", e => {
         })
     }
 })
+addEventGlobalListener("click", ".doc__weekday-btn", e => {
+    let weekday = `#${$(e.target).attr("data-weekday")}`;
+    let html = `<h1>No time set on this day.</h1>`;
 
-$(window).on("load", (evt) => {
-    // $(showDocProfBtn).trigger('click');
-    // $(showDocProfBtn).trigger('focus');
+    isolateElemCont("#timeCont", weekday);
+    addFocusClassToBtn(e.target, "doc__weekday-btn--focus");
+
+    if($(weekday).children().length === 0) {
+        $(weekday).append(html);
+    }
+
+    $("#weekdayInput").text(weekday.substring(1))
+    $("#weekdayInput").attr("value", weekday.substring(1))
 })
-// $("#Docprof").css("display", "none");
-// $("#DocPatients").css("display", "none");

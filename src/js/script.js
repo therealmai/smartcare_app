@@ -23,17 +23,9 @@ let specialties = {
     "pedia" : "Pediatrician",
     "radio" : "Radiologist"
 }
+
+const daysOfTheWeek = ["sun", "mon", 'tue', 'wed', 'thu', 'fri', 'sat'];
 // SEARCH PAGE
-// var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
-// function validatePassword(){
-//   if(password.value != confirm_password.value) {
-//     confirm_password.setCustomValidity("Passwords Don't Match");
-//   } else {
-//     confirm_password.setCustomValidity('');
-//   }
-// }
-// password.onchange = validatePassword;
-// confirm_password.onkeyup = validatePassword;
 
 // UTILITY FUNCTIONS
 function addEventGlobalListener(action, selector, callback) {
@@ -41,6 +33,10 @@ function addEventGlobalListener(action, selector, callback) {
         if(e.target.matches(selector)) 
             callback(e);
     })
+}
+function isolateElemCont(cont , elem) {
+    $(cont).children(":not([disabled])").addClass("hide");
+    $(elem).removeClass("hide");
 }
 function stringify(name, arr) {
     return `${name}=${JSON.stringify(arr)}`;
@@ -97,6 +93,41 @@ function checkSearchInput() {
     nameLen = $(searchName).val().length;
     return specLen > 0 || nameLen > 0 ? 1 : 0;
 }
+function generateTime({time_start, time_end, day}) {
+    let timeS = formatTime(time_start);
+    let timeE = formatTime(time_end);
+    let html = `
+        <option value="${time_start}-${time_end}" class="hide ${day}">${timeS} - ${timeE}</option>
+    `;
+    $("#time").append(html);
+}
+function formatTime(time) {
+    let timeStart = time.split(":");
+    let tsampm;
+
+    if(timeStart[0] >= 12) {
+        tsampm = "PM"
+        timeStart[0] -= 12;
+        timeStart[0] = timeStart[0] === 0 ? 12 : timeStart[0];
+        timeStart[0] = timeStart[0].toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
+    } else {
+        tsampm = "AM"
+    }
+    return timeStart[0] + ":" + timeStart[1] + " " + tsampm;
+}
+function getDoctorSchedule() {
+    $.ajax({
+        type: "GET",
+        url: "../src/php/get-doc-sched_act.php",
+        data: "id="+docId,
+        success: res => {
+            let {data} = JSON.parse(res);
+            for(var i of data) {
+                generateTime(i);
+            }
+        }
+    })
+}
 // SEARCH PAGE FUNCTIONS
 
 
@@ -116,6 +147,8 @@ addEventGlobalListener('click', bookNowBtns, (e) => {
     $(docCont).text(`+63 ${cont}`);
 
     docId = $(e.target).parent().attr("data-doc-id");
+
+    getDoctorSchedule();
 })
 addEventGlobalListener('submit', searchForm, (e) => {
     e.preventDefault();
@@ -152,6 +185,7 @@ addEventGlobalListener('submit', appointForm, (e) => {
     e.preventDefault();
     let data = $(appointForm).serialize();
     let url = "../src/php/appoint_act.php";
+    console.log(data);
     $.ajax({
         type: "POST",
         url: url,
@@ -164,4 +198,9 @@ addEventGlobalListener('submit', appointForm, (e) => {
             alert(msg);
         }
     })
+})
+addEventGlobalListener('change', "#date", e => {
+    let a = new Date($("#date").val());
+    let day = daysOfTheWeek[a.getDay()];
+    isolateElemCont("#time", `.${day}`);
 })
