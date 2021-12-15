@@ -114,23 +114,29 @@ function formatTime(time) {
     }
     return timeStart[0] + ":" + timeStart[1] + " " + tsampm;
 }
-
+function isolateElemCont(cont , elem) {
+    $(cont).children(":not(.hide)").addClass("hide");
+    $(elem).removeClass("hide");
+}
+function isolateProfileTab(tab) {
+    isolateElemCont(profRes, tab);
+}
 function isolateResultCont(resultCont) {
-    $(profRes).children().addClass("hide");
+    $(profRes).children(":not(.hide)").addClass("hide");
     $(resultCont).removeClass("hide");
 }
 function isolateAppointmentCont(appcont) {
-    $(docAppResCont).children().addClass("hide");
+    $(docAppResCont).children(":not(.hide)").addClass("hide");
     $(appcont).removeClass("hide");
 }
-function addFocusClassToAppBtn(button) {
-    $(".doc__app-btns").children().removeClass("doc__app-btn--focus");
-    $(button).addClass("doc__app-btn--focus");
+function addFocusClassToBtn(button, focus) {
+    $(`.${focus}`).removeClass(focus);
+    $(button).addClass(focus);
 }
 function showResultFromAppointBtn(cont, appBtn) {
     isolateAppointmentCont(cont);
     isAppContEmpty(cont)
-    addFocusClassToAppBtn(appBtn);
+    addFocusClassToBtn(appBtn, "doc__app-btn--focus");
 }
 
 addEventGlobalListener('click', AccSetBtn, (e) => {
@@ -168,7 +174,7 @@ addEventGlobalListener('click', showDocProfBtn, (e) => {
     ProfProfBtn.style.backgroundColor = "#2240aa";
     DocPatBtn.style.backgroundColor = "#5f7de0";
     DocAppointBtn.style.backgroundColor = "#5f7de0";
-    isolateResultCont("#profPat");
+    isolateProfileTab("#profPat");
 })
 
 addEventGlobalListener('click', showDocPatBtn, (e) => {
@@ -176,7 +182,7 @@ addEventGlobalListener('click', showDocPatBtn, (e) => {
     ProfProfBtn.style.backgroundColor = "#5f7de0";
     DocPatBtn.style.backgroundColor = "#2240aa";
     DocAppointBtn.style.backgroundColor = "#5f7de0";
-    isolateResultCont("#profDocPat");
+    isolateProfileTab("#profDocPat");
 })
 
 addEventGlobalListener('click', showDocAppointBtn, e => {
@@ -184,7 +190,7 @@ addEventGlobalListener('click', showDocAppointBtn, e => {
     ProfProfBtn.style.backgroundColor = "#5f7de0";
     DocPatBtn.style.backgroundColor = "#5f7de0";
     DocAppointBtn.style.backgroundColor = "#2240aa";
-    isolateResultCont("#docAppCont");
+    isolateProfileTab("#docAppCont");
     $.ajax({
         type: "GET",
         data: "appIdArr=" + JSON.stringify(appIdArr),
@@ -281,10 +287,15 @@ addEventGlobalListener("click", ".doc__app--cancel", e => {
         })
     }
 })
-
-$(window).on("load", (evt) => {
-    // $(showDocProfBtn).trigger('click');
-    // $(showDocProfBtn).trigger('focus');
+addEventGlobalListener("click", "#addSchedBtn", e => {
+    alert("add");
 })
-// $("#Docprof").css("display", "none");
-// $("#DocPatients").css("display", "none");
+addEventGlobalListener("click", ".doc__weekday-btn", e => {
+    let cont = $(e.target).attr("data-cont-id");
+
+    $(`#timeCont`).children(":not(.hide)").addClass("hide");
+    $(`#${cont}`).removeClass("hide");
+
+    $(".doc__weekday-btn--focus").removeClass("doc__weekday-btn--focus");
+    $(e.target).addClass("doc__weekday-btn--focus");
+})

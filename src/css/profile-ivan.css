@@ -211,7 +211,7 @@ button:hover {
     "a a a" auto
     "b c c" auto
     "b c c" 1fr / 150px 1fr 1fr;
-  gap: 20px;
+  gap: 20px 50px;
   justify-items: center;
 }
 
@@ -231,9 +231,19 @@ button:hover {
   justify-self: stretch;
 }
 
-.doc__weekday-cont button {
+.doc__weekday-btn {
   border: 2px solid black;
+  border-top-width: 0;
   padding: 10px 20px;
+}
+
+.doc__weekday-btn:nth-of-type(1) {
+  border-top-width: 2px;
+}
+
+.doc__weekday-btn:hover, .doc__weekday-btn--focus {
+  background-color: rgb(185, 114, 0);
+  color: white;
 }
 
 .doc__time-cont {

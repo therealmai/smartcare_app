@@ -144,23 +144,44 @@
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </button>
                         <div class="doc__weekday-cont" id="schedWeekdayCont">
-                            <button>Monday</button>
-                            <button>Monday</button>
-                            <button>Monday</button>
-                            <button>Monday</button>
-                            <button>Monday</button>
+                            <button class="doc__weekday-btn" data-cont-id="sun">Sunday</button>
+                            <button  class="doc__weekday-btn" data-cont-id="mon">Monday</button>
+                            <button  class="doc__weekday-btn" data-cont-id="tue">Tuesday</button>
+                            <button  class="doc__weekday-btn" data-cont-id="wed">Wednesday</button>
+                            <button  class="doc__weekday-btn" data-cont-id="thu">Thursday</button>
+                            <button  class="doc__weekday-btn" data-cont-id="fri">Friday</button>
+                            <button  class="doc__weekday-btn" data-cont-id="sat">Saturday</button>
                         </div>
                         <div class="doc__time-cont" id="timeCont">
-                            <div data-id="" class="doc__time">
-                                <h3>9:00 AM - 9:30 AM</h3>
-                                <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
-                                <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+                            <div class="hide" id="sun"></div>
+                            <div class="hide" id="mon">
+                                <div data-id="" class="doc__time">
+                                    <h3>9:00 AM - 9:30 AM</h3>
+                                    <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
+                                    <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+                                </div>
+                                <div class="doc__time">
+                                    <h3>9:30 AM - 10:00 AM</h3>
+                                    <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
+                                    <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+                                </div>
                             </div>
-                            <div class="doc__time">
-                                <h3>9:30 AM - 10:00 AM</h3>
-                                <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
-                                <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+                            <div class="hide" id="tue">
+                                <div data-id="" class="doc__time">
+                                    <h3>9:00 AM - 9:30 AM</h3>
+                                    <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
+                                    <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+                                </div>
+                                <div class="doc__time">
+                                    <h3>9:30 AM - 10:00 AM</h3>
+                                    <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
+                                    <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+                                </div>
                             </div>
+                            <div class="hide" id="wed"></div>
+                            <div class="hide" id="thu"></div>
+                            <div class="hide" id="fri"></div>
+                            <div class="hide" id="sat"></div>
                         </div>
                     </div>
                 </div>
