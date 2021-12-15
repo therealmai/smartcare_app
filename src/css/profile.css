@@ -233,8 +233,8 @@ a {
   box-shadow: 5px 10px 8px #0000006b;
 }
 
-.profPres tbody, .profLabTest tbody{
-  height:400px;
+.table-over{
+  height:350px;
   overflow-y: scroll;
   border-radius: 10px;
 }
@@ -256,4 +256,36 @@ a {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
+}
+
+.add-pres-btn, .add-lab-btn{
+  background-color: #1c20f7;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.edit-pres-btn, .edit-lab-btn{
+  background-color: #be8c2d;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.delete-pres-btn, .delete-lab-btn{
+  background-color: #c45f40;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
 }

@@ -12,7 +12,7 @@ include '../src/php/dbconnect.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/search.css">
     <link rel="stylesheet" href="../src/css/profile.css">
-    <title>SmartCare - Profile</title>
+    <title>SmartCare - Lab Tests</title>
 </head>
 
 <body>
@@ -22,11 +22,14 @@ include '../src/php/dbconnect.php';
     <main class="profLabTest">
         <section>
             <h1>Patients' Lab Tests</h1>
+            <div class="table-over">
             <table style="width:100%;">
-                <col span="1" style="width: 30%;">
-                <col span="1" style="width: 30%;">
-                <col span="1" style="width: 30%;">
+                <col span="1" style="width: 20%;">
+                <col span="1" style="width: 20%;">
+                <col span="1" style="width: 27%;">
                 <col span="1" style="width: 10%;">
+                <col span="1" style="width: 8.5%;">
+
                 <thead>
                     <tr>
                         <th>
@@ -48,6 +51,7 @@ include '../src/php/dbconnect.php';
                         <?php } ?>
                     </tr>
                 </thead>
+
                 <tbody>
                     <?php
                         // var_dump($_SESSION);
@@ -97,29 +101,25 @@ include '../src/php/dbconnect.php';
                                         <?php if ($_SESSION['currUser']['role'] == 'doctor') { ?>
 
                                         <td>
-                                            <a href="./editLabTest.php?labTestId=<?php echo $labTestRow['id']?>">Edit</a><br>
-                                            <form action="../src/php/deleteLabTest.php" method="POST">
+                                        <button onclick="location.href='./editLabTest.php?labTestId=<?php echo $labTestRow['id']?>'" type="button" class="edit-lab-btn">Edit</button>
+                                            <form action="../src/php/deleteLabTest.php" method="POST" style="float:right">
                                                 <input type="hidden" value="<?php echo $labTestRow['id']?>" name="labTestId">
-                                                <input type="submit" value="Delete">
+                                                <input type="submit" value="Delete"  class="delete-lab-btn">
                                             </form>
                                         </td>
-
                                         <?php } ?>
                                     </tr>
                                 <?php
                             }
                         }
                     ?>
-
                 </tbody>
+                </div>
             </table>
-            <?php if ($_SESSION['currUser']['role'] == 'doctor') { ?>
-                <a href="./addLabTest.php">Add</a>
-            <?php } ?>
-            
-            
         </section>
-
+        <?php if ($_SESSION['currUser']['role'] == 'doctor') { ?>
+                <button onclick="location.href='./addLabTest.php'" type="button" class="add-lab-btn">Add</button>
+            <?php } ?>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>

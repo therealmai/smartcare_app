@@ -10,9 +10,8 @@ include '../src/php/dbconnect.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="stylesheet" href="../src/css/profile.css">
-    <title>SmartCare - Profile</title>
+    <title>SmartCare - Prescriptions</title>
 </head>
 
 <body>
@@ -21,10 +20,11 @@ include '../src/php/dbconnect.php';
     <main class="profPres">
         <section>
             <h1>Patients' Prescriptions</h1>
+            <div class="table-over">
             <table style="width:100%;">
                 <col span="1" style="width: 30%;">
-                <col span="1" style="width: 30%;">
-                <col span="1" style="width: 30%;">
+                <col span="1" style="width: 45%;">
+                <col span="1" style="width: 15%;">
                 <col span="1" style="width: 10%;">
                 <thead>
                     <tr>
@@ -91,31 +91,26 @@ include '../src/php/dbconnect.php';
                                         <?php if ($_SESSION['currUser']['role'] == 'doctor') { ?>
 
                                         <td>
-                                            <a href="./editPrescription.php?prescId=<?php echo $prescriptionRow['id']?>">Edit</a><br>
-                                            <form action="../src/php/deletePrescription.php" method="POST">
+                                            <button onclick="location.href='./editPrescription.php?prescId=<?php echo $prescriptionRow['id']?>'" type="button" class="edit-pres-btn">Edit</button>
+                                            <form action="../src/php/deletePrescription.php" method="POST" style="float:right">
                                                 <input type="hidden" value="<?php echo $prescriptionRow['id']?>" name="prescriptionId">
-                                                <input type="submit" value="Delete">
+                                                <input type="submit" value="Delete" class="delete-pres-btn">
                                             </form>
                                         </td>
-
-
                                         <?php } ?>
                                     </tr>
                                 <?php
                             }
                         }
                     ?>
-
                 </tbody>
+            </div>
             </table>
-            <?php 
-            if ($_SESSION['currUser']['role'] == 'doctor') { ?>
-                <a href="./addPrescription.php">Add</a>
-            <?php } ?>
-            
-            
         </section>
-
+        <?php 
+            if ($_SESSION['currUser']['role'] == 'doctor') { ?>
+                <button onclick="location.href='./addPrescription.php'" type="button" class="add-pres-btn">Add</button>
+            <?php } ?>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>

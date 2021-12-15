@@ -1,0 +1,32 @@
+.form-body{
+    background-color: white;
+    padding:10vh;
+    width:38%;
+    height:40%;
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-body form{
+    text-align: left;
+}
+
+.form-body table{
+    top:-50px;
+}
+
+.add-form-btn{
+    margin-top:20px;
+    background-color: #1c20f7;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    float:right;
+}
