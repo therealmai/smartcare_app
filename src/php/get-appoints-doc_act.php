@@ -34,7 +34,7 @@
     while($result = $stmt->fetch_assoc()) {
         $result["length"] = $result["Month"] + $result["Day"] + $result["Year"];
         if(in_array($result["ID"], $appIdArr))
-            break;
+            continue;
         if($result["IsFinished"] == 1)
             array_push($finished, $result);
         else if($result["IsCancelled"] == 0) 
@@ -60,7 +60,8 @@
     $obj = [
         "finished" => $finished,
         "unfinished" => $unfinished,
-        "notifications" => $notifications
+        "notifications" => $notifications,
+        "docId" => $docId
     ];
     $obj = json_encode($obj);
     echo $obj;

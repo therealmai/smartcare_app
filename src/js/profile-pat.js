@@ -35,11 +35,16 @@ function isolateResultCont(resultCont) {
     $(profRes).children().addClass("hide");
     $(resultCont).removeClass("hide");
 }
-//              DOCTORS
-//       INSERT CODE LIKE generateAppointment for Doctor
-//              DOCTORS
-
-//              PATIENTS
+function isolateAppointmentCont(appcont) {
+    $(profResAppCont).children(".prof-res__appoint-cont").addClass("hide");
+    $(appcont).removeClass("hide");
+}
+function isAppContEmpty(cont) {
+    let total = $(cont).children(".doc__app");
+    if(total.length == 0) {
+        $(cont).find(".doc__empty-msg").removeClass("hide");
+    }
+}
 function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastname, middle_initial, contact, specialization}, action, cont) {
     let type = Type == "f2f" ? "Face-to-face" : "Online"
     let month = (Month).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
@@ -79,6 +84,12 @@ function generateBtnHtmlApp(type) {
 function addFocusClassToAppBtn(button) {
     $(".doc__app-btns").children().removeClass("doc__app-btn--focus");
     $(button).addClass("doc__app-btn--focus");
+}
+function isAppContEmpty(cont) {
+    let total = $(cont).children(".doc__app");
+    if(total.length == 0) {
+        $(cont).find(".doc__empty-msg").removeClass("hide");
+    }
 }
 function formatTime(time) {
     let timeStart = time.split(":");
@@ -182,8 +193,7 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
     PatDocBtn.style.backgroundColor = "#5f7de0";
     PatAppointBtn.style.backgroundColor = "#2240aa";
     PatPresBtn.style.backgroundColor = "#5f7de0";
-    isolateResultCont(profResAppCont);
-    $("#showUnAppBtn").trigger("click");
+    isolateResultCont(profResAppCont)
     $.ajax({
         type: "GET",
         data: "appIdArr=" + JSON.stringify(appIdArr),
@@ -200,6 +210,7 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
                 if(!appIdArr.includes(i.ID))
                     appIdArr.push(i.ID);
             }
+            $("#showUnAppBtn").trigger("click");
         }
     })
 })
@@ -219,6 +230,7 @@ addEventGlobalListener('click', ".doc__app--cancel", e => {
                     if(index != -1)
                         appIdArr.splice(index, 1)
                     app.remove();
+                    $(showUnAppBtn).trigger("click");
                 }
             },
             error: err => {
@@ -228,14 +240,19 @@ addEventGlobalListener('click', ".doc__app--cancel", e => {
     }
 })
 addEventGlobalListener('click', "#showFinAppBtn", e => {
-    $("#profResUnApp").addClass("hide");
-    $("#profResFinApp").removeClass("hide");
+    isolateAppointmentCont(profResFinApp);
+    isAppContEmpty(profResFinApp);
     addFocusClassToAppBtn("#showFinAppBtn");
 })
 addEventGlobalListener('click', "#showUnAppBtn", e => {
-    $("#profResUnApp").removeClass("hide");
-    $("#profResFinApp").addClass("hide");
+    isolateAppointmentCont(profResUnApp);
+    isAppContEmpty(profResUnApp);
     addFocusClassToAppBtn("#showUnAppBtn");
+})
+addEventGlobalListener("click", "#showNotifsBtn", e=> {
+    isolateAppointmentCont("#appNotifsCont");
+    isAppContEmpty("#appNotifsCont");
+    addFocusClassToAppBtn("#showNotifsBtn");
 })
 
 //              PATIENTS

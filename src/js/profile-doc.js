@@ -54,6 +54,7 @@ function generateAppointment({ID, Day, Month, Time, Year, userMon, userYear, use
             age--;
         }
     }
+
     let type = Type == "f2f" ? "Face-to-face" : "Online"
     let month = (Month).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
     let day = (Day).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
@@ -95,7 +96,7 @@ function generateBtnHtmlApp(type) {
     }
     if(type === "not") {
         return `
-            <button class="doc__app--remove">Discard</button>
+            <button class="doc__app--discard">Discard</button>
         `
     }
 }
@@ -136,6 +137,16 @@ addEventGlobalListener('click', AccSetBtn, (e) => {
     acc.style.color = "black";
     prof.style.color = "grey";
 })
+function isAppContEmpty(cont) {
+    let total = $(cont).children(".doc__app");
+    if(total.length == 0) {
+        $(cont).find(".doc__empty-msg").removeClass("hide");
+    }
+}
+function removeAppIdFromArr(id) {
+    let index = appIdArr.indexOf(id);
+    appIdArr.splice(index, 1);
+}
 
 addEventGlobalListener('click', ProfDetBtn, (e) => {
     console.log("im here profdet");
@@ -169,7 +180,6 @@ addEventGlobalListener('click', showDocAppointBtn, e => {
     DocPatBtn.style.backgroundColor = "#5f7de0";
     DocAppointBtn.style.backgroundColor = "#2240aa";
     isolateResultCont("#docAppCont");
-    $("#showUnAppBtn").trigger("click");
     $.ajax({
         type: "GET",
         data: "appIdArr=" + JSON.stringify(appIdArr),
@@ -191,20 +201,83 @@ addEventGlobalListener('click', showDocAppointBtn, e => {
                 if(!appIdArr.includes(i.ID))
                     appIdArr.push(i.ID);
             }
+            $("#showUnAppBtn").trigger("click");
         }
     })
 })
 addEventGlobalListener("click", showUnAppBtn, e=> {
     isolateAppointmentCont(docAppUnResCont);
+    isAppContEmpty(docAppUnResCont)
     addFocusClassToAppBtn(showUnAppBtn);
 })
 addEventGlobalListener("click", showFinAppBtn, e=> {
     isolateAppointmentCont(docAppFinResCont);
+    isAppContEmpty(docAppFinResCont)
     addFocusClassToAppBtn(showFinAppBtn);
 })
 addEventGlobalListener("click", "#showNotifsBtn", e => {
     isolateAppointmentCont("#docNotifsCont");
+    isAppContEmpty("#docNotifsCont");
     addFocusClassToAppBtn("#showNotifsBtn");
+})
+addEventGlobalListener("click", ".doc__app--discard", e => {
+    if(confirm("Do you want to discard this notification?")) {
+        let app = $(e.target).parent();
+        let id = $(app).attr("data-id");
+        $.ajax({
+            type: "POST",
+            url: "../src/php/discard-app_act.php",
+            data: `id=${id}`,
+            success: res => {
+                let {message, success} = JSON.parse(res);
+                alert(message);
+                if(success) {
+                    $(app).remove();
+                }
+            }
+        })
+    }
+})
+addEventGlobalListener("click", ".doc__app--done", e=> {
+    if(confirm("Do you want to mark this as finished?")) {
+        let app = $(e.target).parents(".doc__app");
+        let id = $(app).attr("data-id");
+        $.ajax({
+            type: "POST",
+            url: "../src/php/finish-app_act.php",
+            data: `id=${id}`,
+            success: res => {
+                let {message, success} = JSON.parse(res);
+                alert(message);
+                if(success) {
+                    // $(docAppFinResCont).append(app.prop("outerHTML"));
+                    app.remove();
+                    removeAppIdFromArr(id);
+                    // $(showUnAppBtn).trigger("click");
+                    $(showDocAppointBtn).trigger("click");
+                }
+            }
+        })
+    }
+})
+addEventGlobalListener("click", ".doc__app--cancel", e => {
+    if(confirm("Do you want to cancel this appointment?")) {
+        let app = $(e.target).parents(".doc__app");
+        let id = $(app).attr("data-id");
+        $.ajax({
+            type: "POST",
+            url: "../src/php/cancel-app_act.php",
+            data: `id=${id}`,
+            success: res => {
+                let {message, success} = JSON.parse(res);
+                alert(message);
+                if(success) {
+                    $(app).remove();
+                    $(showUnAppBtn).trigger("click");
+                }
+            }
+        })
+    }
 })
 
 $(window).on("load", (evt) => {
