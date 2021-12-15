@@ -32,7 +32,6 @@
 
         <div class="prof-container" id="profRes">
             <section class="prof-pat" id="profPat">
-                <div class="hide" id="profDocCont">
                     <form action="/action_page.php">
                         <table style="width:100%;">
                             <col span="1" style="width: 15%;">
@@ -100,10 +99,8 @@
                             </td>
                         </table>
                     </form>
-                </div>
             </section>
             <section class="prof-doc-pat" id="profDocPat">
-                <div class="hide" id="profDocPatCont">
                 <h1>
                     REPLACE THIS DOCTORPATIENTS DUMMY CODE WITH THE CORRECT ONE.
                 </h1>
@@ -121,7 +118,6 @@
 
                     view person's appointments and
                 </p>
-                </div>
             </section>
             <section class="hide prof-res" id="docAppCont">
                 <div class="doc__app-btns">

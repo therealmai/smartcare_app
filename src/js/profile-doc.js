@@ -13,6 +13,8 @@ let docAppFinResCont = "#docAppFinResCont";
 
 let appIdArr = [];
 
+var AccSetBtn = "#AccSetBtn";
+var ProfDetBtn = "#ProfDetBtn";
 var acc = document.getElementById("AccSetBtn");
 var prof = document.getElementById("ProfDetBtn");
 var accInfo = document.getElementById("acc-info");
@@ -27,6 +29,14 @@ let today = new Date();
 let tday = today.getDate()
 let tmon = today.getMonth() + 1
 let tyear = today.getFullYear()
+
+lineA.style.display = "block";
+lineB.style.display = "none";
+accInfo.style.display = "block";
+profInfo.style.display = "none";
+ProfProfBtn.style.backgroundColor = " #2240aa";
+acc.style.color = "black";
+isolateResultCont("#profPat");
 
 function addEventGlobalListener(action, selector, callback) {
     document.addEventListener(action, (e) => {
@@ -117,57 +127,44 @@ function addFocusClassToAppBtn(button) {
     $(button).addClass("doc__app-btn--focus");
 }
 
+addEventGlobalListener('click', AccSetBtn, (e) => {
+    console.log("im here again profacc");
+    lineA.style.display = "block";
+    lineB.style.display = "none";
+    accInfo.style.display = "block";
+    profInfo.style.display = "none";
+    acc.style.color = "black";
+    prof.style.color = "grey";
+})
 
-$(profDocCont).removeClass("hide");
-
-lineA.style.display = "block";
-lineB.style.display = "none";
-accInfo.style.display = "block";
-profInfo.style.display = "none";
-ProfProfBtn.style.backgroundColor = " #2240aa";
-acc.style.color = "black";
-
-
-
-// addEventGlobalListener('click', acc, (e) => {
-//     console.log("im here again");
-//     lineA.style.display = "block";
-//     lineB.style.display = "none";
-//     accInfo.style.display = "block";
-//     profInfo.style.display = "none";
-//     acc.style.color = "black";
-//     prof.style.color = "grey";
-// })
-
-// addEventGlobalListener('click', prof, (e) => {
-//     console.log("im here");
-//     lineA.style.display = "none";
-//     lineB.style.display = "block";
-//     accInfo.style.display = "none";
-//     profInfo.style.display = "block";
-//     acc.style.color = "grey";
-//     prof.style.color = "black";
-// })
+addEventGlobalListener('click', ProfDetBtn, (e) => {
+    console.log("im here profdet");
+    lineA.style.display = "none";
+    lineB.style.display = "block";
+    accInfo.style.display = "none";
+    profInfo.style.display = "block";
+    acc.style.color = "grey";
+    prof.style.color = "black";
+})
 
 addEventGlobalListener('click', showDocProfBtn, (e) => {
-    console.log("im here");
+    console.log("im here docprof");
     ProfProfBtn.style.backgroundColor = "#2240aa";
     DocPatBtn.style.backgroundColor = "#5f7de0";
     DocAppointBtn.style.backgroundColor = "#5f7de0";
-    $(profDocPatCont).addClass("hide");
-    $(profDocCont).removeClass("hide");
+    isolateResultCont("#profPat");
 })
 
 addEventGlobalListener('click', showDocPatBtn, (e) => {
-    console.log("im here");
+    console.log("im here docpat");
     ProfProfBtn.style.backgroundColor = "#5f7de0";
     DocPatBtn.style.backgroundColor = "#2240aa";
     DocAppointBtn.style.backgroundColor = "#5f7de0";
-    $(profDocCont).addClass("hide");
-    $(profDocPatCont).removeClass("hide");
+    isolateResultCont("#profDocPat");
 })
 
 addEventGlobalListener('click', showDocAppointBtn, e => {
+    console.log("im here docappoint");
     ProfProfBtn.style.backgroundColor = "#5f7de0";
     DocPatBtn.style.backgroundColor = "#5f7de0";
     DocAppointBtn.style.backgroundColor = "#2240aa";

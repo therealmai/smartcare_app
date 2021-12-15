@@ -5,6 +5,7 @@ let showPatAppointBtn = "#showPatAppointBtn";
 let showPatDocBtn ="#showPatDocBtn";
 let showPatPresBtn = "#showPatPresBtn";
 let profResAppCont = "#profResAppCont";
+let profPat = "#profPat";
 
 let AccSetBtn = "#AccSetBtn";
 let ProfDetBtn = "#ProfDetBtn";
@@ -12,6 +13,17 @@ let ProfDetBtn = "#ProfDetBtn";
 let profResUnApp = "#profResUnApp";
 let profResFinApp = "#profResFinApp";
 let appIdArr = [];
+
+var acc = document.getElementById("AccSetBtn");
+var prof = document.getElementById("ProfDetBtn");
+var accInfo = document.getElementById("acc-info");
+var profInfo = document.getElementById("prof-info");
+var ProfProfBtn = document.getElementById("showPatProfBtn");
+var PatAppointBtn = document.getElementById("showPatAppointBtn");
+var PatPresBtn = document.getElementById("showPatPresBtn");
+var PatDocBtn = document.getElementById("showPatDocBtn");
+var lineA = document.getElementById("line-selected-a");
+var lineB = document.getElementById("line-selected-b");
 
 function addEventGlobalListener(action, selector, callback) {
     document.addEventListener(action, (e) => {
@@ -107,33 +119,18 @@ addEventGlobalListener('click', showPatProfBtn, (e) => {
 })
 
 function showData(arr,age){
-    
-    
-    document.getElementById("patient_id").value=arr['userID'];
+   document.getElementById("patient_id").value=arr['userID'];
    document.getElementById("Accpatient_id").value=arr['userID'];
    document.getElementById("prof_id").value=arr['userID'];
    console.log(arr['userID']);
    document.getElementById("email").value = arr['email'];
     // document.getElementById("password").value = arr['password'];
-  
     document.getElementById("contact").value=arr['contact'];
-
 }
 
 function showAccData(arr){
     console.log("hello");
 }
-
-var acc = document.getElementById("AccSetBtn");
-var prof = document.getElementById("ProfDetBtn");
-var accInfo = document.getElementById("acc-info");
-var profInfo = document.getElementById("prof-info");
-var ProfProfBtn = document.getElementById("showPatProfBtn");
-var PatAppointBtn = document.getElementById("showPatAppointBtn");
-var PatPresBtn = document.getElementById("showPatPresBtn");
-var PatDocBtn = document.getElementById("showPatDocBtn");
-var lineA = document.getElementById("line-selected-a");
-var lineB = document.getElementById("line-selected-b");
 
 lineA.style.display = "block";
 lineB.style.display = "none";
@@ -141,8 +138,6 @@ accInfo.style.display = "block";
 profInfo.style.display = "none";
 ProfProfBtn.style.backgroundColor = " #2240aa";
 acc.style.color = "black";
-
-
 
 addEventGlobalListener('click', AccSetBtn, (e) => {
     lineA.style.display = "block";
@@ -154,6 +149,7 @@ addEventGlobalListener('click', AccSetBtn, (e) => {
 })
 
 addEventGlobalListener('click', ProfDetBtn, (e) => {
+    console.log("im here profdet");
     lineA.style.display = "none";
     lineB.style.display = "block";
     accInfo.style.display = "none";
@@ -163,33 +159,30 @@ addEventGlobalListener('click', ProfDetBtn, (e) => {
 })
 
 addEventGlobalListener('click', showPatProfBtn, (e) => {
+    console.log("im here patprof");
     ProfProfBtn.style.backgroundColor = "#2240aa";
     PatDocBtn.style.backgroundColor = "#5f7de0";
     PatAppointBtn.style.backgroundColor = "#5f7de0";
     PatPresBtn.style.backgroundColor = "#5f7de0";
-    $(profPatPresCont).addClass("hide");
-    $(profResAppCont).addClass("hide");
-    $(profPatDocCont).addClass("hide");
-    $(profPatCont).removeClass("hide");
+    isolateResultCont(profPat);
 })
 
 addEventGlobalListener('click', showPatDocBtn, (e) => {
+    console.log("im here patdoc");
     ProfProfBtn.style.backgroundColor = "#5f7de0";
     PatDocBtn.style.backgroundColor = "#2240aa";
     PatAppointBtn.style.backgroundColor = "#5f7de0";
     PatPresBtn.style.backgroundColor = "#5f7de0";
-    $(profPatPresCont).addClass("hide");
-    $(profResAppCont).addClass("hide");
-    $(profPatCont).addClass("hide");
-    $(profPatDocCont).removeClass("hide");
+    isolateResultCont(profPatDoc);
 })
 
 addEventGlobalListener('click', showPatAppointBtn, (e) => {
+    console.log("im here patappoint");
     ProfProfBtn.style.backgroundColor = "#5f7de0";
     PatDocBtn.style.backgroundColor = "#5f7de0";
     PatAppointBtn.style.backgroundColor = "#2240aa";
     PatPresBtn.style.backgroundColor = "#5f7de0";
-    isolateResultCont(profResAppCont)
+    isolateResultCont(profResAppCont);
     $("#showUnAppBtn").trigger("click");
     $.ajax({
         type: "GET",
@@ -257,10 +250,7 @@ addEventGlobalListener('click', showPatPresBtn, (e) => {
     PatDocBtn.style.backgroundColor = "#5f7de0";
     PatAppointBtn.style.backgroundColor = "#5f7de0";
     PatPresBtn.style.backgroundColor = "#2240aa";
-    $(profPatPresCont).removeClass("hide");
-    $(profPatCont).addClass("hide");
-    $(profPatDocCont).addClass("hide");
-    $(profResAppCont).addClass("hide");
+    isolateResultCont(profPatPres);
 
     // $.ajax({
     //     type: "GET",

@@ -37,7 +37,7 @@ include('../src/php/dbconnect.php')
     }
 
     ?>
-    <?php var_dump($profile); ?>
+    <!-- <?php var_dump($profile); ?> -->
     <?php include "./header.php" ?>
     <main class="prof">
         <section class="prof-btn-cont">
@@ -55,7 +55,7 @@ include('../src/php/dbconnect.php')
 
         <div class="prof-container" id="profRes">
             <section class="prof-pat" id="profPat">
-                <div class="hide" id="profPatCont">
+                <!-- <div class="hide" id="profPatCont"> -->
                     <table style="width:100%;">
                         <col span="1" style="width: 15%;">
                         <col span="1" style="width: 85%;">
@@ -169,7 +169,7 @@ include('../src/php/dbconnect.php')
                             </table>
                         </td>
                     </table>
-                </div>
+                <!-- </div> -->
             </section>
             <section class="prof-res" id="profResAppCont">
                 <div class="doc__app-btns">
@@ -182,14 +182,10 @@ include('../src/php/dbconnect.php')
                 </div>
             </section>
             <section class="prof-prescription" id="profPatPres">
-                <div class="hide" id="profPatPresCont">
                     insert prescription here
-                </div>
             </section>
             <section class="prof-pat-doc" id="profPatDoc">
-                <div class="hide" id="profPatDocCont">
                     insert doctors heres
-                </div>
             </section>
         </div>
     </main>

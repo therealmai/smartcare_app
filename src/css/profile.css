@@ -1,5 +1,5 @@
 body{
-  /* background-image: url('../img/section1.jpg'); */
+  background-image: url('../img/section1.jpg') !important;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -218,3 +218,4 @@ a {
   cursor: pointer;
   border: solid 1px #BA68C8
 }
+
