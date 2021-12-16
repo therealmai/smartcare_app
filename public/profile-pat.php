@@ -71,7 +71,8 @@ include('../src/php/dbconnect.php')
                             <br>
                             <center>
                                 <div class="pt-3">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropProfile" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
+                                    
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropProfile" onclick='showData(<?php echo json_encode($profile); ?>)'>
                                         Change Profile Picture
                                     </button>
                                 </div>
@@ -84,11 +85,23 @@ include('../src/php/dbconnect.php')
                             <?php
                             if (isset($_SESSION['acc_error'])) {
                                 foreach ($_SESSION['acc_error'] as $accErr) { ?>
-                                    <div class="alert alert-primary" role="alert">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <?php echo $accErr ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                             <?php }
                                 unset($_SESSION['acc_error']);
+                            }
+                            ?>
+                               <?php
+                            if (isset($_SESSION['profPatImgErr'])) {
+                                foreach ($_SESSION['profPatImgErr'] as $profPatErr) { ?>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <?php echo $profPatErr ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                            <?php }
+                                unset($_SESSION['profPatImgErr']);
                             }
                             ?>
                             <div class="profile-settings-nav">
@@ -110,7 +123,7 @@ include('../src/php/dbconnect.php')
                                     <label for="email"><?php echo $profile['email']; ?></label><br>
                                     <label for="password"><?php echo $password ?></label><br>
                                     <div class="pt-3">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick='showData(<?php echo json_encode($profile); ?>)'>
                                             Change Account Settings
                                         </button>
                                     </div>
@@ -166,8 +179,8 @@ include('../src/php/dbconnect.php')
                                                                 echo $noData;
                                                             } ?></label><br>
                                     <div class="pt-3">
-
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick=showData(<?php echo json_encode($profile) ?>,<?php echo $diff->format('%y') . ")" ?> )>
+                                   
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick='showData(<?php echo json_encode($profile); ?>)'>
                                             Change Personal Details
                                         </button>
                                     </div>

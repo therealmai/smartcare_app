@@ -1,20 +1,24 @@
 <?php
+    include('../../public/session_check.php');
     include './dbconnect.php';
-
+    $imageID= $_SESSION['currUser']['id'];
     $target_dir = "../img/profiles/";
     $profile = basename($_FILES["profile_image"]["name"]);
     $id = $_POST['patient_id'];
-    $target_file = $target_dir . $profile;
     $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-    echo $profile;
+    $imageFileType = strtolower(pathinfo($profile,PATHINFO_EXTENSION));
+    $final_profile =  $imageID.".".$imageFileType;
+    $target_file = $target_dir . $imageID.".".$imageFileType;
+    echo $target_file;
+
+    // echo $finalImage . "-". $target_file."=";
     // Check if image file is a actual image or fake image
     $check = getimagesize($_FILES["profile_image"]["tmp_name"]);
     if($check !== false) {
         // echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
     } else {
-        $_SESSION['labTestImgErr']['notImage'] = "File is not an image.";
+        $_SESSION['profPatImgErr']['notImage'] = "File is not an image.";
         $uploadOk = 0;
     }
 
@@ -27,28 +31,33 @@
     // Allow certain file formats
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
     && $imageFileType != "gif" ) {
-        $_SESSION['labTestImgErr']['fileType'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $_SESSION['profPatImgErr']['fileType'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
         $uploadOk = 0;
     }
 
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        $_SESSION['labTestImgErr']['serverErr'] = "Sorry, your file was not uploaded.";
+        $_SESSION['profPatImgErr']['serverErr'] = "Sorry, your file was not uploaded.";
     // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["profile_image"]["tmp_name"], $target_file)) {
-            $_SESSION['labTestImgSuccess'] = "Image uploaded.";
+            $_SESSION['profPatImgSuccess'] = "Image uploaded.";
         } else {
-            $_SESSION['labTestImgErr']['serverErr'] = "Sorry, there was an error uploading your file.";
+            $_SESSION['profPatImgErr']['serverErr'] = "Sorry, there was an error uploading your file.";
         }
     }
+    if (!empty($_SESSION['profPatImgErr']))
+    header('location: ../../public/profile-pat.php');
 
-    $sql = "UPDATE `patients` SET `image_profile` = '$profile' WHERE `userID` = '$id'";
+    $sql = "UPDATE `users` SET `image_profile` = '$final_profile' WHERE `id` = '$imageID'";
 
     if (mysqli_query($mysqli, $sql)) {
         mysqli_close($mysqli);
+        echo "sucess";
         header('location: ../../public/profile-pat.php');
         exit();
+    }else{
+        echo "Error: " . $sql . ":-" . mysqli_error($mysqli);
     }
 
 ?>
