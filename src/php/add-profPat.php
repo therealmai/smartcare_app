@@ -1,13 +1,16 @@
 <?php
+    include('../../public/session_check.php');
     include './dbconnect.php';
-
+    $imageID= $_SESSION['currUser']['id'];
     $target_dir = "../img/profiles/";
     $profile = basename($_FILES["profile_image"]["name"]);
     $id = $_POST['patient_id'];
-    $target_file = $target_dir . $profile;
+    $finalImage = $imageID.".".$imageFileType;
+    $target_file = $target_dir . $finalImage;
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-    echo $profile;
+    
+    echo $finalImage . "-". $target_file."=";
     // Check if image file is a actual image or fake image
     $check = getimagesize($_FILES["profile_image"]["tmp_name"]);
     if($check !== false) {
@@ -49,6 +52,8 @@
         mysqli_close($mysqli);
         header('location: ../../public/profile-pat.php');
         exit();
+    }else{
+        echo "Error: " . $sql . ":-" . mysqli_error($mysqli);
     }
 
 ?>
