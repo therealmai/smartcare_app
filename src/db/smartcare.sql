@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2021 at 02:27 AM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.4.22
+-- Generation Time: Dec 16, 2021 at 03:07 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,18 +37,9 @@ CREATE TABLE `appointments` (
   `Year` int(11) NOT NULL,
   `Time` varchar(5) NOT NULL,
   `IsFinished` tinyint(1) DEFAULT NULL,
-  `IsCancelled` tinyint(1) DEFAULT NULL
+  `IsCancelled` tinyint(1) DEFAULT NULL,
+  `Canceller` enum('doctor','patient') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `appointments`
---
-
-INSERT INTO `appointments` (`ID`, `DoctorID`, `PatientID`, `Type`, `Day`, `Month`, `Year`, `Time`, `IsFinished`, `IsCancelled`) VALUES
-(13, 2, 7, 'f2f', 15, 12, 2021, '15:06', 1, 0),
-(14, 2, 7, 'f2f', 14, 12, 2021, '15:08', 1, 0),
-(17, 2, 6, 'online', 8, 12, 2021, '15:55', 1, 0),
-(18, 2, 5, 'f2f', 16, 12, 2021, '09:26', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -201,35 +192,6 @@ INSERT INTO `patients` (`id`, `userID`, `height`, `weight`, `blood_pressure`, `h
 -- --------------------------------------------------------
 
 --
--- Table structure for table `patients_table`
---
-
-CREATE TABLE `patients_table` (
-  `user_id` int(11) NOT NULL,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `confirm_password` varchar(255) NOT NULL,
-  `birthdate` varchar(255) NOT NULL,
-  `street_address` varchar(255) NOT NULL,
-  `province` varchar(255) NOT NULL,
-  `city` varchar(255) NOT NULL,
-  `postal_code` varchar(255) NOT NULL,
-  `ssn` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `patients_table`
---
-
-INSERT INTO `patients_table` (`user_id`, `first_name`, `last_name`, `email`, `password`, `confirm_password`, `birthdate`, `street_address`, `province`, `city`, `postal_code`, `ssn`) VALUES
-(1, 'Jomar', 'Leano', '20102650@usc.edu.ph', '$2y$10$83eIHvb5YNev2PrsIF1h2ONshogEZPsPULgeHseBdFmMZgmEtdkhi', '$2y$10$5Tu54DI0Nuf7PW0RXyzWKeq2av1XEIN0YuZ9x/jRLeytSTNMq.xme', '2021-11-10', 'Blasab', 'Toledo', 'Cebu', '6038', '1234'),
-(2, 'Jomar', 'Leano', '20102650@usc.edu.ph', '$2y$10$3PXE30QjlTlmSOYqxKRrEOV4vpYuLROcKY2KucJvulJIrG8iVREei', '$2y$10$AUW/VT/X6ioj1BFsF.ZUs.N6X5VnZh885.j78oMqIfxkquTJaHhT6', '2021-11-11', 'Blasab', 'Toledo', 'Cebu', '6038', '`123');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `payer_for_patients`
 --
 
@@ -367,12 +329,6 @@ ALTER TABLE `patients`
   ADD KEY `patients_userid_foreign` (`userID`);
 
 --
--- Indexes for table `patients_table`
---
-ALTER TABLE `patients_table`
-  ADD PRIMARY KEY (`user_id`);
-
---
 -- Indexes for table `payer_for_patients`
 --
 ALTER TABLE `payer_for_patients`
@@ -451,12 +407,6 @@ ALTER TABLE `lab_tests`
 --
 ALTER TABLE `patients`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `patients_table`
---
-ALTER TABLE `patients_table`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payer_for_patients`
