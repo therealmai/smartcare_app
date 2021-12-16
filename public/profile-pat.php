@@ -91,6 +91,16 @@ include('../src/php/dbconnect.php')
                                 unset($_SESSION['acc_error']);
                             }
                             ?>
+                               <?php
+                            if (isset($_SESSION['profPatImgErr'])) {
+                                foreach ($_SESSION['profPatImgErr'] as $profPatErr) { ?>
+                                    <div class="alert alert-primary" role="alert">
+                                        <?php echo $profPatErr ?>
+                                    </div>
+                            <?php }
+                                unset($_SESSION['profPatImgErr']);
+                            }
+                            ?>
                             <div class="profile-settings-nav">
                                 <button type="button" id="AccSetBtn">Account Settings</button>
                                 <button type="button" id="ProfDetBtn">Personal Details</button>
