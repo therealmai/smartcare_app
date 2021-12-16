@@ -47,7 +47,7 @@
 
     if (mysqli_query($mysqli, $sql)) {
         mysqli_close($mysqli);
-        // header('location: ../../public/profile-pat.php');
+        header('location: ../../public/profile-pat.php');
         exit();
     }
 

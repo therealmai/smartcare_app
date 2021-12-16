@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2021 at 11:28 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.3.33
+-- Generation Time: Dec 16, 2021 at 02:27 AM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.4.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,17 +61,16 @@ CREATE TABLE `doctors` (
   `userID` bigint(20) UNSIGNED NOT NULL,
   `specialization` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `license_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `degree` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image_profile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `degree` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `doctors`
 --
 
-INSERT INTO `doctors` (`id`, `userID`, `specialization`, `license_number`, `degree`, `image_profile`) VALUES
-(2, 13, 'Cardiologist', '', '', NULL),
-(6, 11, 'Pediatrician', '', '', NULL);
+INSERT INTO `doctors` (`id`, `userID`, `specialization`, `license_number`, `degree`) VALUES
+(2, 13, 'Cardiologist', '', ''),
+(6, 11, 'Pediatrician', '', '');
 
 -- --------------------------------------------------------
 
@@ -185,7 +184,6 @@ CREATE TABLE `patients` (
   `weight` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `blood_pressure` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `heart_rate` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image_profile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -194,11 +192,11 @@ CREATE TABLE `patients` (
 -- Dumping data for table `patients`
 --
 
-INSERT INTO `patients` (`id`, `userID`, `height`, `weight`, `blood_pressure`, `heart_rate`, `image_profile`, `created_at`, `updated_at`) VALUES
-(4, 15, '', '', '', '', NULL, NULL, NULL),
-(5, 14, '', '', '', '', NULL, NULL, NULL),
-(6, 16, '', '', '', '', NULL, NULL, NULL),
-(7, 17, '', '', '', '', NULL, NULL, NULL);
+INSERT INTO `patients` (`id`, `userID`, `height`, `weight`, `blood_pressure`, `heart_rate`, `created_at`, `updated_at`) VALUES
+(4, 15, '', '', '', '', NULL, NULL),
+(5, 14, '', '', '', '', NULL, NULL),
+(6, 16, '', '', '', '', NULL, NULL),
+(7, 17, '', '', '', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -284,21 +282,22 @@ CREATE TABLE `users` (
   `month` int(11) DEFAULT NULL,
   `day` smallint(6) DEFAULT NULL,
   `ssn_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `health_record` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `health_record` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image_profile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `confirm_password`, `contact`, `firstname`, `lastname`, `middle_initial`, `role`, `year`, `month`, `day`, `ssn_image`, `health_record`) VALUES
-(11, '20102650@usc.edu.ph', '$2y$10$tX5fjIidYK1qh5nxkgnkT.sfi13E2oi/n8GlMSEUB7dB3fcTi1LUq', '', '920516409', 'Jomar', 'Leano', 'M', 'doctor', 2021, 12, 5, NULL, NULL),
-(12, 'jose@gmail.com', '$2y$10$DHKyYSvWEuTXne5/LfGGNOqXHn/g78MkZI2N5xexZRnSiKV1yfddm', '', '092131211231', 'Jose Glenn', 'Samson', 'G.', 'patient', 2021, 12, 5, NULL, NULL),
-(13, 'doc1@gmail.com', '$2y$10$Qm/7B35Wl1sRE4JIwnx2zebbCs9.4JRgnIPyBANcar7t8V9CtnIlm', '', '12341243', 'doc1', 'doc1', 'd1', 'doctor', 2021, 12, 8, NULL, NULL),
-(14, 'pat1@gmail.com', '$2y$10$1QaGFsOe3Um9E8ojcvD8huR.vggG7/iOu37C3pucr3CFakjbCzhhS', '', '12343214234', 'pat1', 'pat1', 'P1', 'patient', 2021, 12, 8, NULL, NULL),
-(15, 'pat2@gmail.com', '$2y$10$56V8EVUsQ4.apaq3HsPIaOrQPRIFqKwhgM6CABKooEstTqrBnCwPm', '', '2341243432', 'pat2', 'pat2', 'p2', 'patient', 2021, 11, 30, NULL, NULL),
-(16, 'pat3@gmail.com', '$2y$10$HzF0QpWFHGjWHmjqLFD3p.4AYZ08yqg.t6X4W1Vo2/eq6mMrE6juS', 'pat3', '12431234124', 'pat3', 'pat3', 'p3', 'patient', 1993, 9, 10, 'midterm practice exercise 2 -2.png', 'signature.png'),
-(17, 'pat4@gmail.com', '$2y$10$5mAvom6Jv13FFQBcMxDRA.vZD3RiKRkogO8s1AZZSx6V/M2IktcNK', 'pat4', '123423423', 'pat4', 'pat4', 'p4', 'patient', 2009, 2, 9, 'parent_s signature.jpg', 'parent_s signature.jpg');
+INSERT INTO `users` (`id`, `email`, `password`, `confirm_password`, `contact`, `firstname`, `lastname`, `middle_initial`, `role`, `year`, `month`, `day`, `ssn_image`, `health_record`, `image_profile`) VALUES
+(11, '20102650@usc.edu.ph', '$2y$10$tX5fjIidYK1qh5nxkgnkT.sfi13E2oi/n8GlMSEUB7dB3fcTi1LUq', '', '920516409', 'Jomar', 'Leano', 'M', 'doctor', 2021, 12, 5, NULL, NULL, NULL),
+(12, 'jose@gmail.com', '$2y$10$DHKyYSvWEuTXne5/LfGGNOqXHn/g78MkZI2N5xexZRnSiKV1yfddm', '', '092131211231', 'Jose Glenn', 'Samson', 'G.', 'patient', 2021, 12, 5, NULL, NULL, NULL),
+(13, 'doc1@gmail.com', '$2y$10$Qm/7B35Wl1sRE4JIwnx2zebbCs9.4JRgnIPyBANcar7t8V9CtnIlm', '', '12341243', 'doc1', 'doc1', 'd1', 'doctor', 2021, 12, 8, NULL, NULL, NULL),
+(14, 'pat1@gmail.com', '$2y$10$1QaGFsOe3Um9E8ojcvD8huR.vggG7/iOu37C3pucr3CFakjbCzhhS', '', '12343214234', 'pat1', 'pat1', 'P1', 'patient', 2021, 12, 8, NULL, NULL, NULL),
+(15, 'pat2@gmail.com', '$2y$10$56V8EVUsQ4.apaq3HsPIaOrQPRIFqKwhgM6CABKooEstTqrBnCwPm', '', '2341243432', 'pat2', 'pat2', 'p2', 'patient', 2021, 11, 30, NULL, NULL, NULL),
+(16, 'pat3@gmail.com', '$2y$10$HzF0QpWFHGjWHmjqLFD3p.4AYZ08yqg.t6X4W1Vo2/eq6mMrE6juS', 'pat3', '12431234124', 'pat3', 'pat3', 'p3', 'patient', 1993, 9, 10, 'midterm practice exercise 2 -2.png', 'signature.png', NULL),
+(17, 'pat4@gmail.com', '$2y$10$5mAvom6Jv13FFQBcMxDRA.vZD3RiKRkogO8s1AZZSx6V/M2IktcNK', 'pat4', '123423423', 'pat4', 'pat4', 'p4', 'patient', 2009, 2, 9, 'parent_s signature.jpg', 'parent_s signature.jpg', NULL);
 
 --
 -- Indexes for dumped tables
