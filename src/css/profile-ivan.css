@@ -34,6 +34,7 @@ button:hover {
 
 .fa-trash {
   color: red;
+  cursor: pointer;
 }
 
 .fa-pencil {

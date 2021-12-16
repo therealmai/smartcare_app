@@ -7,6 +7,7 @@
     $query = <<<EOT
         SELECT * FROM doctors_schedules
         WHERE doctor_id = $id
+        ORDER BY time_start ASC
     EOT;
 
     $stmt = $con->query($query);

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../src/css/search.css">
     <link rel="stylesheet" href="../src/css/appointment.css">
     <link rel="stylesheet" href="../src/css/font-awesome-4.7.0/css/font-awesome.min.css">
-    <script defer src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script defer src="../src/js/jquery-3.6.0.min.js"></script>
     <script defer src="../src/js/script.js"></script>
     <title>SmartCare - Search</title>
 </head>

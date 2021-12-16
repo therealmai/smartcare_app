@@ -152,8 +152,8 @@
                                     Choose a Day Below
                                 </option>
                             </select>
-                            <input name="time-start" type="time">
-                            <input name="time-end" type="time">
+                            <input id="timeStart" name="time-start" type="time">
+                            <input id="timeEnd" name="time-end" type="time">
                         </form>
                         <div class="doc__weekday-cont" id="schedWeekdayCont">
                             <button class="doc__weekday-btn" data-weekday="sun">Sunday</button>

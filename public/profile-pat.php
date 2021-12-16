@@ -190,7 +190,7 @@ include('../src/php/dbconnect.php')
                     <h1 class="doc__empty-msg hide">Nothing to see here.</h1>
                 </div>
                 <div class="prof-res__appoint-cont hide" id="appNotifsCont">
-                        <h1 class="doc__empty-msg hide">Nothing to see here.</h1>
+                    <h1 class="doc__empty-msg hide">Nothing to see here.</h1>
                 </div>
             </section>
         </div>

@@ -185,7 +185,6 @@ addEventGlobalListener('submit', appointForm, (e) => {
     e.preventDefault();
     let data = $(appointForm).serialize();
     let url = "../src/php/appoint_act.php";
-    console.log(data);
     $.ajax({
         type: "POST",
         url: url,

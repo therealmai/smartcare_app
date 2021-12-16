@@ -69,15 +69,21 @@ function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastn
     $(cont).append(html);
 }
 function generateBtnHtmlApp(type) {
-    if(type === "Cancel") {
+    if(type === "un") {
         return `
             <button class="doc__app--cancel">Cancel</button>
         `
-    } else {
+    }
+    if(type === "fin") {
         return `
             <button class="doc__app--remove doc__app--blue">View</button>
         `
     }
+    if(type === "not") {
+        return `
+            <button class="doc__app--discard">Discard</button>
+        `
+    } 
 }
 function addFocusClassToAppBtn(button) {
     $(".doc__app-btns").children().removeClass("doc__app-btn--focus");
@@ -164,7 +170,6 @@ addEventGlobalListener('click', showPatProfBtn, (e) => {
 })
 
 addEventGlobalListener('click', showPatAppointBtn, (e) => {
-    console.log("im here patappoint");
     ProfProfBtn.style.backgroundColor = "#5f7de0";
     PatAppointBtn.style.backgroundColor = "#2240aa";
     isolateResultCont(profResAppCont)
@@ -173,20 +178,46 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
         data: "appIdArr=" + JSON.stringify(appIdArr),
         url: "../src/php/get-appoints-pat_act.php",
         success: (resp) => {
-            let {finished, unfinished} = JSON.parse(resp);
+            let {finished, unfinished, cancelled} = JSON.parse(resp);
             for(var i of finished) {
-                generateAppointment(i, "Delete", profResFinApp);
+                generateAppointment(i, "fin", profResFinApp);
                 if(!appIdArr.includes(i.ID)) 
                     appIdArr.push(i.ID);
             } 
             for(var i of unfinished){
-                generateAppointment(i, "Cancel", profResUnApp);
+                generateAppointment(i, "un", profResUnApp);
+                if(!appIdArr.includes(i.ID))
+                    appIdArr.push(i.ID);
+            }
+            for(var i of cancelled){
+                if(i.Canceller === "doctor")
+                    generateAppointment(i, "not", "#appNotifsCont")
                 if(!appIdArr.includes(i.ID))
                     appIdArr.push(i.ID);
             }
             $("#showUnAppBtn").trigger("click");
         }
     })
+})
+addEventGlobalListener("click", ".doc__app--discard", e => {
+    if(confirm("Do you want to discard this notification?")) {
+        let app = $(e.target).parent();
+        let id = $(app).attr("data-id");
+        $.ajax({
+            type: "POST",
+            url: "../src/php/discard-app_act.php",
+            data: `id=${id}`,
+            success: res => {
+                let {message, success} = JSON.parse(res);
+                alert(message);
+                if(success) {
+                    $(app).remove();
+                    $(showPatAppointBtn).trigger("click");
+                    $("#showNotifsBtn").trigger("click");
+                }
+            }
+        })
+    }
 })
 addEventGlobalListener('click', ".doc__app--cancel", e => {
     if(confirm("Do you really want to cancel this appointment?")) {
@@ -198,13 +229,13 @@ addEventGlobalListener('click', ".doc__app--cancel", e => {
             data: `id=${id}`,
             success: res => {
                 let index, {message, success} = JSON.parse(res);
+                alert(message);
                 if(success) {
-                    alert(message);
                     index = appIdArr.indexOf(id);
                     if(index != -1)
                         appIdArr.splice(index, 1)
                     app.remove();
-                    $(showUnAppBtn).trigger("click");
+                    $(showPatAppointBtn).trigger("click");
                 }
             },
             error: err => {

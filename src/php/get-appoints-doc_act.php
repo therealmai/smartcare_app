@@ -20,7 +20,7 @@
     $docId = $result[0];
 
     $query = <<<EOT
-        SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, appointments.IsCancelled, users.firstname, users.lastname, users.middle_initial, users.contact, users.year AS "userYear", users.month AS "userMon", users.day AS "userDay"
+        SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, appointments.IsCancelled, appointments.Canceller, users.firstname, users.lastname, users.middle_initial, users.contact, users.year AS "userYear", users.month AS "userMon", users.day AS "userDay"
         FROM appointments
         INNER JOIN patients
         ON patients.id = appointments.PatientID
@@ -47,13 +47,19 @@
     foreach($finished as $key => $row) {
         $keys[$key] = $row["length"];
     }
-    array_multisort($keys, SORT_DESC, $finished);
+    array_multisort($keys, SORT_ASC, $finished);
 
     $keys = array();
     foreach($unfinished as $key => $row) {
         $keys[$key] = $row["length"];
     }
-    array_multisort($keys, SORT_DESC, $unfinished);
+    array_multisort($keys, SORT_ASC, $unfinished);
+
+    $keys = array();
+    foreach($notifications as $key => $row) {
+        $keys[$key] = $row["length"];
+    }
+    array_multisort($keys, SORT_ASC, $notifications);
 
     $stmt->close();
 

@@ -97,10 +97,10 @@ function generateSchedule({id, time_start, time_end}, day) {
     let html = `
         <div data-id="${id}" class="doc__time">
             <h3>${timeS} - ${timeE}</h3>
-            <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
             <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
         </div>
     `;
+    // <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
     $(`#${day}`).append(html);
 }
 function generateBtnHtmlApp(type) {
@@ -193,7 +193,6 @@ addEventGlobalListener('click', showDocPatBtn, (e) => {
 })
 
 addEventGlobalListener('click', showDocAppointBtn, e => {
-    console.log("im here docappoint");
     ProfProfBtn.style.backgroundColor = "#5f7de0";
     DocPatBtn.style.backgroundColor = "#5f7de0";
     DocAppointBtn.style.backgroundColor = "#2240aa";
@@ -215,7 +214,8 @@ addEventGlobalListener('click', showDocAppointBtn, e => {
                     appIdArr.push(i.ID);
             }
             for(var i of notifications) {
-                generateAppointment(i, "not", "#docNotifsCont");
+                if(i.Canceller === "patient")
+                    generateAppointment(i, "not", "#docNotifsCont");
                 if(!appIdArr.includes(i.ID))
                     appIdArr.push(i.ID);
             }
@@ -240,8 +240,8 @@ addEventGlobalListener("click", "#showSchedBtn", e => {
         data: "",
         success: res => {
             let {data} = JSON.parse(res);
+            $("#timeCont").find(".doc__time").remove();
             for(var i of data) {
-                console.log(i.day)
                 generateSchedule(i, i.day)
             }
         }
@@ -249,6 +249,17 @@ addEventGlobalListener("click", "#showSchedBtn", e => {
 })
 addEventGlobalListener("submit", "#addSchedForm", e => {
     e.preventDefault();
+    let weekday = $("#weekdayInput").attr("value");
+    let timeStart = $("#timeStart").val();
+    let timeEnd = $("#timeEnd").val();
+    if(weekday === "") {
+        alert("Choose a weekday.");
+        return;
+    }
+    if(timeStart === "" || timeEnd === "") {
+        alert("Input a time for both.");
+        return;
+    }
     if(confirm("Do you want to add this schedule?")) {
         let data = $("#addSchedForm").serialize();
         $.ajax({
@@ -256,8 +267,11 @@ addEventGlobalListener("submit", "#addSchedForm", e => {
             url: "../src/php/add-schedule_act.php",
             data: data,
             success: res => {
+                console.log(res);
                 let {message, success} = JSON.parse(res);
                 alert(message);
+                $(`#${weekday}`).children("h1").remove();
+                $("#showSchedBtn").trigger("click");
             }
         })
     }
@@ -275,6 +289,8 @@ addEventGlobalListener("click", ".doc__app--discard", e => {
                 alert(message);
                 if(success) {
                     $(app).remove();
+                    $(showDocAppointBtn).trigger("click");
+                    $("#showNotifsBtn").trigger("click");
                 }
             }
         })
@@ -315,7 +331,7 @@ addEventGlobalListener("click", ".doc__app--cancel", e => {
                 alert(message);
                 if(success) {
                     $(app).remove();
-                    $(showUnAppBtn).trigger("click");
+                    $(showDocAppointBtn).trigger("click");
                 }
             }
         })
@@ -334,4 +350,21 @@ addEventGlobalListener("click", ".doc__weekday-btn", e => {
 
     $("#weekdayInput").text(weekday.substring(1))
     $("#weekdayInput").attr("value", weekday.substring(1))
+})
+addEventGlobalListener("click", ".fa-trash", e => {
+    if(confirm("Do you want to delete this schedule?")) {
+        let parent = $(e.target).parent();
+        $.ajax({
+            type: "POST",
+            url: "../src/php/delete-sched_act.php",
+            data: "id=" + $(parent).attr("data-id"),
+            success: res => {
+                let {message, success} = JSON.parse(res);
+                alert(message);
+                if(success) {
+                    $(parent).remove();
+                }
+            }
+        })
+    }
 })
