@@ -52,33 +52,29 @@ function pushToArr(selector, arr, dataId) {
 function createSearchResultHtml({id, specialization, firstname, lastname, middle_initial, contact}) {
     return `
         <div data-doc-id=${id} class="search-results__result">
-            <i class="fa fa-user-md fa-2x" aria-hidden="true"></i>
-            <div class="search-results__profile">
-                <h4>Dr. ${firstname} ${middle_initial}. ${lastname}, MD</h4>
-                <a href="" target="">View Profile</a>
-            </div>
-            <div class="search-results__addi-info">
-                <p>
-                    <i class="fa fa-stethoscope" aria-hidden="true"></i>
-                    ${specialization}
-                </p>
-                <p>
-                    <i class="fa fa-phone" aria-hidden="true"></i>
-                    ${contact}
-                </p>
-                <p>
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    F2F Consultation - P500.00
-                </p>
-                <p>
-                    <i class="fa fa-video-camera" aria-hidden="true"></i>
-                    Virtual  Consultation - P500.00
-                </p>
-            </div>
-            <button class="search-results__book-btn">
+            <i class="fa fa-user-md fa-3x a" aria-hidden="true"></i>
+            <h4 class="search-results__name b">Dr. ${lastname}, ${firstname} ${middle_initial}.</h4>
+            <button class="search-results__book-btn c">
                 Book Now
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
             </button>
+            <a class="search-results__view d" href="" target="">View Profile</a> 
+            <p class="search-results__spec e">
+                <i class="fa fa-stethoscope" aria-hidden="true"></i>
+                ${specialization}
+            </p>
+            <p class="search-results__contact f">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                ${contact}
+            </p>
+            <p class="search-results__f2f g">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                F2F Fee - P500.00
+            </p>
+            <p class="search-results__virtual h">
+                <i class="fa fa-video-camera" aria-hidden="true"></i>
+                Virtual  Fee - P500.00
+            </p>
         </div>
     `;
 }
@@ -136,15 +132,14 @@ addEventGlobalListener('click', closeBtn, (e) => {
 })
 addEventGlobalListener('click', bookNowBtns, (e) => {
     $(appointmentForm).removeClass("hide");
-    let profile = $(e.target).siblings(".search-results__profile");
-    let addInfo = $(e.target).siblings(".search-results__addi-info")
-    let name = $(profile).find("h4").text();
-    let spec = $(addInfo).children("p:nth-child(1)").text();
-    let cont = $(addInfo).children("p:nth-child(2)").text();
+    let btn = $(e.target);
+    let name = btn.siblings(".search-results__name").text();
+    let spec = btn.siblings(".search-results__spec").text();
+    let contact = btn.siblings(".search-results__contact").text();
 
     $(docName).text(name);
     $(docSpec).text(spec);
-    $(docCont).text(`+63 ${cont}`);
+    $(docCont).text(`+63 ${contact}`);
 
     docId = $(e.target).parent().attr("data-doc-id");
 

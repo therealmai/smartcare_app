@@ -145,7 +145,6 @@ function showResultFromAppointBtn(cont, appBtn) {
     isAppContEmpty(cont)
     addFocusClassToBtn(appBtn, "doc__app-btn--focus");
 }
-
 addEventGlobalListener('click', AccSetBtn, (e) => {
     console.log("im here again profacc");
     lineA.style.display = "block";
@@ -157,13 +156,18 @@ addEventGlobalListener('click', AccSetBtn, (e) => {
 })
 function isAppContEmpty(cont) {
     let total = $(cont).children(".doc__app");
+    let emptyMsg = $(cont).find(".doc__empty-msg");
+    emptyMsg.addClass("hide")
     if(total.length == 0) {
-        $(cont).find(".doc__empty-msg").removeClass("hide");
+        emptyMsg.removeClass("hide");
     }
 }
 function removeAppIdFromArr(id) {
     let index = appIdArr.indexOf(id);
     appIdArr.splice(index, 1);
+}
+function sortSchedule(cont) {
+    let schedules = $(cont).children();
 }
 
 addEventGlobalListener('click', ProfDetBtn, (e) => {
@@ -241,6 +245,15 @@ addEventGlobalListener("click", "#showSchedBtn", e => {
         success: res => {
             let {data} = JSON.parse(res);
             $("#timeCont").find(".doc__time").remove();
+            data.sort((a, b) => {
+                if(a.time_start < b.time_start) {
+                    return -1;
+                } else if(a.time_start > b.time_start) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            })
             for(var i of data) {
                 generateSchedule(i, i.day)
             }
@@ -260,6 +273,10 @@ addEventGlobalListener("submit", "#addSchedForm", e => {
         alert("Input a time for both.");
         return;
     }
+    if(timeStart >= timeEnd) {
+        alert("Appointment cannot end before it starts or when it starts. Time start must be earlier than time end.")
+        return;
+    }
     if(confirm("Do you want to add this schedule?")) {
         let data = $("#addSchedForm").serialize();
         $.ajax({
@@ -267,11 +284,12 @@ addEventGlobalListener("submit", "#addSchedForm", e => {
             url: "../src/php/add-schedule_act.php",
             data: data,
             success: res => {
-                console.log(res);
                 let {message, success} = JSON.parse(res);
                 alert(message);
-                $(`#${weekday}`).children("h1").remove();
-                $("#showSchedBtn").trigger("click");
+                if(success) {
+                    $(`#${weekday}`).children("h1").remove();
+                    $("#showSchedBtn").trigger("click");
+                }
             }
         })
     }
@@ -331,6 +349,7 @@ addEventGlobalListener("click", ".doc__app--cancel", e => {
                 alert(message);
                 if(success) {
                     $(app).remove();
+                    removeAppIdFromArr(id);
                     $(showDocAppointBtn).trigger("click");
                 }
             }
@@ -354,6 +373,7 @@ addEventGlobalListener("click", ".doc__weekday-btn", e => {
 addEventGlobalListener("click", ".fa-trash", e => {
     if(confirm("Do you want to delete this schedule?")) {
         let parent = $(e.target).parent();
+        let weekday = parent.parent().attr("id");
         $.ajax({
             type: "POST",
             url: "../src/php/delete-sched_act.php",
@@ -363,6 +383,7 @@ addEventGlobalListener("click", ".fa-trash", e => {
                 alert(message);
                 if(success) {
                     $(parent).remove();
+                    $(`.doc__weekday-btn[data-weekday="${weekday}"]`).trigger("click");
                 }
             }
         })

@@ -14,7 +14,7 @@
 
     if($con->query($query)) {
         $success = true;
-        $message = "Message was deleted.";
+        $message = "Schedule was deleted.";
     }
 
     $obj = [

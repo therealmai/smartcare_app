@@ -55,23 +55,13 @@
             <div class="right-sec--top-bg"></div>
 
             <div class="right-sec__doctor-cont">
-                <h5>BOOK APPOINTMENT</h5>
-                <div class="right-sec__doctor-cont--left">
-                    <i class="fa fa-user-md fa-2x" aria-hidden="true"></i>
-                    <div>
-                        <h4 id="docName"></h4>
-                        <h4 id="docSpec">
-                            </h5>
-                    </div>
-                </div>
-
-                <div class="right-sec__doctor-cont--right">
-                    <i class="fa fa-phone fa-2x" aria-hidden="true"></i>
-                    <div>
-                        <h4 id="docCont"></h4>
-                        <h4>CONTACT NUMBER</h5>
-                    </div>
-                </div>
+                <h5 class="a">BOOK APPOINTMENT</h5>
+                <i class="fa fa-user-md fa-2x b" aria-hidden="true"></i>
+                <h4 class="right-sec__name c" id="docName"></h4>
+                <h4 class="d" id="docSpec"></h4>
+                <i class="fa fa-phone fa-2x e" aria-hidden="true"></i>
+                <h4 class="f" id="docCont"></h4>
+                <h4 class="g">CONTACT NUMBER</h5>
             </div>
 
             <!-- <div class="right-sec__page">
@@ -89,19 +79,19 @@
                 <form action="" id="appointForm">
                     <div>
                         <label for="date">Date of Appointment</label>
-                        <input name="date" id="date" type="date">
+                        <input name="date" id="date" type="date" required>
                     </div>
 
                     <div>
                         <label for="time">Time of Appointment</label>
-                        <select name="time" id="time">
+                        <select name="time" id="time" required>
                             <option disabled selected value> -- select an option -- </option>
                         </select>
                     </div>
 
                     <div>
                         <label for="appoint-type">Appointment Type</label>
-                        <select name="appoint-type" id="appoint-type">
+                        <select name="appoint-type" id="appoint-type" required>
                             <option hidden disabled selected value> -- select an option -- </option>
                             <option value="f2f">Face-to-face</option>
                             <option value="online">Online Appointment</option>
