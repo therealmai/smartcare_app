@@ -124,6 +124,17 @@ function getDoctorSchedule() {
         }
     })
 }
+function isDateValid(dateInput) {
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    month = month.toLocaleString("en-US", {minimumIntegerDigits: 2});
+    let date = today.getDate();
+    let dateFormat = `${year}-${month}-${date}`;
+    console.log(dateInput);
+    console.log(dateFormat);
+    return dateInput >= dateFormat ? true : false;
+}
 // SEARCH PAGE FUNCTIONS
 
 
@@ -179,19 +190,23 @@ addEventGlobalListener('submit', searchForm, (e) => {
 addEventGlobalListener('submit', appointForm, (e) => {
     e.preventDefault();
     let data = $(appointForm).serialize();
+    let date = $("#date").val();
     let url = "../src/php/appoint_act.php";
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: data + `&docId=${docId}`,
-        success: (resp) => {
-            let {msg, success} = JSON.parse(resp);
-            if(success) {
-                $(appointForm)[0].reset();
-            }
-            alert(msg);
-        }
-    })
+    if(isDateValid(date)) {
+        console.log(true);
+    } else console.log(false)
+    // $.ajax({
+    //     type: "POST",
+    //     url: url,
+    //     data: data + `&docId=${docId}`,
+    //     success: (resp) => {
+    //         let {msg, success} = JSON.parse(resp);
+    //         if(success) {
+    //             $(appointForm)[0].reset();
+    //         }
+    //         alert(msg);
+    //     }
+    // })
 })
 addEventGlobalListener('change', "#date", e => {
     let a = new Date($("#date").val());

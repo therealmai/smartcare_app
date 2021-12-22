@@ -111,6 +111,11 @@ header {
   margin-bottom: 10px;
 }
 
+.right-sec__name, .right-sec__spec, .right-sec__contact, .right-sec__contact-label {
+  font-size: 16px;
+  margin: 0;
+}
+
 .right-sec__doctor-cont .fa-user-md {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
@@ -119,7 +124,7 @@ header {
 }
 
 .right-sec__name {
-  margin-right: 10px;
+  margin-right: 50px;
 }
 
 .right-sec__form-cont {
