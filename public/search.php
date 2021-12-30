@@ -55,10 +55,10 @@
 
             <div class="right-sec__doctor-cont">
                 <h5 class="a">BOOK APPOINTMENT</h5>
-                <i class="fa fa-user-md fa-2x b" aria-hidden="true"></i>
+                <img class="right-sec__img b" id="docImg" src="" alt="Profile Image">
                 <h4 class="right-sec__name c" id="docName"></h4>
                 <h4 class="right-sec__spec d" id="docSpec"></h4>
-                <i class="fa fa-phone fa-2x e" aria-hidden="true"></i>
+                <i class="fa fa-phone fa-3x e" aria-hidden="true"></i>
                 <h4 class="right-sec__contact f" id="docCont"></h4>
                 <h4 class="right-sec__contact-label g">CONTACT NUMBER</h5>
             </div>
@@ -77,20 +77,22 @@
 
                 <form action="" id="appointForm">
                     <div>
-                        <label for="date">Date of Appointment</label>
+                        <label title="Please schedule a day earlier." for="date">
+                            Date of Appointment &nbsp;
+                            <i class="fa fa-exclamation-circle" aria-hidden="true" style="color:orange;"></i>
+                        </label>
                         <input name="date" id="date" type="date" required>
                     </div>
-
                     <div>
                         <label for="time">Time of Appointment</label>
-                        <select name="time" id="time" >
-                            <option disabled selected value> -- select an option -- </option>
+                        <select name="time" id="time" required>
+                            <option id="default" disabled selected value="default"> -- select an option -- </option>
                         </select>
                     </div>
 
                     <div>
                         <label for="appoint-type">Appointment Type</label>
-                        <select name="appoint-type" id="appoint-type" >
+                        <select name="appoint-type" id="appoint-type" required>
                             <option hidden disabled selected value> -- select an option -- </option>
                             <option value="f2f">Face-to-face</option>
                             <option value="online">Online Appointment</option>

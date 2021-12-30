@@ -13,7 +13,7 @@
     $name = strtolower($_GET["docName"]);
     
     $query = <<<EOT
-        SELECT doctors.id, specialization, firstname, lastname, middle_initial, contact 
+        SELECT image_profile, doctors.id, specialization, firstname, lastname, middle_initial, contact 
         FROM doctors
         INNER JOIN users
         ON doctors.userID = users.id

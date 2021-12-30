@@ -35,7 +35,7 @@ function isolateAppointmentCont(appcont) {
     $(profResAppCont).children(".prof-res__appoint-cont").addClass("hide");
     $(appcont).removeClass("hide");
 }
-function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastname, middle_initial, contact, specialization}, action, cont) {
+function generateAppointment({image_profile, ID, Day, Month, Time, Year, Type, firstname, lastname, middle_initial, contact, specialization}, action, cont) {
     let type = Type == "f2f" ? "Face-to-face" : "Online"
     let month = (Month).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
     let day = (Day).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
@@ -45,10 +45,7 @@ function generateAppointment({ID, Day, Month, Time, Year, Type, firstname, lastn
     let timeE = formatTime(time[1]);
     let html = `
     <div data-id="${ID}" class="doc__app">
-        <span class="fa-stack fa-3x">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-stack-1x fa-user" aria-hidden="true"></i>
-        </span>
+        <img class="doc__app--img" src="../src/img/profiles/${image_profile}" alt="Profile Image" />
         <h4>Dr. ${firstname} ${middle_initial}. ${lastname}</h4>
         <h5 class="doc__app--contact">${contact}</h5>
         <h6>${specialization}</h6>
@@ -200,7 +197,8 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
                 if(!appIdArr.includes(i.ID))
                     appIdArr.push(i.ID);
             }
-            $("#showUnAppBtn").trigger("click");
+            console.log("appbtn")
+            // $("#showUnAppBtn").trigger("click");
         }
     })
 })
@@ -218,6 +216,7 @@ addEventGlobalListener("click", ".doc__app--discard", e => {
                 if(success) {
                     $(app).remove();
                     $(showPatAppointBtn).trigger("click");
+                    console.log("notfis")
                     $("#showNotifsBtn").trigger("click");
                 }
             }

@@ -37,6 +37,11 @@
                 $success = false;
             if($ete > $timeStart && $ete < $timeEnd)
                 $success = false;
+            if($ets == $timeStart && $ete == $timeEnd) {
+                $success = false;
+                $message = "The schedule exists already.";
+                break;
+            }
             if(!$success) {
                 $message = "The schedule you added overlaps with another existing schedule. Please adjust the schedule again.";
                 break;

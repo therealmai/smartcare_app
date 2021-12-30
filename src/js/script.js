@@ -49,14 +49,13 @@ function pushToArr(selector, arr, dataId) {
         arr.push($(elem).attr(dataId));
     })
 }
-function createSearchResultHtml({id, specialization, firstname, lastname, middle_initial, contact}) {
+function createSearchResultHtml({id, specialization, firstname, lastname, middle_initial, contact, image_profile}) {
     return `
         <div data-doc-id=${id} class="search-results__result">
-            <i class="fa fa-user-md fa-3x a" aria-hidden="true"></i>
+            <img class="search-results__img a" src="../src/img/profiles/${image_profile}" alt="Profile Picture">
             <h4 class="search-results__name b">Dr. ${lastname}, ${firstname} ${middle_initial}.</h4>
             <button class="search-results__book-btn c">
-                Book Now
-                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                Book
             </button>
             <a class="search-results__view d" href="" target="">View Profile</a> 
             <p class="search-results__spec e">
@@ -131,26 +130,28 @@ function isDateValid(dateInput) {
     month = month.toLocaleString("en-US", {minimumIntegerDigits: 2});
     let date = today.getDate();
     let dateFormat = `${year}-${month}-${date}`;
-    console.log(dateInput);
-    console.log(dateFormat);
-    return dateInput >= dateFormat ? true : false;
+    return dateInput > dateFormat ? true : false;
 }
 // SEARCH PAGE FUNCTIONS
 
 
 addEventGlobalListener('click', closeBtn, (e) => {
     $(appointmentForm).addClass('hide');
+    $("#time").children(":not(#default)").remove();
 })
 addEventGlobalListener('click', bookNowBtns, (e) => {
     $(appointmentForm).removeClass("hide");
     let btn = $(e.target);
     let name = btn.siblings(".search-results__name").text();
     let spec = btn.siblings(".search-results__spec").text();
-    let contact = btn.siblings(".search-results__contact").text();
+    let contact = btn.siblings(".search-results__contact").
+    text();
+    let img = btn.siblings(".search-results__img").attr("src");
 
     $(docName).text(name);
     $(docSpec).text(spec);
     $(docCont).text(`+63 ${contact}`);
+    $(docImg).attr("src", img);
 
     docId = $(e.target).parent().attr("data-doc-id");
 
@@ -192,24 +193,37 @@ addEventGlobalListener('submit', appointForm, (e) => {
     let data = $(appointForm).serialize();
     let date = $("#date").val();
     let url = "../src/php/appoint_act.php";
-    if(isDateValid(date)) {
-        console.log(true);
-    } else console.log(false)
-    // $.ajax({
-    //     type: "POST",
-    //     url: url,
-    //     data: data + `&docId=${docId}`,
-    //     success: (resp) => {
-    //         let {msg, success} = JSON.parse(resp);
-    //         if(success) {
-    //             $(appointForm)[0].reset();
-    //         }
-    //         alert(msg);
-    //     }
-    // })
+    if(!isDateValid(date)) {
+        alert("Please schedule a day earlier.")
+        return;
+    }
+    if($("#time").val() === null) {
+        alert("Please select a valid time.")
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data + `&docId=${docId}`,
+        success: (resp) => {
+            let {msg, success} = JSON.parse(resp);
+            if(success) {
+                $(appointForm)[0].reset();
+            }
+            alert(msg);
+        }
+    })
 })
 addEventGlobalListener('change', "#date", e => {
     let a = new Date($("#date").val());
     let day = daysOfTheWeek[a.getDay()];
+    if($(`#time .${day}`).length == 0) {
+        $("#time").prop("disabled", true);
+        $("#default").text("Doctor is not available in this day.")
+    } else {
+        $("#time").removeAttr("disabled");
+        $("#default").text("-- select an option --")
+    }
+    $("#time").val("default");
     isolateElemCont("#time", `.${day}`);
 })

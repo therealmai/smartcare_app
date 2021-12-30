@@ -133,6 +133,7 @@ a {
 } 
 
 .prof-res {
+  height: 100%;
   margin-left: 15px;
   width: 90%;
 }
@@ -140,7 +141,10 @@ a {
 .prof-res__appoint-cont {
   display: flex;
   flex-wrap: wrap;
+  height: 500px;
+  overflow-y: auto;
   justify-content: space-between;
+  align-content: flex-start;
   gap: 20px;
 }
 

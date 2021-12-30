@@ -51,7 +51,7 @@ header {
   left: 15px;
 }
 
-.fa-stethoscope, .fa-user, .fa-video-camera {
+.fa-stethoscope, .fa-video-camera {
   color: #b3b3b3;
   margin-right: 7.5px;
 }
@@ -158,21 +158,20 @@ header {
   box-shadow: 0 0 10px #d1cbcb;
   display: -ms-grid;
   display: grid;
-  row-gap: 15px;
+  gap: 15px 10px;
   grid-template: 
     "a b b c" auto
     "a d d c" auto
     "e e f f" auto
-    "g g h h" auto / auto auto auto auto;
+    "g g h h" auto / 70px auto auto 70px;
   align-items: flex-start;
   padding: 15px;  
   width: 500px;
 }
-.fa-user-md {
-  background-color: #f0f0f0;
+.search-results__img {
   border-radius: 50%;
-  justify-self: flex-start;
-  padding: 10px 15px;
+  height: 70px;
+  width: 70px;
 }
 .search-results__name {
   font-size: 18px;

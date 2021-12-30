@@ -4,7 +4,7 @@
 
     $obj = [];
     $msg = "Error: Did not appoint!";
-    $success = false;
+    $success = true;
 
     $date = explode("-", $_POST["date"]);
     $year = $date[0];
@@ -19,19 +19,34 @@
         SELECT id FROM patients
         WHERE userID = $userId
     EOT;
-
+    
     $stmt = $con->query($query);
     $result = $stmt->fetch_row();
     $patId = $result[0];
+
+    $query = <<<EOT
+        SELECT * FROM appointments WHERE 
+        DoctorID = $docId AND
+        Day = $day AND
+        Month = $month AND
+        Year = $year AND
+        Time = '$time' AND 
+        IsCancelled = 0    
+    EOT;
+
+    $stmt = $con->query($query);
+    if($stmt->num_rows > 0) {
+        $success = false;
+        $msg = "This time schedule is already occupied. Please choose another.";
+    }
 
     $query = <<<EOT
         INSERT INTO appointments(DoctorID, PatientID, Type, Day, Month, Year, Time, isFinished, isCancelled)
         VALUES('$docId', '$patId', '$type', '$day', '$month', '$year', '$time', 0, 0)
     EOT;
 
-    $stmt = $con->query($query);
-
-    if($stmt) {
+    if($success) {
+        $stmt = $con->query($query);
         $msg = "Success! You had made an appointment.";
         $success = true;
     }

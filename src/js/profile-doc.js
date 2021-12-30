@@ -54,7 +54,7 @@ function addFocusClassToBtn(button, focus) {
     $(button).addClass(focus);
 }
 
-function generateAppointment({ID, Day, Month, Time, Year, userMon, userYear, userDay, Type, firstname, lastname, middle_initial, contact}, appType, cont) {
+function generateAppointment({image_profile, ID, Day, Month, Time, Year, userMon, userYear, userDay, Type, firstname, lastname, middle_initial, contact}, appType, cont) {
     let age = tyear - userYear;
     if(tmon < userMon) {
         age--;
@@ -74,18 +74,18 @@ function generateAppointment({ID, Day, Month, Time, Year, userMon, userYear, use
 
     let html = `
     <div data-id="${ID}" class="doc__app">
-        <span class="fa-stack fa-3x">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-stack-1x fa-user" aria-hidden="true"></i>
-        </span>
-        <h4>${firstname} ${middle_initial}. ${lastname}</h4>
-        <h5 class="doc__app--contact">${contact}</h5>
-        <h6>Age: ${age}</h6>
-        <h5 class="doc__app--type">${type}</h5>
-        <h5 class="doc__app--time">
+        <img class="doc__app--img a" src="../src/img/profiles/${image_profile}" alt="Profile Image" />
+        <h6 class="b">${firstname} ${middle_initial}. ${lastname}</h6>
+        <h6 class="doc__app--contact c">${contact}</h6>
+        <h6 class="d">Age: ${age}</h6>
+        <h6 class="doc__app--type e">${type}</h6>
+        <h6 class="doc__app--time f">
             <i class="fa fa-clock-o" aria-hidden="true"></i>
-            ${timeS} - ${timeE} &nbsp ${month}/${day}/${Year}
-        </h5>
+            ${timeS} - ${timeE}
+        </h6>
+        <h6 class="g">
+            ${month}/${day}/${Year}
+        </h6>
         ${buttonHtml}
     </div>
     `;
@@ -106,20 +106,18 @@ function generateSchedule({id, time_start, time_end}, day) {
 function generateBtnHtmlApp(type) {
     if(type === "un") {
         return `
-        <div class="doc__unapp-btns">
-            <button class="doc__app--done">Done</button>
-            <button class="doc__app--cancel">Cancel</button>
-        </div>
+            <button class="doc__app--done h">Done</button>
+            <button class="doc__app--cancel h">Cancel</button>
         `
     } 
     if(type === "fin") {
         return `
-            <button class="doc__app--remove">Remove</button>
+            <button class="doc__app--remove h">View</button>
         `
     }
     if(type === "not") {
         return `
-            <button class="doc__app--discard">Discard</button>
+            <button class="doc__app--discard h">Discard</button>
         `
     }
 }

@@ -21,8 +21,9 @@ button:hover {
   display: none;
 }
 
-.fa-user-md, .fa-phone {
+.fa-phone {
   color: #b3b3b3;
+  justify-self: flex-end;
 }
 
 .fa-arrow-right {
@@ -98,7 +99,7 @@ header {
   grid-template: 
     "a a a a" auto
     "b c e f" auto
-    "b d e g" auto / 30px auto 30px auto;
+    "b d e g" auto / 50px auto 50px auto;
   align-items: center;
   justify-content: center;
   gap: 5px 10px;
@@ -108,7 +109,7 @@ header {
 .right-sec__doctor-cont h5 {
   font-size: 18px;
   justify-self: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .right-sec__name, .right-sec__spec, .right-sec__contact, .right-sec__contact-label {
@@ -116,11 +117,18 @@ header {
   margin: 0;
 }
 
-.right-sec__doctor-cont .fa-user-md {
+.right-sec__doctor-cont {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
-      align-self: center;
   padding: 0;
+}
+
+.right-sec__img {
+  border-radius: 50%;
+  justify-self: flex-start;
+  align-self: center;
+  height: 50px;
+  width: 50px;
 }
 
 .right-sec__name {
@@ -132,7 +140,7 @@ header {
 }
 
 .right-sec__form-cont h4 {
-  margin: 10px 0;
+  margin: 15px 0;
 }
 
 .right-sec__form-cont form {

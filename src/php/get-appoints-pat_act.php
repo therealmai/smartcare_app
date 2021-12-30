@@ -21,7 +21,7 @@
     $patId = $result[0];
 
     $query = <<<EOT
-        SELECT appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, appointments.IsCancelled, appointments.Canceller, users.firstname, users.lastname, users.middle_initial, users.contact, doctors.specialization 
+        SELECT image_profile, appointments.ID, appointments.Type, appointments.Day, appointments.Month, appointments.Year, appointments.Time, appointments.IsFinished, appointments.IsCancelled, appointments.Canceller, users.firstname, users.lastname, users.middle_initial, users.contact, doctors.specialization 
         FROM appointments
         INNER JOIN doctors
         ON doctors.id = appointments.DoctorID
@@ -33,7 +33,7 @@
     $stmt = $con->query($query);
 
     while($result = $stmt->fetch_assoc()) {
-        $result["length"] = $result["Month"] + $result["Day"] + $result["Year"];
+        $result["length"] = sprintf("%04u%02u%02u", $result["Year"], $result["Month"], $result["Day"]);
         if(in_array($result["ID"], $appIdArr))
             continue;
         if($result["IsCancelled"] == 1)

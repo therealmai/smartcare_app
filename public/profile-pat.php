@@ -13,7 +13,6 @@ include('../src/php/dbconnect.php')
     <link rel="stylesheet" href="../src/css/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../src/css/profile-ivan.css">
     <title>SmartCare - Profile</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script defer src="../src/js/jquery-3.6.0.min.js"></script>
     <script defer src="../src/js/profile-pat.js"></script>
 </head>

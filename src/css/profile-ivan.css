@@ -17,19 +17,17 @@ button:hover {
   cursor: pointer;
 }
 
+.a { grid-area: a }
+.b { grid-area: b }
+.c { grid-area: c }
+.d { grid-area: d }
+.e { grid-area: e }
+.f { grid-area: f }
+.g { grid-area: g }
+.h { grid-area: h }
+
 .hide {
   display: none;
-}
-
-.fa-user {
-  color: blue;
-}
-
-.fa-stack {
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 2;
-  -ms-grid-column: 1;
-  grid-area: 1 / 1 / 3 / 1;
 }
 
 .fa-trash {
@@ -41,6 +39,16 @@ button:hover {
   color: rgb(206, 206, 0);
 }
 
+/*
+  a - prof pic
+  b - name
+  c - contact
+  d - age
+  e - appointment type
+  f - time
+  g - day
+  h - btn
+*/
 .doc__app {
   border: 1px solid black;
   display: -ms-grid;
@@ -48,46 +56,18 @@ button:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-grid-columns: auto 1fr 1fr auto;
-      grid-template-columns: auto 1fr 1fr auto;
-  -ms-grid-rows: auto auto auto;
-      grid-template-rows: auto auto auto;
+  grid-template: 
+    "a b b c" auto
+    "a d d e" auto
+    "f f f h" auto
+    "g g g h" / auto 1fr 1fr auto;
   padding: 15px;
-  width: 420px;
-}
-
-.doc__app h4 {
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 1;
-  grid-row: 1 / 2;
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 2;
-  grid-column: 2 / 4;
+  width: 350px;
 }
 
 .doc__app h6 {
-  -ms-grid-row: 2;
-  -ms-grid-row-span: 1;
-  grid-row: 2 / 3;
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 2;
-  grid-column: 2 / 4;
-}
-
-.doc__app h4, .doc__app h5, .doc__app h6 {
-  font-size: 17px;
-}
-
-.doc__app h4, .doc__app h5, .doc__app h6 {
+  font-size: 14px;
   margin: 0;
-}
-
-.doc__app--time {
-  -ms-grid-row: 3;
-  -ms-grid-row-span: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: 3 / 1 / 4 / 3;
 }
 
 .doc__app-btns {
@@ -115,30 +95,32 @@ button:hover {
 }
 
 .doc__app-cont {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  gap: 15px;
-  margin-bottom: 15px;
+  flex-wrap: wrap;
+  height: 500px;
+  overflow-y: auto;
+  justify-content: space-between;
+  align-content: flex-start;
+  gap: 20px;
 }
 
 .doc__app-cont.hide {
   display: none;
 }
 
+.doc__app--img {
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
 .doc__app--done, .doc__app--cancel, .doc__app--remove, .doc__app--discard {
   border: 1px solid black;
   color: white;
-  -ms-grid-row: 3;
-  -ms-grid-row-span: 1;
-  grid-row: 3 / 4;
   justify-self: flex-end;
-  padding: 10px;
+  padding: 5px 7px;
 }
 
 .doc__app--done:hover, .doc__app--cancel:hover, .doc__app--remove:hover, .doc__app--discard:hover {
@@ -153,52 +135,15 @@ button:hover {
 
 .doc__app--done {
   background-color: green;
-  -ms-grid-row: 3;
-  -ms-grid-row-span: 1;
-  grid-row: 3 / 4;
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 1;
-  grid-column: 3 / 4;
-}
-
-.doc__app--remove, .doc__app--discard {
-  -ms-grid-row: 3;
-  -ms-grid-row-span: 1;
-  grid-row: 3 / 4;
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 1;
-  grid-column: 5 / 6;
+  position: relative;
+  right: 75px;
 }
 
 .doc__app--blue {
   background-color: #3030db;
 }
 
-.doc__app--contact {
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 1;
-  grid-row: 1 / 2;
-}
-
-.doc__app--type {
-  -ms-grid-row: 2;
-  -ms-grid-row-span: 1;
-  grid-row: 2 / 3;
-}
-
-.doc__app--time {
-  -ms-grid-row: 3;
-  -ms-grid-row-span: 1;
-  grid-row: 3 / 4;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 4;
-  grid-column: 1 / 5;
-}
-
 .doc__app--contact, .doc__app--type {
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 1;
-  grid-column: 5 / 6;
   justify-self: flex-end;
 }
 
@@ -275,17 +220,3 @@ button:hover {
   margin-right: auto;
   margin-bottom: 0;
 }
-
-.doc__unapp-btns {
-  -ms-grid-row: 3;
-  -ms-grid-row-span: 1;
-  grid-row: 3 / 4;
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 1;
-  grid-column: 5 / 6;
-}
-
-.doc__unapp-btns button {
-  margin-left: 10px;
-}
-/*# sourceMappingURL=profile-ivan.css.map */
