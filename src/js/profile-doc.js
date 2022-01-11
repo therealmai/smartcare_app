@@ -15,6 +15,7 @@ let appIdArr = [];
 
 var AccSetBtn = "#AccSetBtn";
 var ProfDetBtn = "#ProfDetBtn";
+var showSchedBtn = "#showSchedBtn";
 var acc = document.getElementById("AccSetBtn");
 var prof = document.getElementById("ProfDetBtn");
 var accInfo = document.getElementById("acc-info");
@@ -48,6 +49,10 @@ function addEventGlobalListener(action, selector, callback) {
 function isolateElemCont(cont , elem) {
     $(cont).children(":not(.hide)").addClass("hide");
     $(elem).removeClass("hide");
+}
+function addEffectToClickedProfBtn(btnId) {
+    $("#profBtns").children(`button:not(${btnId})`).css("background-color", "#5f7de0");
+    $("#profBtns").children(btnId).css("background-color", "#2240aa");
 }
 function addFocusClassToBtn(button, focus) {
     $(`.${focus}`).removeClass(focus);
@@ -180,24 +185,18 @@ addEventGlobalListener('click', ProfDetBtn, (e) => {
 
 addEventGlobalListener('click', showDocProfBtn, (e) => {
     console.log("im here docprof");
-    ProfProfBtn.style.backgroundColor = "#2240aa";
-    DocPatBtn.style.backgroundColor = "#5f7de0";
-    DocAppointBtn.style.backgroundColor = "#5f7de0";
+    addEffectToClickedProfBtn(showDocProfBtn);
     isolateProfileTab("#profPat");
 })
 
 addEventGlobalListener('click', showDocPatBtn, (e) => {
     console.log("im here docpat");
-    ProfProfBtn.style.backgroundColor = "#5f7de0";
-    DocPatBtn.style.backgroundColor = "#2240aa";
-    DocAppointBtn.style.backgroundColor = "#5f7de0";
+    addEffectToClickedProfBtn(showDocPatBtn);
     isolateProfileTab("#profDocPat");
 })
 
 addEventGlobalListener('click', showDocAppointBtn, e => {
-    ProfProfBtn.style.backgroundColor = "#5f7de0";
-    DocPatBtn.style.backgroundColor = "#5f7de0";
-    DocAppointBtn.style.backgroundColor = "#2240aa";
+    addEffectToClickedProfBtn(showDocAppointBtn);
     isolateProfileTab("#docAppCont");
     $.ajax({
         type: "GET",
@@ -235,7 +234,8 @@ addEventGlobalListener("click", "#showNotifsBtn", e => {
     showResultFromAppointBtn("#docNotifsCont", "#showNotifsBtn");
 })
 addEventGlobalListener("click", "#showSchedBtn", e => {
-    showResultFromAppointBtn("#docSchedCont", "#showSchedBtn");
+    addEffectToClickedProfBtn("#showSchedBtn");
+    isolateProfileTab("#docSchedCont");
     $.ajax({
         type: "GET",
         url: "../src/php/get-schedules_act.php",
