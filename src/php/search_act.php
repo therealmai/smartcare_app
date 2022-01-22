@@ -21,7 +21,8 @@
 
     if($specialty !== "" && $name !== "") {
         $query .= <<<EOT
-            WHERE LOCATE('$specialty', specialization) > 0 AND LOCATE('$name', firstname) > 0
+            WHERE LOCATE('$specialty', specialization) > 0 AND (LOCATE('$name', firstname) > 0
+            OR LOCATE('$name', lastname) > 0)
         EOT;
     } else if($specialty !== "") {
         $query .= <<<EOT
@@ -30,11 +31,11 @@
     } else { // $name !==""
         $query .= <<<EOT
             WHERE LOCATE('$name', firstname) > 0
+            OR LOCATE('$name', lastname) > 0
         EOT;
     }
 
-    // $query .= " ORDER BY $order[0] $order[1]";
-
+    $query .= " ORDER BY $order[0] $order[1]";
     $stmt = $con->query($query);    
 
     while($result = $stmt->fetch_assoc()) {
@@ -46,10 +47,7 @@
     $obj = [
         "message" => $message,
         "data" => $data,
-        "isFound" => $isFound,
-        "stmt" => $stmt,
-        "specialty" => $specialty,
-        "name" => $name
+        "isFound" => $isFound
     ];
 
     $obj = json_encode($obj);

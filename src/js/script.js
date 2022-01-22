@@ -217,6 +217,7 @@ addEventGlobalListener('submit', appointForm, (e) => {
 addEventGlobalListener('change', "#date", e => {
     let a = new Date($("#date").val());
     let day = daysOfTheWeek[a.getDay()];
+    let date = $("#date").val().split("-");
     if($(`#time .${day}`).length == 0) {
         $("#time").prop("disabled", true);
         $("#default").text("Doctor is not available in this day.")
@@ -225,5 +226,27 @@ addEventGlobalListener('change', "#date", e => {
         $("#default").text("-- select an option --")
     }
     $("#time").val("default");
+    $("#time").children(["disabled"]).removeAttr("disabled")
+    $("#time").children(["style"]).removeAttr("style")
     isolateElemCont("#time", `.${day}`);
+
+    $.ajax({
+        type: "GET",
+        url: "../src/php/check-availability_act.php",
+        data: `year=${date[0]}&month=${date[1]}&day=${date[2]}`, 
+        success: res => {
+            let {data} = JSON.parse(res);
+            let options = $("#time").children(":not(#default, .hide)");
+            for(let i of data) {
+                let ts = i["Time"].substring(0,5);
+                for(let j of options) {
+                    if(ts === j.innerText.substring(0, 5)) {
+                        $(j).css("background-color", "rgb(244 152 152)");
+                        $(j).prop("disabled", true);
+                        break;
+                    }
+                }
+            }
+        }
+    })
 })

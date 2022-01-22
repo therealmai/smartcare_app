@@ -62,7 +62,11 @@ button:hover {
     "f f f h" auto
     "g g g h" / auto 1fr 1fr auto;
   padding: 15px;
-  width: 350px;
+  width: 400px;
+}
+
+.d, .doc__app--type {
+  align-self: flex-start;
 }
 
 .doc__app h6 {
@@ -116,7 +120,7 @@ button:hover {
   margin-bottom: 10px;
 }
 
-.doc__app--done, .doc__app--cancel, .doc__app--remove, .doc__app--discard {
+.doc__app--done, .doc__app--cancel, .doc__app--remove, .doc__app--discard, .doc__app--view {
   border: 1px solid black;
   color: white;
   justify-self: flex-end;
@@ -139,7 +143,7 @@ button:hover {
   right: 75px;
 }
 
-.doc__app--blue {
+.doc__app--view {
   background-color: #3030db;
 }
 

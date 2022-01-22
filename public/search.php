@@ -38,8 +38,8 @@
 
                 <span>Sort by:</span>
                 <select name="order" id="searchOrder">
-                    <option selected value="name-asc">Name - ASC</option>
-                    <option value="name-desc">Name - DESC</option>
+                    <option selected value="lastname-asc">Name - ASC</option>
+                    <option value="lastname-desc">Name - DESC</option>
                 </select>
             </div>
         </form>

@@ -80,7 +80,7 @@ function generateAppointment({image_profile, ID, Day, Month, Time, Year, userMon
     let html = `
     <div data-id="${ID}" class="doc__app">
         <img class="doc__app--img a" src="../src/img/profiles/${image_profile}" alt="Profile Image" />
-        <h6 class="b">${firstname} ${middle_initial}. ${lastname}</h6>
+        <h6 class="doc__app--name b">${firstname} ${middle_initial}. ${lastname}</h6>
         <h6 class="doc__app--contact c">${contact}</h6>
         <h6 class="d">Age: ${age}</h6>
         <h6 class="doc__app--type e">${type}</h6>
@@ -117,7 +117,7 @@ function generateBtnHtmlApp(type) {
     } 
     if(type === "fin") {
         return `
-            <button class="doc__app--remove h">View</button>
+            <button class="doc__app--view h">View</button>
         `
     }
     if(type === "not") {
@@ -169,9 +169,6 @@ function removeAppIdFromArr(id) {
     let index = appIdArr.indexOf(id);
     appIdArr.splice(index, 1);
 }
-function sortSchedule(cont) {
-    let schedules = $(cont).children();
-}
 
 addEventGlobalListener('click', ProfDetBtn, (e) => {
     console.log("im here profdet");
@@ -220,7 +217,6 @@ addEventGlobalListener('click', showDocAppointBtn, e => {
                 if(!appIdArr.includes(i.ID))
                     appIdArr.push(i.ID);
             }
-            $("#showUnAppBtn").trigger("click");
         }
     })
 })
@@ -305,8 +301,7 @@ addEventGlobalListener("click", ".doc__app--discard", e => {
                 alert(message);
                 if(success) {
                     $(app).remove();
-                    $(showDocAppointBtn).trigger("click");
-                    $("#showNotifsBtn").trigger("click");
+                    isAppContEmpty("#docNotifsCont");
                 }
             }
         })
@@ -328,7 +323,7 @@ addEventGlobalListener("click", ".doc__app--done", e=> {
                     app.remove();
                     removeAppIdFromArr(id);
                     // $(showUnAppBtn).trigger("click");
-                    $(showDocAppointBtn).trigger("click");
+                    isAppContEmpty(docAppUnResCont);
                 }
             }
         })
@@ -348,7 +343,7 @@ addEventGlobalListener("click", ".doc__app--cancel", e => {
                 if(success) {
                     $(app).remove();
                     removeAppIdFromArr(id);
-                    $(showDocAppointBtn).trigger("click");
+                    isAppContEmpty(docAppUnResCont)
                 }
             }
         })

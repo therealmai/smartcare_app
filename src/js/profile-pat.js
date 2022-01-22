@@ -45,15 +45,18 @@ function generateAppointment({image_profile, ID, Day, Month, Time, Year, Type, f
     let timeE = formatTime(time[1]);
     let html = `
     <div data-id="${ID}" class="doc__app">
-        <img class="doc__app--img" src="../src/img/profiles/${image_profile}" alt="Profile Image" />
-        <h4>Dr. ${firstname} ${middle_initial}. ${lastname}</h4>
-        <h5 class="doc__app--contact">${contact}</h5>
-        <h6>${specialization}</h6>
-        <h5 class="doc__app--type">${type}</h5>
-        <h5 class="doc__app--time">
+        <img class="doc__app--img a" src="../src/img/profiles/${image_profile}" alt="Profile Image" />
+        <h6 class="doc__app--name b">Dr. ${firstname} ${middle_initial}. ${lastname}</h6>
+        <h6 class="doc__app--contact c">${contact}</h6>
+        <h6 class="d">${specialization}</h6>
+        <h6 class="doc__app--type e">${type}</h6>
+        <h6 class="doc__app--time f">
             <i class="fa fa-clock-o" aria-hidden="true"></i>
-            ${timeS} - ${timeE} &nbsp &nbsp ${month}/${day}/${Year}
-        </h5>
+            ${timeS} - ${timeE} 
+        </h6>
+        <h6 class="g">
+            ${month}/${day}/${Year}
+        </h6>
         ${buttonHtml}
     </div>
     `;
@@ -62,17 +65,17 @@ function generateAppointment({image_profile, ID, Day, Month, Time, Year, Type, f
 function generateBtnHtmlApp(type) {
     if(type === "un") {
         return `
-            <button class="doc__app--cancel">Cancel</button>
+            <button class="doc__app--cancel h">Cancel</button>
         `
     }
     if(type === "fin") {
         return `
-            <button class="doc__app--remove doc__app--blue">View</button>
+            <button class="doc__app--view h">View</button>
         `
     }
     if(type === "not") {
         return `
-            <button class="doc__app--discard">Discard</button>
+            <button class="doc__app--discard h">Discard</button>
         `
     } 
 }
@@ -197,8 +200,6 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
                 if(!appIdArr.includes(i.ID))
                     appIdArr.push(i.ID);
             }
-            console.log("appbtn")
-            // $("#showUnAppBtn").trigger("click");
         }
     })
 })
@@ -236,10 +237,9 @@ addEventGlobalListener('click', ".doc__app--cancel", e => {
                 alert(message);
                 if(success) {
                     index = appIdArr.indexOf(id);
-                    if(index != -1)
-                        appIdArr.splice(index, 1)
+                    appIdArr.splice(index, 1)
                     app.remove();
-                    $(showPatAppointBtn).trigger("click");
+                    isAppContEmpty(profResUnApp)
                 }
             },
             error: err => {
