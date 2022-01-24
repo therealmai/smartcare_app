@@ -103,7 +103,7 @@ if (isset($_POST['submit'])) {
     }
 
     if ((move_uploaded_file($_FILES["image_health"]["tmp_name"], $targetFileHealth)) && (move_uploaded_file($_FILES["ssn"]["tmp_name"], $targetFileSSN))) {
-        echo "sucess health and ssn";
+        echo "success health and ssn";
     } else {
         echo "no health and ssn";
     }

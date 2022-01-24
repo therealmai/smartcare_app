@@ -143,6 +143,8 @@ include('../src/php/dbconnect.php')
                                     <br>
                                     <label for="contact">Contact: </label>
                                     <br>
+                                    <label for="emergency_contact">Emergency Contact: </label>
+                                    <br>
                                     <label for="height">Height: </label>
                                     <br>
                                     <label for="weight">Weight: </label>
@@ -157,6 +159,11 @@ include('../src/php/dbconnect.php')
                                     <label for="lname"><?php echo $profile['lastname'] ?></label><br>
                                     <label for="age"><?php echo $diff->format('%y'); ?></label><br>
                                     <label for="contact"><?php echo "0" . $profile['contact'] ?></label><br>
+                                    <label for="emergency_contact"><?php if ($profile['emergency_contact'] != NULL) {
+                                                            echo "0" . $profile['emergency_contact'];
+                                                        } else {
+                                                            echo $noData;
+                                                        } ?></label><br>
                                     <label for="height"><?php if ($profile['height'] != NULL) {
                                                             echo $profile['height'] . " cm";
                                                         } else {
@@ -167,7 +174,7 @@ include('../src/php/dbconnect.php')
                                                         } else {
                                                             echo $noData;
                                                         } ?></label><br>
-                                    <label for="heart rate"><?php if ($profile['heart_rate'] != NULL) {
+                                    <label for="blood_pressure"><?php if ($profile['blood_pressure'] != NULL) {
                                                                 echo $profile['blood_pressure'] . " mmHg";
                                                             } else {
                                                                 echo $noData;
@@ -255,8 +262,11 @@ include('../src/php/dbconnect.php')
                             <input type="contact" class="form-control" id="contact" name="contact" placeholder="name@gmail.com">
                             <label for="floatingInput">Contact</label>
                         </div>
+                        <div class="form-floating mb-3">
+                            <input type="emergency_contact" class="form-control" id="emergency_contact" name="emergency_contact" placeholder="name@gmail.com">
+                            <label for="floatingInput">Emergency Contact</label>
+                        </div>
                         <input type="text" hidden name="patient_id" id="patient_id">
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
