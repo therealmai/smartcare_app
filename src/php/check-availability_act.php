@@ -10,10 +10,12 @@
     $year = $_GET["year"];
     $month = $_GET["month"];
     $day = $_GET["day"];
+    $docId = $_GET["docId"];
 
     $query = <<<EOT
         SELECT Time FROM appointments 
-        WHERE year = $year AND
+        WHERE DoctorID = $docId AND
+        year = $year AND
         month = $month AND
         day = $day AND
         IsFinished = 0 AND

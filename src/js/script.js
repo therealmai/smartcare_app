@@ -137,6 +137,7 @@ function isDateValid(dateInput) {
 
 addEventGlobalListener('click', closeBtn, (e) => {
     $(appointmentForm).addClass('hide');
+    $(appointForm)[0].reset();
     $("#time").children(":not(#default)").remove();
 })
 addEventGlobalListener('click', bookNowBtns, (e) => {
@@ -197,6 +198,10 @@ addEventGlobalListener('submit', appointForm, (e) => {
         alert("Please schedule a day earlier.")
         return;
     }
+    if($("#time").val() === "default") {
+        alert("Choose another weekday. The doctor does not have a schedule for this weekday.")
+        return;
+    }
     if($("#time").val() === null) {
         alert("Please select a valid time.")
         return;
@@ -209,7 +214,8 @@ addEventGlobalListener('submit', appointForm, (e) => {
             let {msg, success} = JSON.parse(resp);
             if(success) {
                 $(appointForm)[0].reset();
-            }
+                $("#time").children(":not(#default)").addClass("hide");
+            } 
             alert(msg);
         }
     })
@@ -233,14 +239,13 @@ addEventGlobalListener('change', "#date", e => {
     $.ajax({
         type: "GET",
         url: "../src/php/check-availability_act.php",
-        data: `year=${date[0]}&month=${date[1]}&day=${date[2]}`, 
+        data: `year=${date[0]}&month=${date[1]}&day=${date[2]}&docId=${docId}`, 
         success: res => {
             let {data} = JSON.parse(res);
             let options = $("#time").children(":not(#default, .hide)");
             for(let i of data) {
-                let ts = i["Time"].substring(0,5);
                 for(let j of options) {
-                    if(ts === j.innerText.substring(0, 5)) {
+                    if(i["Time"] === $(j).attr("value")) {
                         $(j).css("background-color", "rgb(244 152 152)");
                         $(j).prop("disabled", true);
                         break;

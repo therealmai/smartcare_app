@@ -14,6 +14,9 @@
     $type = $_POST["appoint-type"];
     $docId = $_POST["docId"];
     $userId = $_SESSION['currUser']["id"];
+    $timeSplit = explode("-", $time);
+    $userTs = $timeSplit[0];
+    $userTe = $timeSplit[1];
 
     $query = <<<EOT
         SELECT id FROM patients
@@ -25,38 +28,51 @@
     $patId = $result[0];
 
     $query = <<<EOT
-        SELECT * FROM appointments WHERE 
-        DoctorID = $docId AND
+        SELECT * FROM appointments WHERE
+        PatientID = $patId AND
         Day = $day AND
         Month = $month AND
-        Year = $year AND
-        Time = '$time' AND 
-        IsCancelled = 0    
+        Year = $year
     EOT;
-
     $stmt = $con->query($query);
-    if($stmt->num_rows > 0) {
-        $success = false;
-        $msg = "This time schedule is already occupied. Please choose another.";
+    while($result = $stmt->fetch_assoc()) {
+        $t = explode("-", $result["Time"]);
+        $ts = $t[0];
+        $te = $t[1];
+        if($userTs > $ts && $userTs < $te ||
+            $userTe > $ts && $userTe < $te ||
+            $ts > $userTs && $ts < $userTe ||
+            $te > $userTs && $te < $userTe ||
+            $ts == $userTs && $te == $userTe) {
+                $success = false;
+                $msg = "You have another schedule ongoing during the time of your choosing.";
+                break;
+        }
     }
+
+    // $query = <<<EOT
+    //     SELECT * FROM appointments WHERE 
+    //     DoctorID = $docId AND
+    //     Day = $day AND
+    //     Month = $month AND
+    //     Year = $year AND
+    //     Time = '$time' AND 
+    //     IsCancelled = 0    
+    // EOT;
+    // $stmt = $con->query($query);
+    // if($success && $stmt->num_rows > 0) {
+    //     $success = false;
+    //     $msg = "This time schedule is already occupied. Please choose another.";
+    // }
 
     $query = <<<EOT
         INSERT INTO appointments(DoctorID, PatientID, Type, Day, Month, Year, Time, isFinished, isCancelled)
         VALUES('$docId', '$patId', '$type', '$day', '$month', '$year', '$time', 0, 0)
     EOT;
-
     if($success) {
         $stmt = $con->query($query);
         $msg = "Success! You had made an appointment.";
-        $success = true;
     }
-
-    // $obj = [
-    //     "date" => $date,
-    //     "time" => $time,
-    //     "type" => $type,
-    //     "docId" => $docId
-    // ];
 
     $obj = [
         "msg" => $msg,

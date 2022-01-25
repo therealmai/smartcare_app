@@ -86,7 +86,7 @@ function generateAppointment({image_profile, ID, Day, Month, Time, Year, userMon
     let html = `
     <div data-id="${ID}" class="doc__app">
         <img class="doc__app--img a" src="../src/img/profiles/${image_profile}" alt="Profile Image" />
-        <h6 class="doc__app--name b">${firstname} ${middle_initial}. ${lastname}</h6>
+        <h6 class="doc__app--name b">${lastname}, ${firstname} ${middle_initial}.</h6>
         <h6 class="doc__app--contact c">${contact}</h6>
         <h6 class="d">Age: ${age}</h6>
         <h6 class="doc__app--type e">${type}</h6>
@@ -306,7 +306,7 @@ addEventGlobalListener("keyup", "#inputFilterAppointments", e => {
         currAppCont.children(".doc__app").removeClass("hide");
     } else {
         for(let i of currAppCont.children(".doc__app")) {
-            let name = $(i).children(".doc__app--name").text().substring(4);
+            let name = $(i).children(".doc__app--name").text();
             if(name.toLowerCase().includes(filter)) {
                 $(i).removeClass("hide");
                 // console.log("removing")
