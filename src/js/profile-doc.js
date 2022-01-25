@@ -58,7 +58,13 @@ function addFocusClassToBtn(button, focus) {
     $(`.${focus}`).removeClass(focus);
     $(button).addClass(focus);
 }
-
+function hideInputFilterAppointments(cont) {
+    if($(cont).children(".doc__app").length === 0) {
+        $("#inputFilterAppointments").addClass("hide");
+    } else {
+        $("#inputFilterAppointments").removeClass("hide");
+    }
+}
 function generateAppointment({image_profile, ID, Day, Month, Time, Year, userMon, userYear, userDay, Type, firstname, lastname, middle_initial, contact}, appType, cont) {
     let age = tyear - userYear;
     if(tmon < userMon) {
@@ -147,6 +153,9 @@ function showResultFromAppointBtn(cont, appBtn) {
     isolateElemCont(docAppResCont, cont);
     isAppContEmpty(cont)
     addFocusClassToBtn(appBtn, "doc__app-btn--focus");
+    hideInputFilterAppointments(cont);
+    $("#inputFilterAppointments").val("");
+    $(cont).children(".doc__app.hide").removeClass("hide");
 }
 addEventGlobalListener('click', AccSetBtn, (e) => {
     console.log("im here again profacc");
@@ -158,11 +167,12 @@ addEventGlobalListener('click', AccSetBtn, (e) => {
     prof.style.color = "grey";
 })
 function isAppContEmpty(cont) {
-    let total = $(cont).children(".doc__app");
+    let length = $(cont).children(".doc__app").length;
     let emptyMsg = $(cont).find(".doc__empty-msg");
-    emptyMsg.addClass("hide")
-    if(total.length == 0) {
+    if(length === 0) {
         emptyMsg.removeClass("hide");
+    } else {
+        emptyMsg.addClass("hide")
     }
 }
 function removeAppIdFromArr(id) {
@@ -288,6 +298,30 @@ addEventGlobalListener("submit", "#addSchedForm", e => {
         })
     }
 })
+addEventGlobalListener("keyup", "#inputFilterAppointments", e => {
+    let filter = e.target.value.toLowerCase();
+    let currAppCont = $($(docAppResCont).children(":not(.hide)")[0]);
+    if(currAppCont.length !== 0 && filter.length === 0) {
+        currAppCont.children(".doc__empty-msg").addClass("hide")
+        currAppCont.children(".doc__app").removeClass("hide");
+    } else {
+        for(let i of currAppCont.children(".doc__app")) {
+            let name = $(i).children(".doc__app--name").text().substring(4);
+            if(name.toLowerCase().includes(filter)) {
+                $(i).removeClass("hide");
+                // console.log("removing")
+            } else {
+                $(i).addClass("hide");
+                // console.log("adding")
+            }
+        }
+        if(currAppCont.children(":not(.doc__app.hide)").length === 1) {
+            currAppCont.children(".doc__empty-msg").removeClass("hide")
+        } else {
+            currAppCont.children(".doc__empty-msg").addClass("hide")
+        }
+    }
+})
 addEventGlobalListener("click", ".doc__app--discard", e => {
     if(confirm("Do you want to discard this notification?")) {
         let app = $(e.target).parent();
@@ -302,6 +336,7 @@ addEventGlobalListener("click", ".doc__app--discard", e => {
                 if(success) {
                     $(app).remove();
                     isAppContEmpty("#docNotifsCont");
+                    hideInputFilterAppointments("#docNotifsCont");
                 }
             }
         })
@@ -324,6 +359,7 @@ addEventGlobalListener("click", ".doc__app--done", e=> {
                     removeAppIdFromArr(id);
                     // $(showUnAppBtn).trigger("click");
                     isAppContEmpty(docAppUnResCont);
+                    hideInputFilterAppointments(docAppUnResCont);
                 }
             }
         })
@@ -344,6 +380,7 @@ addEventGlobalListener("click", ".doc__app--cancel", e => {
                     $(app).remove();
                     removeAppIdFromArr(id);
                     isAppContEmpty(docAppUnResCont)
+                    hideInputFilterAppointments(docAppUnResCont);
                 }
             }
         })

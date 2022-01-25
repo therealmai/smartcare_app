@@ -83,22 +83,33 @@ function addFocusClassToAppBtn(button) {
     $(".doc__app-btns").children().removeClass("doc__app-btn--focus");
     $(button).addClass("doc__app-btn--focus");
 }
+function hideInputFilterAppointments(cont) {
+    if($(cont).children(".doc__app").length === 0) {
+        $("#inputFilterAppointments").addClass("hide");
+    } else {
+        $("#inputFilterAppointments").removeClass("hide");
+    }
+}
 function isolateElemCont(cont , elem) {
     $(cont).children(":not(.hide)").addClass("hide");
     $(elem).removeClass("hide");
 }
 function isAppContEmpty(cont) {
-    let total = $(cont).children(".doc__app");
+    let length = $(cont).children(".doc__app").length;
     let emptyMsg = $(cont).find(".doc__empty-msg");
-    emptyMsg.addClass("hide")
-    if(total.length == 0) {
+    if(length == 0) {
         emptyMsg.removeClass("hide");
+    } else {
+        emptyMsg.addClass("hide")
     }
 }
 function showResultFromAppointBtn(cont ,appBtn) {
     isolateAppointmentCont(cont);
     isAppContEmpty(cont);
     addFocusClassToAppBtn(appBtn, "doc__app-btn--focus");
+    hideInputFilterAppointments(cont);
+    $("#inputFilterAppointments").val("");
+    $(cont).children(".doc__app.hide").removeClass("hide");
 }
 function formatTime(time) {
     let timeStart = time.split(":");
@@ -203,6 +214,30 @@ addEventGlobalListener('click', showPatAppointBtn, (e) => {
         }
     })
 })
+addEventGlobalListener("keyup", "#inputFilterAppointments", e => {
+    let filter = e.target.value.toLowerCase();
+    let currAppCont = $($(profResAppCont).children(":not(.hide, .doc__app-btns)")[0]);
+    if(filter.length === 0 && currAppCont.length !== 0) {
+        currAppCont.children(".doc__empty-msg").addClass("hide")
+        currAppCont.children(".doc__app").removeClass("hide");
+    } else {
+        for(let i of currAppCont.children(".doc__app")) {
+            let name = $(i).children(".doc__app--name").text().substring(4);
+            if(name.toLowerCase().includes(filter)) {
+                $(i).removeClass("hide");
+                // console.log("removing")
+            } else {
+                $(i).addClass("hide");
+                // console.log("adding")
+            }
+        }
+        if(currAppCont.children(":not(.doc__app.hide)").length === 1) {
+            currAppCont.children(".doc__empty-msg").removeClass("hide")
+        } else {
+            currAppCont.children(".doc__empty-msg").addClass("hide")
+        }
+    }
+})
 addEventGlobalListener("click", ".doc__app--discard", e => {
     if(confirm("Do you want to discard this notification?")) {
         let app = $(e.target).parent();
@@ -216,9 +251,8 @@ addEventGlobalListener("click", ".doc__app--discard", e => {
                 alert(message);
                 if(success) {
                     $(app).remove();
-                    $(showPatAppointBtn).trigger("click");
-                    console.log("notfis")
-                    $("#showNotifsBtn").trigger("click");
+                    isAppContEmpty("#appNotifsCont");
+                    hideInputFilterAppointments("#appNotifsCont");
                 }
             }
         })
@@ -240,6 +274,7 @@ addEventGlobalListener('click', ".doc__app--cancel", e => {
                     appIdArr.splice(index, 1)
                     app.remove();
                     isAppContEmpty(profResUnApp)
+                    hideInputFilterAppointments(profResUnApp)
                 }
             },
             error: err => {

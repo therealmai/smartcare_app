@@ -33,7 +33,7 @@
     $stmt = $con->query($query);
 
     while($result = $stmt->fetch_assoc()) {
-        $result["length"] = sprintf("%04u%02u%02u", $result["Year"], $result["Month"], $result["Day"]);
+        $result["length"] = sprintf("%04u%02u%02u%s", $result["Year"], $result["Month"], $result["Day"], $result["Time"]);
         if(in_array($result["ID"], $appIdArr))
             continue;
         if($result["IsCancelled"] == 1)

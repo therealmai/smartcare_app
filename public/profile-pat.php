@@ -194,6 +194,7 @@ include('../src/php/dbconnect.php')
                     <button class="doc__app-btn" id="showUnAppBtn">Unfinished</button>
                     <button class="doc__app-btn" id="showFinAppBtn">Finished</button>
                     <button class="doc__app-btn" id="showNotifsBtn">Notifications</button>
+                    <input class="filter-appointments hide" id="inputFilterAppointments"  type="text" placeholder="Search for a doctor...">
                 </div>
                 <div class="prof-res__appoint-cont hide" id="profResUnApp">
                     <h1 class="doc__empty-msg hide">Nothing to see here.</h1>

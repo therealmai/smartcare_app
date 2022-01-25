@@ -65,6 +65,10 @@ button:hover {
   width: 400px;
 }
 
+.doc__app.hide {
+  display: none;
+}
+
 .d, .doc__app--type {
   align-self: flex-start;
 }
@@ -223,4 +227,10 @@ button:hover {
 .doc__time h3 {
   margin-right: auto;
   margin-bottom: 0;
+}
+
+.filter-appointments {
+  margin-left: auto;
+  padding: 0 10px;
+  width: 300px;
 }

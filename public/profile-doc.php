@@ -126,6 +126,7 @@
                     <button class="doc__app-btn" id="showUnAppBtn">Unfinished</button>
                     <button class="doc__app-btn" id="showFinAppBtn">Finished</button>
                     <button class="doc__app-btn" id="showNotifsBtn">Notifications</button>
+                    <input class="filter-appointments hide" id="inputFilterAppointments"  type="text" placeholder="Search for a patient...">
                 </div>
                 <div id="docAppResCont">
                     <div class="doc__app-cont hide" id="docAppFinResCont">
