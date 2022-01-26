@@ -44,31 +44,35 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="homepage.php">Home</a>
-                    </li>
-                    <?php if ($_SESSION['currUser']['role'] != "doctor") { ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="search.php">Search</a>
-                    </li>
-                    <?php } ?>
-                    <?php if ($_SESSION['currUser']['role'] == "doctor") { ?>
+                    </li> <?php if ($_SESSION['currUser']['role'] == "secretary") { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="profile-doc.php">Profile Doctor</a>
+                            <a class="nav-link" href="search.php">Create an Account</a>
                         </li>
                     <?php } else { ?>
+                        <?php if ($_SESSION['currUser']['role'] != "doctor") { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="search.php">Search</a>
+                            </li>
+                        <?php } ?>
+                        <?php if ($_SESSION['currUser']['role'] == "doctor") { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="profile-doc.php">Profile Doctor</a>
+                            </li>
+                        <?php } else { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="profile-pat.php">Profile Patient</a>
+                            </li>
+                        <?php  } ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="profile-pat.php">Profile Patient</a>
+                            <a class="nav-link" href="prescriptions.php">Prescriptions</a>
                         </li>
-                    <?php  } ?>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="prescriptions.php">Prescriptions</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="labtest.php">Lab Tests</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="labtest.php">Lab Tests</a>
+                        </li>
                 </ul>
-                <!-- Left links -->
+            <?php } ?>
+            <!-- Left links -->
             </div>
             <!-- Collapsible wrapper -->
 
