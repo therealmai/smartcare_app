@@ -1,5 +1,6 @@
 let profRes = "#profRes";
 
+
 let showDocProfBtn = "#showDocProfBtn";
 let showDocAppointBtn = "#showDocAppointBtn";
 let showDocPatBtn = "#showDocPatBtn";
@@ -39,6 +40,18 @@ profInfo.style.display = "none";
 ProfProfBtn.style.backgroundColor = " #2240aa";
 acc.style.color = "black";
 isolateProfileTab("#profPat");
+
+function showData1(arr,age){
+    console.log(arr);
+    // document.getElementById("patient_id").value=arr['userID'];
+    document.getElementById("Accpatient_id").value=arr['userID'];
+    // document.getElementById("prof_id").value=arr['userID'];
+    // console.log(arr['userID']);
+    document.getElementById("email").value = arr['email'];
+    //  document.getElementById("password").value = arr['password'];
+    //  document.getElementById("contact").value=arr['contact'];
+ }
+
 
 function addEventGlobalListener(action, selector, callback) {
     document.addEventListener(action, (e) => {

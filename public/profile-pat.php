@@ -70,7 +70,6 @@ include('../src/php/dbconnect.php')
                             <br>
                             <center>
                                 <div class="pt-3">
-                                    
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropProfile" onclick='showData(<?php echo json_encode($profile); ?>)'>
                                         Change Profile Picture
                                     </button>
