@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2022 at 04:32 AM
+-- Generation Time: Jan 26, 2022 at 08:25 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -47,10 +47,10 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`ID`, `DoctorID`, `PatientID`, `Type`, `Day`, `Month`, `Year`, `Time`, `IsFinished`, `IsCancelled`, `Canceller`, `IsDiscarded`) VALUES
-(57, 2, 5, 'online', 6, 2, 2022, '07:00-08:00', 0, 0, 'doctor', b'0'),
-(64, 2, 4, 'online', 6, 2, 2022, '07:00-08:00', 0, 0, 'patient', b'0'),
+(57, 2, 5, 'online', 6, 2, 2022, '07:00-08:00', 1, 0, '', b'0'),
+(64, 2, 4, 'online', 6, 2, 2022, '07:00-08:00', 0, 1, 'patient', b'1'),
 (65, 2, 6, 'online', 6, 2, 2022, '07:00-08:00', 0, 0, NULL, b'0'),
-(67, 2, 5, 'f2f', 30, 1, 2022, '07:00-08:00', 0, 0, NULL, b'0');
+(69, 2, 5, 'f2f', 30, 1, 2022, '07:00-08:00', 0, 1, 'doctor', b'1');
 
 -- --------------------------------------------------------
 
@@ -75,21 +75,6 @@ INSERT INTO `doctors` (`id`, `userID`, `specialization`, `license_number`, `degr
 (6, 11, 'Pediatrician', '', ''),
 (7, 18, 'Pediatrician', '', ''),
 (8, 19, 'Cardiologist', '', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `doctors_fees`
---
-
-CREATE TABLE `doctors_fees` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `userID` bigint(20) UNSIGNED NOT NULL,
-  `amount` bigint(20) UNSIGNED NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -134,7 +119,8 @@ INSERT INTO `doctors_schedules` (`id`, `doctor_id`, `time_start`, `time_end`, `d
 (25, 2, '08:00', '09:00', 'sun'),
 (26, 2, '09:00', '10:00', 'sun'),
 (27, 2, '10:00', '11:00', 'sun'),
-(35, 2, '07:00', '08:00', 'tue');
+(35, 2, '07:00', '08:00', 'tue'),
+(39, 2, '07:00', '08:00', 'wed');
 
 -- --------------------------------------------------------
 
@@ -147,23 +133,6 @@ CREATE TABLE `emergency_contacts` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `relationship` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `insurances`
---
-
-CREATE TABLE `insurances` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `userID` bigint(20) UNSIGNED NOT NULL,
-  `feeID` bigint(20) UNSIGNED NOT NULL,
-  `insurance_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `policy` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `main_policy_holder` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -209,25 +178,6 @@ INSERT INTO `patients` (`id`, `userID`, `height`, `weight`, `blood_pressure`, `h
 (5, 14, '', '', '', '', NULL, NULL),
 (6, 16, '', '', '', '', NULL, NULL),
 (7, 17, '', '', '', '', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `payer_for_patients`
---
-
-CREATE TABLE `payer_for_patients` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `feeID` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `relationship` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `contact` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `age` tinyint(4) NOT NULL,
-  `gender` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -302,13 +252,6 @@ ALTER TABLE `doctors`
   ADD KEY `doctors_userid_foreign` (`userID`);
 
 --
--- Indexes for table `doctors_fees`
---
-ALTER TABLE `doctors_fees`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `doctors_fees_userid_foreign` (`userID`);
-
---
 -- Indexes for table `doctors_lab_tests`
 --
 ALTER TABLE `doctors_lab_tests`
@@ -329,14 +272,6 @@ ALTER TABLE `emergency_contacts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `insurances`
---
-ALTER TABLE `insurances`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `insurances_userid_foreign` (`userID`),
-  ADD KEY `insurances_feeid_foreign` (`feeID`);
-
---
 -- Indexes for table `lab_tests`
 --
 ALTER TABLE `lab_tests`
@@ -350,13 +285,6 @@ ALTER TABLE `lab_tests`
 ALTER TABLE `patients`
   ADD PRIMARY KEY (`id`),
   ADD KEY `patients_userid_foreign` (`userID`);
-
---
--- Indexes for table `payer_for_patients`
---
-ALTER TABLE `payer_for_patients`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `payer_for_patients_feeid_foreign` (`feeID`);
 
 --
 -- Indexes for table `prescriptions`
@@ -381,19 +309,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `doctors_fees`
---
-ALTER TABLE `doctors_fees`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `doctors_lab_tests`
@@ -405,18 +327,12 @@ ALTER TABLE `doctors_lab_tests`
 -- AUTO_INCREMENT for table `doctors_schedules`
 --
 ALTER TABLE `doctors_schedules`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `emergency_contacts`
 --
 ALTER TABLE `emergency_contacts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `insurances`
---
-ALTER TABLE `insurances`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -430,12 +346,6 @@ ALTER TABLE `lab_tests`
 --
 ALTER TABLE `patients`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `payer_for_patients`
---
-ALTER TABLE `payer_for_patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `prescriptions`
@@ -460,12 +370,6 @@ ALTER TABLE `doctors`
   ADD CONSTRAINT `doctors_userid_foreign` FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `doctors_fees`
---
-ALTER TABLE `doctors_fees`
-  ADD CONSTRAINT `doctors_fees_userid_foreign` FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
 -- Constraints for table `doctors_lab_tests`
 --
 ALTER TABLE `doctors_lab_tests`
@@ -476,13 +380,6 @@ ALTER TABLE `doctors_lab_tests`
 --
 ALTER TABLE `doctors_schedules`
   ADD CONSTRAINT `doctors_schedules_id_foreign` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`);
-
---
--- Constraints for table `insurances`
---
-ALTER TABLE `insurances`
-  ADD CONSTRAINT `insurances_feeid_foreign` FOREIGN KEY (`feeID`) REFERENCES `doctors_fees` (`id`),
-  ADD CONSTRAINT `insurances_userid_foreign` FOREIGN KEY (`userID`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `lab_tests`
@@ -496,12 +393,6 @@ ALTER TABLE `lab_tests`
 --
 ALTER TABLE `patients`
   ADD CONSTRAINT `patients_userid_foreign` FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `payer_for_patients`
---
-ALTER TABLE `payer_for_patients`
-  ADD CONSTRAINT `payer_for_patients_feeid_foreign` FOREIGN KEY (`feeID`) REFERENCES `doctors_fees` (`id`);
 
 --
 -- Constraints for table `prescriptions`

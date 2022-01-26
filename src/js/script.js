@@ -233,7 +233,8 @@ addEventGlobalListener('change', "#date", e => {
     }
     $("#time").val("default");
     $("#time").children(["disabled"]).removeAttr("disabled")
-    $("#time").children(["style"]).removeAttr("style")
+    $("#time").children(".clr-reserved").removeClass("clr-reserved")
+    $("#time").children(".clr-conflict").removeClass("clr-conflict")
     isolateElemCont("#time", `.${day}`);
 
     $.ajax({
