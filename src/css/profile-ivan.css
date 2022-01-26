@@ -124,14 +124,16 @@ button:hover {
   margin-bottom: 10px;
 }
 
-.doc__app--done, .doc__app--cancel, .doc__app--remove, .doc__app--discard, .doc__app--view {
+.doc__app--done, .doc__app--cancel, .doc__app--remove, .doc__app--discard, .doc__app--presc, .doc__app--labt {
   border: 1px solid black;
   color: white;
   justify-self: flex-end;
-  padding: 5px 7px;
+  padding: 2.5px 7.5px;
+  align-self: center;
+  font-size: 14px;
 }
 
-.doc__app--done:hover, .doc__app--cancel:hover, .doc__app--remove:hover, .doc__app--discard:hover {
+.doc__app--done:hover, .doc__app--cancel:hover, .doc__app--remove:hover, .doc__app--discard:hover, .doc__app--presc:hover, .doc__app--labt:hover {
   background-color: white;
   border: 1px solid black;
   color: black;
@@ -147,7 +149,12 @@ button:hover {
   right: 75px;
 }
 
-.doc__app--view {
+.doc__app--presc {
+  position: relative;
+  right: 85px;
+}
+
+.doc__app--presc, .doc__app--labt {
   background-color: #3030db;
 }
 

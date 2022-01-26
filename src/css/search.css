@@ -27,6 +27,14 @@ header {
   display: none;
 }
 
+.clr-conflict, .clr-reserved {color: white}
+.clr-conflict {background-color: rgb(250, 51, 51);}
+.clr-reserved {background-color: rgb(129, 127, 127);}
+.box {
+  height: 20px;
+  width: 20px;
+}
+
 .a {grid-area: a}
 .b {grid-area: b}
 .c {grid-area: c}
@@ -37,6 +45,20 @@ header {
 .h {grid-area: h}
 .i {grid-area: i}
 .j {grid-area: j}
+
+.legend {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend__text {
+  flex-basis: 100%;
+}
+
+.legend--mright {margin-right: 10px;}
 
 .header__logo {
   height: 80px;

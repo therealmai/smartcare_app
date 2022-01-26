@@ -22,33 +22,9 @@
         SELECT id FROM patients
         WHERE userID = $userId
     EOT;
-    
     $stmt = $con->query($query);
     $result = $stmt->fetch_row();
     $patId = $result[0];
-
-    $query = <<<EOT
-        SELECT * FROM appointments WHERE
-        PatientID = $patId AND
-        Day = $day AND
-        Month = $month AND
-        Year = $year
-    EOT;
-    $stmt = $con->query($query);
-    while($result = $stmt->fetch_assoc()) {
-        $t = explode("-", $result["Time"]);
-        $ts = $t[0];
-        $te = $t[1];
-        if($userTs > $ts && $userTs < $te ||
-            $userTe > $ts && $userTe < $te ||
-            $ts > $userTs && $ts < $userTe ||
-            $te > $userTs && $te < $userTe ||
-            $ts == $userTs && $te == $userTe) {
-                $success = false;
-                $msg = "You have another schedule ongoing during the time of your choosing.";
-                break;
-        }
-    }
 
     // $query = <<<EOT
     //     SELECT * FROM appointments WHERE 

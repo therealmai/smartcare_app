@@ -239,14 +239,25 @@ addEventGlobalListener('change', "#date", e => {
     $.ajax({
         type: "GET",
         url: "../src/php/check-availability_act.php",
-        data: `year=${date[0]}&month=${date[1]}&day=${date[2]}&docId=${docId}`, 
+        data: `year=${date[0]}&month=${date[1]}&day=${date[2]}&docId=${docId}&weekday=${day}`, 
         success: res => {
-            let {data} = JSON.parse(res);
+            let {conflict, reserved} = JSON.parse(res);
+            console.log(conflict)
+            console.log(reserved);
             let options = $("#time").children(":not(#default, .hide)");
-            for(let i of data) {
+            for(let i of conflict) {
+                for(let j of options) {
+                    if(i === $(j).attr("value")) {
+                        $(j).addClass("clr-conflict");
+                        $(j).prop("disabled", true);
+                        break;
+                    }
+                }
+            }
+            for(let i of reserved) {
                 for(let j of options) {
                     if(i["Time"] === $(j).attr("value")) {
-                        $(j).css("background-color", "rgb(244 152 152)");
+                        $(j).addClass("clr-reserved");
                         $(j).prop("disabled", true);
                         break;
                     }

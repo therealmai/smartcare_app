@@ -70,7 +70,8 @@ function generateBtnHtmlApp(type) {
     }
     if(type === "fin") {
         return `
-            <button class="doc__app--view h">View</button>
+            <button class="doc__app--presc h">Prescription</button>
+            <button class="doc__app--labt h">Lab Test</button>
         `
     }
     if(type === "not") {

@@ -76,27 +76,33 @@
                 <h4>Appointment Information</h4>
 
                 <form action="" id="appointForm">
-                    <div>
+                    <div class="form-cont__div">
                         <label title="Please schedule a day earlier." for="date">
                             Date of Appointment &nbsp;
                             <i class="fa fa-exclamation-circle" aria-hidden="true" style="color:orange;"></i>
                         </label>
                         <input name="date" id="date" type="date" required>
                     </div>
-                    <div>
+                    <div class="form-cont__div">
                         <label for="time">Time of Appointment</label>
                         <select name="time" id="time" required>
                             <option id="default" disabled selected value="default"> -- select an option -- </option>
                         </select>
                     </div>
-
-                    <div>
+                    <div class="form-cont__div">
                         <label for="appoint-type">Appointment Type</label>
                         <select name="appoint-type" id="appoint-type" required>
                             <option hidden disabled selected value> -- select an option -- </option>
                             <option value="f2f">Face-to-face</option>
                             <option value="online">Online Appointment</option>
                         </select>
+                    </div>
+                    <div class="legend">
+                        <h6 class="legend__text">Legend:</h6>
+                        <div class="box clr-conflict"></div>
+                        <span class="legend--mright"> - Conflict</span>
+                        <div class="box clr-reserved"></div>
+                        <span> - Reserved</span>
                     </div>
 
                     <!-- <div>

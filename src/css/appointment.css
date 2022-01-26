@@ -151,7 +151,7 @@ header {
   margin-top: 20px;
 }
 
-.right-sec__form-cont form div {
+.form-cont__div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
