@@ -21,7 +21,7 @@ include('../src/php/dbconnect.php')
     <?php
     $noData = "No Data Found";
     $id = $_SESSION['currUser']['id'];
-    echo $id;
+
     $sql = "SELECT * FROM `users` LEFT JOIN doctors ON users.id = doctors.userID WHERE users.id = '$id'";
     $check = mysqli_query($mysqli, $sql) or die("err $id " . mysqli_error($mysqli));
     $check2 = mysqli_num_rows($check);
@@ -34,11 +34,21 @@ include('../src/php/dbconnect.php')
         $dateOfBirth = $profile['year'] . "-" . $profile['month'] . "-" . $profile['day'];
         $today = date("Y-m-d");
         $diff = date_diff(date_create($dateOfBirth), date_create($today));
-        $profile['created_at'] = "";
-        $profile['updated_at'] = "";
+        $sec = $profile['secretary_id'];
+        // $profile['created_at'] = "";
+        // $profile['updated_at'] = "";
+        $query = "SELECT * FROM `users` LEFT JOIN doctors ON users.id = doctors.secretary_id WHERE users.id = '$sec'";
+        $check = mysqli_query($mysqli, $query) or die("err $id " . mysqli_error($mysqli));
+        $check2 = mysqli_num_rows($check);
+        if ($check2 != 0) {
+            while ($row1 = mysqli_fetch_assoc($check)) {
+                $sec = $row1;
+            }
+        }
     }
+    
     ?>
-    <?php var_dump($profile); ?>
+    <!-- <?php var_dump($sec); ?> -->
     <?php include "./header.php" ?>
 
     <main class="prof">
@@ -116,24 +126,28 @@ include('../src/php/dbconnect.php')
                             <div class="line-selected-a" id="line-selected-a"></div>
                             <div class="line-selected-b" id="line-selected-b"></div>
                             <table class="acc-info" id="acc-info" style="width:100%;">
-                                <col span="1" style="width: 1%;">
+                                <col span="1" style="width: 3%;">
                                 <col span="1" style="width: 20%;">
                                 <td>
                                     <label for="email">Email: </label>
                                     <br>
                                     <label for="password">Password: </label>
+                                    <label for="sec-email">Secretary Email: </label>
+                                    <br><br><br>
                                 </td>
                                 <td>
                                     <label for="email"><?php echo $profile['email']; ?></label><br>
                                     <label for="password"><?php echo $password ?></label><br>  
-                                </td>
-                                
-                            </table>
-                            <div class="pt-3">
+                                    <label for="password"><?php echo $sec['email']; ?></label><br>  
+                                    <div class="pt-3">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick='showData1(<?php echo json_encode($profile); ?>)'>
                                             Change Account Settings
                                         </button>
                                     </div>
+                                </td>
+                                
+                            </table>
+                        
                             <table class="prof-info" id="prof-info">
                                 <col span="1" style="width: 1%;">
                                 <col span="1" style="width: 25%;">
@@ -151,7 +165,7 @@ include('../src/php/dbconnect.php')
                                     <label for="license-no">License No:</label>
                                     <br>
                                     <label for="degree">Degree:</label>
-                                    <br>
+                                    
                                 </td>
                                 <td>
                                     <label for="fname"><?php echo $profile['firstname']; ?></label><br>
@@ -161,8 +175,12 @@ include('../src/php/dbconnect.php')
                                     <label for="specialization"><?php echo $profile['specialization']; ?> </label><br>
                                     <label for="license-no"><?php echo $profile['license_number'] ?></label><br>
                                     <label for="degree"><?php echo $profile['degree'] ?></label><br>
+                              
+                                    
                                 </td>
+                                
                             </table>
+                            
                         </td>
                     </table>
                 </form>
