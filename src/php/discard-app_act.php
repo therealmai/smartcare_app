@@ -7,7 +7,9 @@
     $success = false;
 
     $query = <<<EOT
-        DELETE FROM appointments WHERE ID = $id
+        UPDATE appointments
+        SET IsDiscarded = 1
+        WHERE ID = $id
     EOT;
 
     $stmt = $con->query($query);

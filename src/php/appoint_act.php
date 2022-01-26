@@ -42,8 +42,8 @@
     // }
 
     $query = <<<EOT
-        INSERT INTO appointments(DoctorID, PatientID, Type, Day, Month, Year, Time, isFinished, isCancelled)
-        VALUES('$docId', '$patId', '$type', '$day', '$month', '$year', '$time', 0, 0)
+        INSERT INTO appointments(DoctorID, PatientID, Type, Day, Month, Year, Time, isFinished, isCancelled, IsDiscarded)
+        VALUES('$docId', '$patId', '$type', '$day', '$month', '$year', '$time', 0, 0, 0)
     EOT;
     if($success) {
         $stmt = $con->query($query);

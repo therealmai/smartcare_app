@@ -159,6 +159,7 @@ header {
           justify-content: space-between;
   margin: 0 auto;
   width: 1110px;
+  gap: 30px;
 }
 
 .search-results span {

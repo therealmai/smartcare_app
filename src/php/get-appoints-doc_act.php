@@ -26,7 +26,8 @@
         ON patients.id = appointments.PatientID
         INNER JOIN users
         ON users.id = patients.userID
-        WHERE appointments.DoctorID = $docId
+        WHERE appointments.DoctorID = $docId AND
+        appointments.IsDiscarded = 0
     EOT;
 
     $stmt = $con->query($query);

@@ -358,7 +358,7 @@ addEventGlobalListener("click", ".doc__app--done", e=> {
                     // $(docAppFinResCont).append(app.prop("outerHTML"));
                     app.remove();
                     removeAppIdFromArr(id);
-                    // $(showUnAppBtn).trigger("click");
+                    $(showDocAppointBtn).trigger("click");
                     isAppContEmpty(docAppUnResCont);
                     hideInputFilterAppointments(docAppUnResCont);
                 }
