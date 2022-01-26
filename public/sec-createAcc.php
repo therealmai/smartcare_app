@@ -1,91 +1,103 @@
+<?php
+// session_start();
+// if (isset($_SESSION['currUser']))
+//     header('location: ./homepage.php');
+// ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Registration</title>
-  <link rel="stylesheet" href="../src/css/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../src/css/sec-registration.css">
+    <title>SmartCare - Registration</title>
 </head>
-<style>
-  @media (min-width: 1025px) {
-    .h-custom {
-      height: 100vh !important;
-    }
-  }
-</style>
 
-<body>
-  <section class="h-100 h-custom" style="background-image:">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-lg-8 col-xl-6">
-          <div class="card rounded-3">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp" class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;" alt="Sample photo">
-            <div class="card-body p-4 p-md-5">
-              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Info</h3>
+<body style="background-image:url(../src/img/registration.jpg)">
 
-              <form class="px-md-2">
-
-                <div class="form-outline mb-4">
-                  <input type="text" id="form3Example1q" class="form-control" />
-                  <label class="form-label" for="form3Example1q">Name</label>
+    <header>
+        <img class="header__logo" src="../src/img/logo_trans.png" alt="">
+    </header>
+    <main>
+       
+        <section id="userFormCont" class="right-sec">
+            <h1>Registration Form</h1>
+            <center>
+                <h3>Please fill up the blanks</h3>
+            </center>
+            <?php
+            // Have fun with these errors hehe :>
+            if (isset($_SESSION['reg_err'])) {
+                foreach ($_SESSION['reg_err'] as $regErr) {
+                    echo "<p>{$regErr}</p>";
+                }
+                unset($_SESSION['reg_err']);
+            }
+            ?>
+            <form class="right-sec__form" method="POST" action="../src/php/registration_logic.php" enctype="multipart/form-data">
+                <div>
+                    <label for="first_name">First Name</label>
+                    <input id="fname" name="first_name" type="text">
                 </div>
 
-                <div class="row">
-                  <div class="col-md-6 mb-4">
-
-                    <div class="form-outline datepicker">
-                      <input type="text" class="form-control" id="exampleDatepicker1" />
-                      <label for="exampleDatepicker1" class="form-label">Select a date</label>
-                    </div>
-
-                  </div>
-                  <div class="col-md-6 mb-4">
-
-                    <select class="select">
-                      <option value="1" disabled>Gender</option>
-                      <option value="2">Female</option>
-                      <option value="3">Male</option>
-                      <option value="4">Other</option>
-                    </select>
-
-                  </div>
+                <div>
+                    <label for="last_name">Last Name</label>
+                    <input id="lname" name="last_name" type="text">
                 </div>
 
-                <div class="mb-4">
-
-                  <select class="select">
-                    <option value="1" disabled>Class</option>
-                    <option value="2">Class 1</option>
-                    <option value="3">Class 2</option>
-                    <option value="4">Class 3</option>
-                  </select>
-
+                <div>
+                    <label for="middle_initial">Middle Initial</label>
+                    <input id="middle_initial" name="middle_initial" type="text">
                 </div>
 
-                <div class="row mb-4 pb-2 pb-md-0 mb-md-5">
-                  <div class="col-md-6">
-
-                    <div class="form-outline">
-                      <input type="text" id="form3Example1w" class="form-control" />
-                      <label class="form-label" for="form3Example1w">Registration code</label>
-                    </div>
-
-                  </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="text" required>
                 </div>
 
-                <button type="submit" class="btn btn-success btn-lg mb-1">Submit</button>
+                <div>
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" required>
+                </div>
 
-              </form>
+                <div>
+                    <label for="password">Confirm Password</label>
+                    <input id="confirm_password" name="confirm_password" type="password" required>
+                </div>
 
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+                <div>
+                    <label for="contact">Contact Number</label>
+                    <input id="mobile" name="contact" type="text" maxlength="12" title="Ten digits code" required>
+                </div>
+
+                <div>
+                    <label for="birthdate">Birthdate</label>
+                    <input id="birthday" name="birthdate" type="date" required>
+                </div>
+
+                <div>
+                    <label for="ssn">Upload File SSN</label>
+                    <input id="ssn" name="ssn" type="file">
+                </div>
+
+                <div>
+                    <label for="ssn">Upload Health Record</label>
+                    <input id="image_health" name="image_health" type="file">
+                </div>
+
+                <input class="btn btn-primary" class="font-weight-bold" type="submit" name="submit" value="Register">
+            </form>
+        </section>
+
+
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="../src/js/registration.js"></script>
 </body>
 
 </html>
