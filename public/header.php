@@ -46,7 +46,7 @@
                         <a class="nav-link" href="homepage.php">Home</a>
                     </li> <?php if ($_SESSION['currUser']['role'] == "secretary") { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="search.php">Create an Account</a>
+                            <a class="nav-link" href="sec-createAcc.php">Create an Account</a>
                         </li>
                     <?php } else { ?>
                         <?php if ($_SESSION['currUser']['role'] != "doctor") { ?>

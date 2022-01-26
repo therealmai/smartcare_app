@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2022 at 08:25 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.3.33
+-- Generation Time: Jan 26, 2022 at 11:06 AM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.4.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -147,6 +147,7 @@ CREATE TABLE `lab_tests` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `doctor_id` bigint(20) UNSIGNED NOT NULL,
   `patient_id` bigint(20) UNSIGNED NOT NULL,
+  `appointment_id` bigint(20) NOT NULL,
   `lab_test_img_filepath` varchar(191) NOT NULL,
   `lab_test_desc` varchar(255) DEFAULT NULL,
   `date` date NOT NULL
@@ -161,6 +162,7 @@ CREATE TABLE `lab_tests` (
 CREATE TABLE `patients` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `userID` bigint(20) UNSIGNED NOT NULL,
+  `emergency_contact` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `height` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `weight` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `blood_pressure` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -173,11 +175,12 @@ CREATE TABLE `patients` (
 -- Dumping data for table `patients`
 --
 
-INSERT INTO `patients` (`id`, `userID`, `height`, `weight`, `blood_pressure`, `heart_rate`, `created_at`, `updated_at`) VALUES
-(4, 15, '', '', '', '', NULL, NULL),
-(5, 14, '', '', '', '', NULL, NULL),
-(6, 16, '', '', '', '', NULL, NULL),
-(7, 17, '', '', '', '', NULL, NULL);
+INSERT INTO `patients` (`id`, `userID`, `emergency_contact`, `height`, `weight`, `blood_pressure`, `heart_rate`, `created_at`, `updated_at`) VALUES
+(4, 15, NULL, '', '', '', '', NULL, NULL),
+(5, 14, NULL, '', '', '', '', NULL, NULL),
+(6, 16, NULL, '', '', '', '', NULL, NULL),
+(7, 17, NULL, '', '', '', '', NULL, NULL),
+(8, 20, NULL, '', '', '', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -189,6 +192,7 @@ CREATE TABLE `prescriptions` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `doctor_id` bigint(20) UNSIGNED NOT NULL,
   `patient_id` bigint(20) UNSIGNED NOT NULL,
+  `appointment_id` bigint(20) NOT NULL,
   `date` date NOT NULL,
   `text` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -210,7 +214,7 @@ CREATE TABLE `users` (
   `firstname` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastname` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `middle_initial` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `role` enum('doctor','patient') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'patient',
+  `role` enum('doctor','patient','secretary') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'patient',
   `year` int(11) DEFAULT NULL,
   `month` int(11) DEFAULT NULL,
   `day` smallint(6) DEFAULT NULL,
@@ -232,7 +236,8 @@ INSERT INTO `users` (`id`, `email`, `password`, `confirm_password`, `contact`, `
 (16, 'pat3@gmail.com', '$2y$10$HzF0QpWFHGjWHmjqLFD3p.4AYZ08yqg.t6X4W1Vo2/eq6mMrE6juS', 'pat3', '9321824958', 'Lamelo', 'Ball', 'D', 'patient', 2001, 8, 22, 'midterm practice exercise 2 -2.png', 'signature.png', '16.png'),
 (17, 'pat4@gmail.com', '$2y$10$5mAvom6Jv13FFQBcMxDRA.vZD3RiKRkogO8s1AZZSx6V/M2IktcNK', 'pat4', '123423423', 'pat4', 'pat4', 'p4', 'patient', 2009, 2, 9, 'parent_s signature.jpg', 'parent_s signature.jpg', NULL),
 (18, 'doc2@gmail.com', '$2y$10$Qm/7B35Wl1sRE4JIwnx2zebbCs9.4JRgnIPyBANcar7t8V9CtnIlm', '', '9284829194', 'Anna', 'Rose', 'D', 'doctor', 1980, 12, 8, NULL, NULL, '18.jpg'),
-(19, 'doc3@gmail.com', '$2y$10$Qm/7B35Wl1sRE4JIwnx2zebbCs9.4JRgnIPyBANcar7t8V9CtnIlm', '', '9123829142', 'Chris', 'Bose', 'J', 'doctor', 2021, 1985, 8, NULL, NULL, '19.jpg');
+(19, 'doc3@gmail.com', '$2y$10$Qm/7B35Wl1sRE4JIwnx2zebbCs9.4JRgnIPyBANcar7t8V9CtnIlm', '', '9123829142', 'Chris', 'Bose', 'J', 'doctor', 2021, 1985, 8, NULL, NULL, '19.jpg'),
+(20, 'sec@gmail.com', '$2y$10$AVglZuHFYv3e32AsaKN.9.s26FEYERDHNp7NU6opHLWGOuK3fwoCq', '1234', '0920516409', 'Secretary', 'SmartCare', 'M', 'secretary', 2001, 6, 26, 'Action Plan.png', 'EDM_Leano.png', NULL);
 
 --
 -- Indexes for dumped tables
@@ -277,7 +282,8 @@ ALTER TABLE `emergency_contacts`
 ALTER TABLE `lab_tests`
   ADD PRIMARY KEY (`id`),
   ADD KEY `doctor_id` (`doctor_id`),
-  ADD KEY `patient_id` (`patient_id`);
+  ADD KEY `patient_id` (`patient_id`),
+  ADD KEY `fk_Appointments_Id` (`appointment_id`);
 
 --
 -- Indexes for table `patients`
@@ -292,7 +298,8 @@ ALTER TABLE `patients`
 ALTER TABLE `prescriptions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `prescriptions_doctor_id_foreign` (`doctor_id`),
-  ADD KEY `prescriptions_patient_id_foreign` (`patient_id`);
+  ADD KEY `prescriptions_patient_id_foreign` (`patient_id`),
+  ADD KEY `fk_appointmentsid` (`appointment_id`);
 
 --
 -- Indexes for table `users`
@@ -345,7 +352,7 @@ ALTER TABLE `lab_tests`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `prescriptions`
@@ -357,7 +364,7 @@ ALTER TABLE `prescriptions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
@@ -385,6 +392,7 @@ ALTER TABLE `doctors_schedules`
 -- Constraints for table `lab_tests`
 --
 ALTER TABLE `lab_tests`
+  ADD CONSTRAINT `fk_Appointments_Id` FOREIGN KEY (`appointment_id`) REFERENCES `appointments` (`ID`),
   ADD CONSTRAINT `lab_tests_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`),
   ADD CONSTRAINT `lab_tests_ibfk_2` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`);
 
@@ -398,6 +406,7 @@ ALTER TABLE `patients`
 -- Constraints for table `prescriptions`
 --
 ALTER TABLE `prescriptions`
+  ADD CONSTRAINT `fk_appointmentsid` FOREIGN KEY (`appointment_id`) REFERENCES `appointments` (`ID`),
   ADD CONSTRAINT `prescriptions_doctor_id_foreign` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`),
   ADD CONSTRAINT `prescriptions_patient_id_foreign` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`);
 COMMIT;
