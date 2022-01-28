@@ -58,6 +58,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="profile-doc.php">Profile Doctor</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="patients.php">Patients</a>
+                            </li>
+
                         <?php } else { ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="profile-pat.php">Profile Patient</a>
