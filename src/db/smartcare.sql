@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2022 at 11:06 AM
+-- Generation Time: Jan 31, 2022 at 02:53 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -61,6 +61,7 @@ INSERT INTO `appointments` (`ID`, `DoctorID`, `PatientID`, `Type`, `Day`, `Month
 CREATE TABLE `doctors` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `userID` bigint(20) UNSIGNED NOT NULL,
+  `secretary_id` int(11) DEFAULT NULL,
   `specialization` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `license_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `degree` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
@@ -70,11 +71,12 @@ CREATE TABLE `doctors` (
 -- Dumping data for table `doctors`
 --
 
-INSERT INTO `doctors` (`id`, `userID`, `specialization`, `license_number`, `degree`) VALUES
-(2, 13, 'Cardiologist', '', ''),
-(6, 11, 'Pediatrician', '', ''),
-(7, 18, 'Pediatrician', '', ''),
-(8, 19, 'Cardiologist', '', '');
+INSERT INTO `doctors` (`id`, `userID`, `secretary_id`, `specialization`, `license_number`, `degree`) VALUES
+(2, 13, NULL, 'Cardiologist', '', ''),
+(6, 11, NULL, 'Pediatrician', '', ''),
+(7, 18, NULL, 'Pediatrician', '', ''),
+(8, 19, NULL, 'Cardiologist', '', ''),
+(9, 21, NULL, 'Neurologist', '1456321', 'Neurology');
 
 -- --------------------------------------------------------
 
@@ -147,11 +149,18 @@ CREATE TABLE `lab_tests` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `doctor_id` bigint(20) UNSIGNED NOT NULL,
   `patient_id` bigint(20) UNSIGNED NOT NULL,
-  `appointment_id` bigint(20) NOT NULL,
+  `appointment_id` bigint(20) DEFAULT NULL,
   `lab_test_img_filepath` varchar(191) NOT NULL,
   `lab_test_desc` varchar(255) DEFAULT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `lab_tests`
+--
+
+INSERT INTO `lab_tests` (`id`, `doctor_id`, `patient_id`, `appointment_id`, `lab_test_img_filepath`, `lab_test_desc`, `date`) VALUES
+(1, 9, 10, NULL, '1643371758classGC.jpg', 'Test description', '2022-03-23');
 
 -- --------------------------------------------------------
 
@@ -180,7 +189,9 @@ INSERT INTO `patients` (`id`, `userID`, `emergency_contact`, `height`, `weight`,
 (5, 14, NULL, '', '', '', '', NULL, NULL),
 (6, 16, NULL, '', '', '', '', NULL, NULL),
 (7, 17, NULL, '', '', '', '', NULL, NULL),
-(8, 20, NULL, '', '', '', '', NULL, NULL);
+(8, 20, NULL, '', '', '', '', NULL, NULL),
+(10, 22, NULL, '', '', '', '', NULL, NULL),
+(11, 23, NULL, '', '', '', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -192,12 +203,19 @@ CREATE TABLE `prescriptions` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `doctor_id` bigint(20) UNSIGNED NOT NULL,
   `patient_id` bigint(20) UNSIGNED NOT NULL,
-  `appointment_id` bigint(20) NOT NULL,
+  `appointment_id` bigint(20) DEFAULT NULL,
   `date` date NOT NULL,
   `text` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `prescriptions`
+--
+
+INSERT INTO `prescriptions` (`id`, `doctor_id`, `patient_id`, `appointment_id`, `date`, `text`, `created_at`, `updated_at`) VALUES
+(4, 9, 4, NULL, '2022-01-31', 'Biogesic', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -237,7 +255,10 @@ INSERT INTO `users` (`id`, `email`, `password`, `confirm_password`, `contact`, `
 (17, 'pat4@gmail.com', '$2y$10$5mAvom6Jv13FFQBcMxDRA.vZD3RiKRkogO8s1AZZSx6V/M2IktcNK', 'pat4', '123423423', 'pat4', 'pat4', 'p4', 'patient', 2009, 2, 9, 'parent_s signature.jpg', 'parent_s signature.jpg', NULL),
 (18, 'doc2@gmail.com', '$2y$10$Qm/7B35Wl1sRE4JIwnx2zebbCs9.4JRgnIPyBANcar7t8V9CtnIlm', '', '9284829194', 'Anna', 'Rose', 'D', 'doctor', 1980, 12, 8, NULL, NULL, '18.jpg'),
 (19, 'doc3@gmail.com', '$2y$10$Qm/7B35Wl1sRE4JIwnx2zebbCs9.4JRgnIPyBANcar7t8V9CtnIlm', '', '9123829142', 'Chris', 'Bose', 'J', 'doctor', 2021, 1985, 8, NULL, NULL, '19.jpg'),
-(20, 'sec@gmail.com', '$2y$10$AVglZuHFYv3e32AsaKN.9.s26FEYERDHNp7NU6opHLWGOuK3fwoCq', '1234', '0920516409', 'Secretary', 'SmartCare', 'M', 'secretary', 2001, 6, 26, 'Action Plan.png', 'EDM_Leano.png', NULL);
+(20, 'sec@gmail.com', '$2y$10$AVglZuHFYv3e32AsaKN.9.s26FEYERDHNp7NU6opHLWGOuK3fwoCq', '1234', '0920516409', 'Secretary', 'SmartCare', 'M', 'secretary', 2001, 6, 26, 'Action Plan.png', 'EDM_Leano.png', NULL),
+(21, 'test@mail.com', '$2y$10$6kZyLu4gGt0kVpliITRrPO874SPxQbXEH4Le5d2f62Ilie3lGjtB2', '123456', '09561379244', 'John', 'Doe', 'D.', 'doctor', 2002, 4, 7, 'classGC.jpg', 'AloeLite.png', NULL),
+(22, 'jane@mail.com', '', '1234', '09561379244', 'Jane', 'Doe', 'I.', 'patient', 2002, 11, 23, 'Pup.png', 'prof.png', NULL),
+(23, 'admin@gmail.com', '$2y$10$sjG9aLqc3Nv9UzPflYTj0.vsTol8D2KsewyJvWIm.FrIgvvX9WzwW', 'VbzR', '0920516409', 'samurai-admin', 'SmartCare', 'M', 'patient', 2015, 1, 31, '120486.jpg', '120486.jpg', NULL);
 
 --
 -- Indexes for dumped tables
@@ -322,7 +343,7 @@ ALTER TABLE `appointments`
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `doctors_lab_tests`
@@ -346,25 +367,25 @@ ALTER TABLE `emergency_contacts`
 -- AUTO_INCREMENT for table `lab_tests`
 --
 ALTER TABLE `lab_tests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `prescriptions`
 --
 ALTER TABLE `prescriptions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
