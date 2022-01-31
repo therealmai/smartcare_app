@@ -1,6 +1,7 @@
 <?php     
 include 'dbconnect.php'; 
    
+
     if(isset($_POST['submit'])){
         $id = $_POST['patient_id'];
         $contact = $_POST['contact'];

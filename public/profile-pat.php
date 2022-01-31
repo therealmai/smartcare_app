@@ -1,5 +1,5 @@
 <?php include('session_check.php');
-include('../src/php/dbconnect.php')
+include('../src/php/dbconnect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +19,13 @@ include('../src/php/dbconnect.php')
 
 <body>
     <?php
+    // Non-NULL Initialization Vector for decryption 
+    $decryption_iv = '1234567891011121';
+    // Storing the decryption key 
+    $decryption_key = "smartcare";
+    $options = 0;
+    // Storingthe cipher method 
+    $ciphering = "AES-128-CTR";
     $noData = "No Data Found";
     $id = $_SESSION['currUser']['id'];
     $sql = "SELECT * FROM `users` LEFT JOIN patients ON users.id  = patients.userID WHERE users.id = '$id'";
@@ -28,7 +35,10 @@ include('../src/php/dbconnect.php')
         while ($row = mysqli_fetch_assoc($check)) {
             $profile = $row;
         }
-        $num = strlen($profile['confirm_password']);
+        $encryption = $profile['password'];
+        // Using openssl_decrypt() function to decrypt the data 
+        $decryption = openssl_decrypt($encryption, $ciphering, $decryption_key, $options, $decryption_iv);
+        $num = strlen($decryption);
         $password =  str_repeat("*", $num);
         $dateOfBirth = $profile['year'] . "-" . $profile['month'] . "-" . $profile['day'];
         $today = date("Y-m-d");
@@ -237,6 +247,7 @@ include('../src/php/dbconnect.php')
                             <input type="text" class="form-control" id="password" name="password" placeholder="name@gmail.com" required>
                             <label for="floatingInput">New Password</label>
                         </div>
+                        <input type="text" hidden name="verify" value="<?php echo $decryption ?>">
                         <input type="text" hidden name="patient_id" id="Accpatient_id">
                 </div>
                 <div class="modal-footer">

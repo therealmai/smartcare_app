@@ -68,6 +68,26 @@ if (isset($_POST['submit'])) {
         if ($password !== $confPass) {
             $_SESSION['reg_err']['passwordSimilar'] = "Password did not match";
         } else {
+            echo $password;
+            // Storingthe cipher method 
+            $ciphering = "AES-128-CTR";
+
+            // Using OpenSSl Encryption method 
+            $iv_length = openssl_cipher_iv_length($ciphering);
+            $options   = 0;
+
+            // Non-NULL Initialization Vector for encryption 
+            $encryption_iv = '1234567891011121';
+
+            // Storing the encryption key 
+            $encryption_key = "smartcare";
+
+            // Using openssl_encrypt() function to encrypt the data 
+            $hashedConPass = openssl_encrypt($password, $ciphering, $encryption_key, $options, $encryption_iv);
+
+            // // Displaying the encrypted string 
+            // echo "Encrypted String: " . $encryption . "\n";
+
             $hashedPass = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);
         }
     }
@@ -103,9 +123,9 @@ if (isset($_POST['submit'])) {
     }
 
     if ((move_uploaded_file($_FILES["image_health"]["tmp_name"], $targetFileHealth)) && (move_uploaded_file($_FILES["ssn"]["tmp_name"], $targetFileSSN))) {
-        echo "success health and ssn";
+        // echo "success health and ssn";
     } else {
-        echo "no health and ssn";
+        // echo "no health and ssn";
     }
 
     // Redirect if input validation fails
@@ -122,7 +142,7 @@ if (isset($_POST['submit'])) {
     $day = date('d', strtotime($birthdate));
     if ((in_array($fileSSN, $allowTypes)) && (in_array($filehealth, $allowTypes))) {
         $sql = "INSERT INTO users (email, `password`, confirm_password, contact, firstname, lastname, middle_initial, `year`, `month`, `day`,ssn_image,health_record) 
-            VALUES ('$email','$hashedPass', '$confPass','$contact','$first_name','$last_name','$middle_initial','$year','$month','$day','$health', '$ssn')";        // var_dump(mysqli_query($mysqli, $sql));
+            VALUES ('$email','$hashedPass', '$hashedConPass', '$contact','$first_name','$last_name','$middle_initial','$year','$month','$day','$health', '$ssn')";        // var_dump(mysqli_query($mysqli, $sql));
     } else {
         $_SESSION['reg_err']['filetype_error'] = "Filetype not accepted";
     }
@@ -134,7 +154,7 @@ if (isset($_POST['submit'])) {
         if ($rows > 0) {
             $row = mysqli_fetch_assoc($results);
             $_SESSION['currUser'] = $row;
-            echo $_SESSION['currUser']['id'] . "heelo";
+            // echo $_SESSION['currUser']['id'] . "heelo";
             $id = $_SESSION['currUser']['id'];
 
             $query = "INSERT INTO patients (userID, height, `weight`, blood_pressure, heart_rate)
