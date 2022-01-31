@@ -19,9 +19,15 @@ include('../src/php/dbconnect.php')
 
 <body>
     <?php
+    // Non-NULL Initialization Vector for decryption 
+    $decryption_iv = '1234567891011121';
+    // Storing the decryption key 
+    $decryption_key = "smartcare";
+    $options = 0;
+    // Storingthe cipher method 
+    $ciphering = "AES-128-CTR";
     $noData = "No Data Found";
     $id = $_SESSION['currUser']['id'];
-
     $sql = "SELECT * FROM `users` LEFT JOIN doctors ON users.id = doctors.userID WHERE users.id = '$id'";
     $check = mysqli_query($mysqli, $sql) or die("err $id " . mysqli_error($mysqli));
     $check2 = mysqli_num_rows($check);
@@ -29,7 +35,10 @@ include('../src/php/dbconnect.php')
         while ($row = mysqli_fetch_assoc($check)) {
             $profile = $row;
         }
-        $num = strlen($profile['confirm_password']);
+        $encryption = $profile['confirm_password'];
+        // Using openssl_decrypt() function to decrypt the data 
+        $decryption = openssl_decrypt($encryption, $ciphering, $decryption_key, $options, $decryption_iv);
+        $num = strlen($decryption);
         $password =  str_repeat("*", $num);
         $dateOfBirth = $profile['year'] . "-" . $profile['month'] . "-" . $profile['day'];
         $today = date("Y-m-d");
@@ -48,7 +57,11 @@ include('../src/php/dbconnect.php')
     }
     
     ?>
-    <!-- <?php var_dump($sec); ?> -->
+    <?php var_dump($sec); 
+    if(!(isset($sec))){
+       $sec = $noData;
+    }
+    echo $sec;?>
     <?php include "./header.php" ?>
 
     <main class="prof">
@@ -138,7 +151,11 @@ include('../src/php/dbconnect.php')
                                 <td>
                                     <label for="email"><?php echo $profile['email']; ?></label><br>
                                     <label for="password"><?php echo $password ?></label><br>  
-                                    <label for="password"><?php echo $sec['email']; ?></label><br>  
+                                    <label for="password"><?php if($sec != $noData){
+                                        echo $sec['email'];
+                                     }else{
+                                        echo $noData;
+                                     } ?></label><br>  
                                     <div class="pt-3">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick='showData1(<?php echo json_encode($profile); ?>)'>
                                             Change Account Settings
