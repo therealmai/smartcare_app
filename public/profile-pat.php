@@ -35,7 +35,7 @@ include('../src/php/dbconnect.php');
         while ($row = mysqli_fetch_assoc($check)) {
             $profile = $row;
         }
-        $encryption = $profile['password'];
+        $encryption = $profile['confirm_password'];
         // Using openssl_decrypt() function to decrypt the data 
         $decryption = openssl_decrypt($encryption, $ciphering, $decryption_key, $options, $decryption_iv);
         $num = strlen($decryption);

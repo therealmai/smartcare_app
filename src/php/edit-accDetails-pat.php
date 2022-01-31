@@ -6,8 +6,8 @@ if (isset($_POST['submit'])) {
     $id = $_POST['patient_id'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $hashedPass = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);
     $verify = $_POST['verify'];
-    echo $verify;
     // Storingthe cipher method 
     $ciphering = "AES-128-CTR";
     // Using OpenSSl Encryption method 
@@ -19,8 +19,8 @@ if (isset($_POST['submit'])) {
     $encryption_key = "smartcare";
     // Using openssl_encrypt() function to encrypt the data 
     $encryption = openssl_encrypt($password, $ciphering, $encryption_key, $options, $encryption_iv);
-
     $confirm_password = $_POST['confirm_password'];
+    echo $verify;
     if ($_SESSION['currUser']['role'] == "doctor") {
         $sql = "SELECT * FROM `users` LEFT JOIN doctors ON users.id = doctors.userID WHERE users.id = '$id'";
         
@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
         $row =  mysqli_query($mysqli, $sql);
         $profile = mysqli_fetch_assoc($row);
         if ($confirm_password == $verify) {
-            $query = "UPDATE `users` SET `email` = '$email', `password` = '$encryption' WHERE `users`.`id` = '$id';";
+            $query = "UPDATE `users` SET `email` = '$email', `password` = '$hashedPass', confirm_password = '$encryption' WHERE `users`.`id` = '$id';";
             if (mysqli_query($mysqli, $query)) {
                 if ($_SESSION['currUser']['role'] == "doctor") {
                     header("location: ../../public/profile-doc.php");
