@@ -52,7 +52,7 @@
             <i class="fa fa-times-circle fa-2x" aria-hidden="true" id="closeBtn"></i>
 
             <div class="right-sec--top-bg"></div>
-
+    
             <div class="right-sec__doctor-cont">
                 <h5 class="a">BOOK APPOINTMENT</h5>
                 <img class="right-sec__img b" id="docImg" src="" alt="Profile Image">
