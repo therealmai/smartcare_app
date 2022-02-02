@@ -57,11 +57,10 @@ include('../src/php/dbconnect.php')
     }
     
     ?>
-    <?php var_dump($sec); 
+    <?php 
     if(!(isset($sec))){
        $sec = $noData;
-    }
-    echo $sec;?>
+    }?>
     <?php include "./header.php" ?>
 
     <main class="prof">
@@ -77,7 +76,7 @@ include('../src/php/dbconnect.php')
             </center>
             <br>
             <button id="showDocProfBtn">Profile</button>
-            <button id="showDocPatBtn">Patients</button>
+            <!-- <button id="showDocPatBtn">Patients</button> -->
             <button id="showDocAppointBtn">Appointments</button>
             <button id="showSchedBtn">Schedule</button>
         </section>
