@@ -115,6 +115,7 @@ include '../src/php/dbconnect.php';
                                                     echo "{$prescription['text']} - {$formattedDate}";
 
                                                     ?>
+                                                    </br>
                                                         <button onclick="location.href='./editPrescription.php?prescId=<?php echo $prescription['id']?>'" type="button" class="edit-pres-btn">Edit</button>
                                                         <form action="../src/php/deletePrescription.php" method="POST" style="float:right">
                                                             <input type="hidden" value="<?php echo $prescription['id']?>" name="prescriptionId">
@@ -127,6 +128,7 @@ include '../src/php/dbconnect.php';
                                         <br>
                                         <button onclick="location.href='./addPrescription.php'" type="button" class="add-pres-btn">Add</button>
                                         </td>
+                                        
                                         <td>
                                         <?php
                                             $labTestsSql = "SELECT * FROM `lab_tests`
