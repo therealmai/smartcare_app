@@ -230,7 +230,7 @@ a {
 
 .profPres, .profLabTest{
   background-color: white !important;
-  padding: 10vh 10vh;
+  padding: 3vh 3vh;
   margin: 5vh 15vh;
   height:600px;
   border-radius: 10px;
@@ -238,7 +238,7 @@ a {
 }
 
 .table-over{
-  height:350px;
+  height:450px;
   overflow-y: scroll;
   border-radius: 10px;
 }
