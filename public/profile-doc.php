@@ -3,7 +3,8 @@ include('../src/php/dbconnect.php')
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
+    <!-- SELECT * FROM `appointments` LEFT JOIN `doctors` ON appointments.DoctorID= doctors.id WHERE doctors.userID = '13'; -->
+<!-- SELECT * FROM `patients` LEFT JOIN `appointments` ON patients.id= appointments.PatientID WHERE appointments.DoctorID = '2'; -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

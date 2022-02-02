@@ -58,9 +58,9 @@ include '../src/php/dbconnect.php';
 
                 <table style="width:100%;" id='patientsTable' class="display">
                     <col span="1" style="width: 33%;">
-                <col span="1" style="width: 33%;">
-                <col span="1" style="width: 33%;">
-                <!-- <col span="1" style="width: 10%;"> -->
+                    <col span="1" style="width: 33%;">
+                    <col span="1" style="width: 33%;">
+                    <!-- <col span="1" style="width: 10%;"> -->
                     <thead>
                         <tr>
                             <th>
@@ -75,7 +75,7 @@ include '../src/php/dbconnect.php';
                         </tr>
                     </thead>
                     <tbody>
-
+                        
                         <?php
                         $patientsSql = "SELECT `u`.`firstname`,`u`.`lastname`,`u`.`middle_initial`,`p`.* 
                             FROM `patients` `p`
@@ -111,11 +111,12 @@ include '../src/php/dbconnect.php';
                                 // var_dump($patient, $_SESSION);
                                 // exit();
                                 // $formattedDate = date('m/d/Y', strtotime($prescriptionRow['date']));
+
                         ?>
                                 <tr>
                                     <td>
                                         <?php echo "{$patient['firstname']} " .
-                                            $patient['middle_initial'] ?? ''
+                                            $patient['middle_initial'] . ". "
                                             . "{$patient['lastname']}"; ?>
                                     </td>
 
@@ -135,18 +136,18 @@ include '../src/php/dbconnect.php';
                                                 echo "{$prescription['text']} - {$formattedDate}";
 
                                         ?>
-                                                </br>
-                                                <button onclick="location.href='./editPrescription.php?prescId=<?php echo $prescription['id'] ?>'" type="button" class="edit-pres-btn">Edit</button>
-                                                <form action="../src/php/deletePrescription.php" method="POST" style="float:right">
+
+                                                <button onclick="location.href='./editPrescription.php?prescId=<?php echo $prescription['id'] ?>'" type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+                                                <form action="../src/php/deletePrescription.php" method="POST" style="display: inline">
                                                     <input type="hidden" value="<?php echo $prescription['id'] ?>" name="prescriptionId">
-                                                    <input type="submit" value="Delete" class="delete-pres-btn">
+                                                    <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
                                                 </form>
                                         <?php
                                             }
                                         }
                                         ?>
                                         <br>
-                                        <button onclick="location.href='./addPrescription.php'" type="button" class="add-pres-btn">Add</button>
+                                        <!-- <button onclick="location.href='./addPrescription.php'" type="button" class="btn btn-outline-primary btn-sm">Add</button> -->
                                     </td>
 
                                     <td>
@@ -164,11 +165,11 @@ include '../src/php/dbconnect.php';
 
                                         ?>
                                                 <span>
-                                                    <button onclick="location.href='./editLabTest.php?labTestId=<?php echo $labTest['id'] ?>'" type="button" class="edit-lab-btn">Edit</button>
-                                                    <button onclick="location.href='./viewLabTest.php?labTestId=<?php echo $labTest['id'] ?>'" type="button" class="edit-lab-btn">View</button>
-                                                    <form action="../src/php/deleteLabTest.php" method="POST" style="float:right">
+                                                    <button onclick="location.href='./editLabTest.php?labTestId=<?php echo $labTest['id'] ?>'" type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+                                                    <button onclick="location.href='./viewLabTest.php?labTestId=<?php echo $labTest['id'] ?>'" type="button" class="btn btn-outline-success btn-sm">View</button>
+                                                    <form action="../src/php/deleteLabTest.php" method="POST" style="display: inline;">
                                                         <input type="hidden" value="<?php echo $labTest['id'] ?>" name="labTestId">
-                                                        <input type="submit" value="Delete" class="delete-lab-btn">
+                                                        <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
                                                     </form>
                                                 </span>
                                         <?php
@@ -176,7 +177,7 @@ include '../src/php/dbconnect.php';
                                         }
                                         ?>
                                         <br>
-                                        <button onclick="location.href='./addPrescription.php'" type="button" class="add-pres-btn">Add</button>
+                                        <!-- <button onclick="location.href='./addPrescription.php'" type="button" class="btn btn-outline-primary btn-sm">Add</button> -->
                                     </td>
                                 </tr>
                         <?php
