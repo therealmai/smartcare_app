@@ -17,7 +17,8 @@ include '../src/php/dbconnect.php';
 
 
     <!-- DataTables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">    
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
     <title>SmartCare - Patients</title>
 </head>
 
@@ -36,7 +37,7 @@ include '../src/php/dbconnect.php';
             <div class="table-over">
 
 
-            <table style="width:100%;" id='patientsTable'>
+            <table style="width:100%;" id='patientsTable' class="display">
                 <col span="1" style="width: 30%;">
                 <col span="1" style="width: 45%;">
                 <col span="1" style="width: 15%;">
@@ -169,7 +170,8 @@ include '../src/php/dbconnect.php';
         </section>
     </main>
 
-    <script defer src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+    <!-- <script defer src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
     <script defer type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
     <script defer src="../src/js/patientsDataTables.js"></script>
 </body>
