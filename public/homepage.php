@@ -41,7 +41,7 @@
               <img src="../src/img/medical_services.png" alt="" width="400">
 
               <div style="text-align: justify;">
-                <h4>Empowering<b> Well-Being In Everyone</b> </h4>
+                <h4>Empowering<b> Well-Being</b> </h4>
                 <p>We approach well-being in a conscientious manner. Our strategic partnerships, services, and solutions enable businesses to develop a well-rounded program providing employees with the individualized tools and resources they need to achieve genuine results.</p>
               </div>
               <div class="d-grid gap-4 d-md-flex">
@@ -124,8 +124,8 @@
                   <div class="card card-cover h-100 overflow-hidden text-white bg-primary rounded-5 shadow-lg">
                     <div class="d-flex flex-column h-75 p-3 pb-1 text-shadow-1">
                       <img class="main-section-2__feature--img" src="../src/img/icon1.png" alt="" width=30%;>
-                      <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Lorem Ipsum</h4>
-                      <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet varius magna, nec fermentum nisl. Integer eu s</h6>
+                      <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Expertise</h4>
+                      <h6>Every year, more than thousands people come to SmartCare for care. Our highly specialized experts are deeply experienced in treating rare and complex conditions.</h6>
                       <ul class="d-flex list-unstyled mt-auto">
                         <li class="me-auto">
                         </li>
@@ -146,8 +146,8 @@
                 <div class="card card-cover h-100 overflow-hidden text-white bg-primary rounded-5 shadow-lg">
                   <div class="d-flex flex-column h-50 p-3 pb-1 text-shadow-1">
                     <img class="main-section-2__feature--img" src="../src/img/icon2.png" alt="" width=30%;>
-                    <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Lorem Ipsum</h4>
-                    <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet varius magna, nec fermentum nisl. Integer eu s</h6>
+                    <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Accessible</h4>
+                    <h6>Consult with your doctor and access your medical records anytime and anywhere.</h6>
                     <ul class="d-flex list-unstyled mt-auto">
                       <li class="me-auto">
                       </li>
@@ -167,8 +167,8 @@
                 <div class="card card-cover h-100 overflow-hidden text-white bg-primary rounded-5 shadow-lg">
                   <div class="d-flex flex-column h-50 p-3 pb-1 text-shadow-1">
                     <img class="main-section-2__feature--img" src="../src/img/icon3.png" alt="" width=30%;>
-                    <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Lorem Ipsum</h4>
-                    <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet varius magna, nec fermentum nisl. Integer eu s</h6>
+                    <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">HIPAA</h4>
+                    <h6>Keep your patient data safe and your business HIPAA compliant. The HIPAA feature restricts access to your system to you and the people to whom allocate privileges.</h6>
                     <ul class="d-flex list-unstyled mt-auto">
                       <li class="me-auto">
                       </li>
