@@ -30,6 +30,20 @@ include '../src/php/dbconnect.php';
     $docSql = "SELECT * FROM `doctors` WHERE `userID` = {$_SESSION['currUser']['id']}";
     $docResults = mysqli_query($mysqli, $docSql);
     $doc = mysqli_fetch_assoc($docResults);
+    $patSql = "SELECT * FROM `appointments` WHERE DoctorID = {$doc["id"]};";
+    $patResults = mysqli_query($mysqli, $patSql);
+    while ($row = mysqli_fetch_assoc($patResults)) {
+        $pat[] = $row["PatientID"];
+    }
+    for ($x = 0; $x < count($pat); $x++) {
+        $user = "SELECT users.firstname, users.lastname, users.lastname  FROM `users` LEFT JOIN patients ON users.id = patients.userID WHERE patients.id = '$pat[$x]'";
+        $userResults = mysqli_query($mysqli, $user);
+        while ($row1 = mysqli_fetch_assoc($userResults)) {
+            $pat1[] = $row1;
+        }
+    }
+    var_dump($pat1);
+   
     ?>
     <main class="profPres">
 
@@ -75,7 +89,7 @@ include '../src/php/dbconnect.php';
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                         <?php
                         $patientsSql = "SELECT `u`.`firstname`,`u`.`lastname`,`u`.`middle_initial`,`p`.* 
                             FROM `patients` `p`
