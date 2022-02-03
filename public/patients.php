@@ -30,20 +30,25 @@ include '../src/php/dbconnect.php';
     $docSql = "SELECT * FROM `doctors` WHERE `userID` = {$_SESSION['currUser']['id']}";
     $docResults = mysqli_query($mysqli, $docSql);
     $doc = mysqli_fetch_assoc($docResults);
+
     $patSql = "SELECT * FROM `appointments` WHERE DoctorID = {$doc["id"]};";
     $patResults = mysqli_query($mysqli, $patSql);
     while ($row = mysqli_fetch_assoc($patResults)) {
         $pat[] = $row["PatientID"];
     }
-    for ($x = 0; $x < count($pat); $x++) {
-        $user = "SELECT users.firstname, users.lastname, users.lastname  FROM `users` LEFT JOIN patients ON users.id = patients.userID WHERE patients.id = '$pat[$x]'";
-        $userResults = mysqli_query($mysqli, $user);
-        while ($row1 = mysqli_fetch_assoc($userResults)) {
-            $pat1[] = $row1;
+ 
+
+    if (isset($pat)) {
+        for ($x = 0; $x < count($pat); $x++) {
+            $user = "SELECT users.firstname, users.middle_initial, users.lastname, patients.id  FROM `users` LEFT JOIN patients ON users.id = patients.userID WHERE patients.id = '$pat[$x]'";
+            $userResults = mysqli_query($mysqli, $user);
+            while ($row1 = mysqli_fetch_assoc($userResults)) {
+                $patient[] = $row1;
+            }
         }
     }
-    var_dump($pat1);
-   
+
+
     ?>
     <main class="profPres">
 
@@ -91,12 +96,12 @@ include '../src/php/dbconnect.php';
                     <tbody>
 
                         <?php
-                        $patientsSql = "SELECT `u`.`firstname`,`u`.`lastname`,`u`.`middle_initial`,`p`.* 
-                            FROM `patients` `p`
-                            LEFT JOIN `users` `u` ON `p`.`userID` = `u`.`id`";
+                        // $patientsSql = "SELECT `u`.`firstname`,`u`.`lastname`,`u`.`middle_initial`,`p`.* 
+                        //     FROM `patients` `p`
+                        //     LEFT JOIN `users` `u` ON `p`.`userID` = `u`.`id`";
 
-                        $patientsResults = mysqli_query($mysqli, $patientsSql);
-                        $patientsRows = mysqli_fetch_all($patientsResults, MYSQLI_ASSOC);
+                        // $patientsResults = mysqli_query($mysqli, $patientsSql);
+                        // $patientsRows = mysqli_fetch_all($patientsResults, MYSQLI_ASSOC);
 
 
                         // var_dump($_SESSION);
@@ -119,25 +124,26 @@ include '../src/php/dbconnect.php';
                         // $prescriptionsResults = mysqli_query($mysqli, $prescriptionsSql);
                         // $prescriptionsRows = mysqli_fetch_all($prescriptionsResults, MYSQLI_ASSOC);
 
-                        if (count($patientsRows)) {
+                        if (isset($pat)) {
 
-                            foreach ($patientsRows as $patient) {
+                            for ($x = 0; $x < count($patient); $x++) {
                                 // var_dump($patient, $_SESSION);
                                 // exit();
                                 // $formattedDate = date('m/d/Y', strtotime($prescriptionRow['date']));
-
+                                $patNum = "{$patient[$x]['id']} ";
                         ?>
                                 <tr>
                                     <td>
-                                        <?php echo "{$patient['firstname']} " .
-                                            $patient['middle_initial'] . ". "
-                                            . "{$patient['lastname']}"; ?>
+                                        <?php echo "{$patient[$x]['firstname']} " .
+                                            $patient[$x]['middle_initial'] . ". "
+                                            . "{$patient[$x]['lastname']}"; ?>
                                     </td>
-
+                                
                                     <td>
                                         <?php
+                                        
                                         $prescriptionsSql = "SELECT * FROM `prescriptions`
-                                                WHERE `patient_id` = {$patient['id']} AND `doctor_id` = {$doc['id']}";
+                                                WHERE `patient_id` = '$patNum' AND `doctor_id` = {$doc['id']}";
 
                                         $prescriptionsResults = mysqli_query($mysqli, $prescriptionsSql);
                                         $prescriptionsRows = mysqli_fetch_all($prescriptionsResults, MYSQLI_ASSOC);
@@ -167,7 +173,7 @@ include '../src/php/dbconnect.php';
                                     <td>
                                         <?php
                                         $labTestsSql = "SELECT * FROM `lab_tests`
-                                                WHERE `patient_id` = {$patient['id']} AND `doctor_id` = {$doc['id']}";
+                                                WHERE `patient_id` = $patNum AND `doctor_id` = {$doc['id']}";
 
                                         $labTestsResults = mysqli_query($mysqli, $labTestsSql);
                                         $labTestsRows = mysqli_fetch_all($labTestsResults, MYSQLI_ASSOC);
