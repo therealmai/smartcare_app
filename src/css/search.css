@@ -177,6 +177,7 @@ header {
   h - virtual price
 */
 .search-results__result {
+  background:white; 
   border: 1px solid #d1cbcb;
   box-shadow: 0 0 10px #d1cbcb;
   display: -ms-grid;

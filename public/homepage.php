@@ -44,9 +44,8 @@
                 <h4>Empowering<b> Well-Being</b> </h4>
                 <p>We approach well-being in a conscientious manner. Our strategic partnerships, services, and solutions enable businesses to develop a well-rounded program providing employees with the individualized tools and resources they need to achieve genuine results.</p>
               </div>
-              <div class="d-grid gap-4 d-md-flex">
-                <button class="btn btn-md btn-outline-info" type="button">MAKE AN APPOINTMENT</button>
-                <button class="btn btn-md btn-outline-primary" type="button">DEPARTMENTS</button>
+              <div class="d-grid gap-4 d-md-flex" >
+                <button class="btn btn-md btn-outline-info" type="button" onclick="document.location='search.php'">MAKE AN APPOINTMENT</button>
               </div>
             </div>
           </div>
@@ -193,7 +192,7 @@
     <div class="main-section-3__abt-us-cont">
       <h4 class="main-section-3__abt-us">About Us</h4>
       <h3 class="main-section-3__title">Clinic with <span class="main-section-3__title--innovative">innovative</span> approach to treatment</h3>
-      <p class="main-section-3__p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet varius magna,</p>
+      <p class="main-section-3__p">We have doctors from various medical fields ready to heed to your inquiries and issues.</p>
       <ul class="main-section-3__list">
         <li class="main-section-3__list-item"><img class="main-section-3__checkmark" src="../src/img/blue-checkmark.png" alt="">Neurologist</li>
         <li class="main-section-3__list-item"><img class="main-section-3__checkmark" src="../src/img/blue-checkmark.png" alt="">Pediatrician</li>
@@ -216,7 +215,7 @@
 
       <div class="row row-cols g-2 py-4">
         <div class="col d-flex align-items-center">
-          <h1 class="section4head">5</h1>
+          <h1 class="section4head">7</h1>
           <div>
             <h5 class="section4">DIFFERENT<br>MEDICAL FIELDS</h5>
           </div>
@@ -230,9 +229,9 @@
         </div>
 
         <div class="col d-flex align-items-center">
-          <h1 class="section4head">11</h1>
+          <h1 class="section4head">20+</h1>
           <div>
-            <h5 class="section4">QUALIFIED<br>DOCTOR</h5>
+            <h5 class="section4">QUALIFIED<br>DOCTORS</h5>
           </div>
         </div>
 
@@ -244,53 +243,27 @@
 
   <footer>
     <section class="footer-main">
-      <div class="container">
+      <!-- <div class="container">
         <img src="../src/img/logo.jpg" alt="" width="150">
-        </a>
         <footer class="row row-cols-7 py-5">
-          <div class="col-3">
-
-            <p class="footer-description">Our medical center offers the widest range of servies in the area. We strive to provide our patients with the most high-quality help by top notch experts in their fields</p>
-          </div>
+            <p class="footer-description"><center>SmartCare 2022&copy;</center></p>
 
           <div class="col">
 
-          </div>
-
-          <div class="col border-end">
-            <h5 style="color: white;">Section</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Features</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Features</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Pricing</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">FAQs</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">About</a></li>
-            </ul>
-          </div>
-
-          <div class="col border-end">
-            <h5 style="color: white;">Section</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Home</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Features</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Pricing</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">FAQs</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">About</a></li>
-            </ul>
-          </div>
-
-          <div class="col">
-            <h5 style="color: white;">Section</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Home</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Features</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">Pricing</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">FAQs</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0" style="color: white;">About</a></li>
-            </ul>
           </div>
         </footer>
-      </div>
+      </div> -->
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col">
+            <img src="../src/img/logo.jpg" alt="" width="150">
+          </div>
+          <div class="col-md-auto">
+            <p class="footer-description">SmartCare 2022&copy;</p>
+          </div>
+          <div class="col">
+          </div>
+        </div>
     </section>
   </footer>
 </body>
