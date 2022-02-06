@@ -128,8 +128,10 @@ function isDateValid(dateInput) {
     let year = today.getFullYear();
     let month = today.getMonth() + 1;
     month = month.toLocaleString("en-US", {minimumIntegerDigits: 2});
-    let date = today.getDate();
+    let date = today.getDate().toLocaleString("en-US", {minimumIntegerDigits: 2});
     let dateFormat = `${year}-${month}-${date}`;
+    console.log(dateInput)
+    console.log(dateFormat)
     return dateInput > dateFormat ? true : false;
 }
 // SEARCH PAGE FUNCTIONS
@@ -243,8 +245,6 @@ addEventGlobalListener('change', "#date", e => {
         data: `year=${date[0]}&month=${date[1]}&day=${date[2]}&docId=${docId}&weekday=${day}`, 
         success: res => {
             let {conflict, reserved} = JSON.parse(res);
-            console.log(conflict)
-            console.log(reserved);
             let options = $("#time").children(":not(#default, .hide)");
             for(let i of conflict) {
                 for(let j of options) {
