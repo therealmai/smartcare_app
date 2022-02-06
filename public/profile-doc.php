@@ -3,7 +3,8 @@ include('../src/php/dbconnect.php')
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
+    <!-- SELECT * FROM `appointments` LEFT JOIN `doctors` ON appointments.DoctorID= doctors.id WHERE doctors.userID = '13'; -->
+<!-- SELECT * FROM `patients` LEFT JOIN `appointments` ON patients.id= appointments.PatientID WHERE appointments.DoctorID = '2'; -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,11 +58,10 @@ include('../src/php/dbconnect.php')
     }
     
     ?>
-    <?php var_dump($sec); 
+    <?php 
     if(!(isset($sec))){
        $sec = $noData;
-    }
-    echo $sec;?>
+    }?>
     <?php include "./header.php" ?>
 
     <main class="prof">
@@ -77,7 +77,7 @@ include('../src/php/dbconnect.php')
             </center>
             <br>
             <button id="showDocProfBtn">Profile</button>
-            <button id="showDocPatBtn">Patients</button>
+            <!-- <button id="showDocPatBtn">Patients</button> -->
             <button id="showDocAppointBtn">Appointments</button>
             <button id="showSchedBtn">Schedule</button>
         </section>

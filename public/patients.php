@@ -30,6 +30,25 @@ include '../src/php/dbconnect.php';
     $docSql = "SELECT * FROM `doctors` WHERE `userID` = {$_SESSION['currUser']['id']}";
     $docResults = mysqli_query($mysqli, $docSql);
     $doc = mysqli_fetch_assoc($docResults);
+
+    $patSql = "SELECT * FROM `appointments` WHERE DoctorID = {$doc["id"]};";
+    $patResults = mysqli_query($mysqli, $patSql);
+    while ($row = mysqli_fetch_assoc($patResults)) {
+        $pat[] = $row["PatientID"];
+    }
+ 
+
+    if (isset($pat)) {
+        for ($x = 0; $x < count($pat); $x++) {
+            $user = "SELECT users.firstname, users.middle_initial, users.lastname, patients.id  FROM `users` LEFT JOIN patients ON users.id = patients.userID WHERE patients.id = '$pat[$x]'";
+            $userResults = mysqli_query($mysqli, $user);
+            while ($row1 = mysqli_fetch_assoc($userResults)) {
+                $patient[] = $row1;
+            }
+        }
+    }
+
+
     ?>
     <main class="profPres">
 
@@ -58,9 +77,9 @@ include '../src/php/dbconnect.php';
 
                 <table style="width:100%;" id='patientsTable' class="display">
                     <col span="1" style="width: 33%;">
-                <col span="1" style="width: 33%;">
-                <col span="1" style="width: 33%;">
-                <!-- <col span="1" style="width: 10%;"> -->
+                    <col span="1" style="width: 33%;">
+                    <col span="1" style="width: 33%;">
+                    <!-- <col span="1" style="width: 10%;"> -->
                     <thead>
                         <tr>
                             <th>
@@ -77,12 +96,12 @@ include '../src/php/dbconnect.php';
                     <tbody>
 
                         <?php
-                        $patientsSql = "SELECT `u`.`firstname`,`u`.`lastname`,`u`.`middle_initial`,`p`.* 
-                            FROM `patients` `p`
-                            LEFT JOIN `users` `u` ON `p`.`userID` = `u`.`id`";
+                        // $patientsSql = "SELECT `u`.`firstname`,`u`.`lastname`,`u`.`middle_initial`,`p`.* 
+                        //     FROM `patients` `p`
+                        //     LEFT JOIN `users` `u` ON `p`.`userID` = `u`.`id`";
 
-                        $patientsResults = mysqli_query($mysqli, $patientsSql);
-                        $patientsRows = mysqli_fetch_all($patientsResults, MYSQLI_ASSOC);
+                        // $patientsResults = mysqli_query($mysqli, $patientsSql);
+                        // $patientsRows = mysqli_fetch_all($patientsResults, MYSQLI_ASSOC);
 
 
                         // var_dump($_SESSION);
@@ -105,24 +124,26 @@ include '../src/php/dbconnect.php';
                         // $prescriptionsResults = mysqli_query($mysqli, $prescriptionsSql);
                         // $prescriptionsRows = mysqli_fetch_all($prescriptionsResults, MYSQLI_ASSOC);
 
-                        if (count($patientsRows)) {
+                        if (isset($pat)) {
 
-                            foreach ($patientsRows as $patient) {
+                            for ($x = 0; $x < count($patient); $x++) {
                                 // var_dump($patient, $_SESSION);
                                 // exit();
                                 // $formattedDate = date('m/d/Y', strtotime($prescriptionRow['date']));
+                                $patNum = "{$patient[$x]['id']} ";
                         ?>
                                 <tr>
                                     <td>
-                                        <?php echo "{$patient['firstname']} " .
-                                            $patient['middle_initial'] ?? ''
-                                            . "{$patient['lastname']}"; ?>
+                                        <?php echo "{$patient[$x]['firstname']} " .
+                                            $patient[$x]['middle_initial'] . ". "
+                                            . "{$patient[$x]['lastname']}"; ?>
                                     </td>
-
+                                
                                     <td>
                                         <?php
+                                        
                                         $prescriptionsSql = "SELECT * FROM `prescriptions`
-                                                WHERE `patient_id` = {$patient['id']} AND `doctor_id` = {$doc['id']}";
+                                                WHERE `patient_id` = '$patNum' AND `doctor_id` = {$doc['id']}";
 
                                         $prescriptionsResults = mysqli_query($mysqli, $prescriptionsSql);
                                         $prescriptionsRows = mysqli_fetch_all($prescriptionsResults, MYSQLI_ASSOC);
@@ -135,24 +156,24 @@ include '../src/php/dbconnect.php';
                                                 echo "{$prescription['text']} - {$formattedDate}";
 
                                         ?>
-                                                </br>
-                                                <button onclick="location.href='./editPrescription.php?prescId=<?php echo $prescription['id'] ?>'" type="button" class="edit-pres-btn">Edit</button>
-                                                <form action="../src/php/deletePrescription.php" method="POST" style="float:right">
+
+                                                <button onclick="location.href='./editPrescription.php?prescId=<?php echo $prescription['id'] ?>'" type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+                                                <form action="../src/php/deletePrescription.php" method="POST" style="display: inline">
                                                     <input type="hidden" value="<?php echo $prescription['id'] ?>" name="prescriptionId">
-                                                    <input type="submit" value="Delete" class="delete-pres-btn">
+                                                    <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
                                                 </form>
                                         <?php
                                             }
                                         }
                                         ?>
                                         <br>
-                                        <button onclick="location.href='./addPrescription.php'" type="button" class="add-pres-btn">Add</button>
+                                        <!-- <button onclick="location.href='./addPrescription.php'" type="button" class="btn btn-outline-primary btn-sm">Add</button> -->
                                     </td>
 
                                     <td>
                                         <?php
                                         $labTestsSql = "SELECT * FROM `lab_tests`
-                                                WHERE `patient_id` = {$patient['id']} AND `doctor_id` = {$doc['id']}";
+                                                WHERE `patient_id` = $patNum AND `doctor_id` = {$doc['id']}";
 
                                         $labTestsResults = mysqli_query($mysqli, $labTestsSql);
                                         $labTestsRows = mysqli_fetch_all($labTestsResults, MYSQLI_ASSOC);
@@ -164,11 +185,11 @@ include '../src/php/dbconnect.php';
 
                                         ?>
                                                 <span>
-                                                    <button onclick="location.href='./editLabTest.php?labTestId=<?php echo $labTest['id'] ?>'" type="button" class="edit-lab-btn">Edit</button>
-                                                    <button onclick="location.href='./viewLabTest.php?labTestId=<?php echo $labTest['id'] ?>'" type="button" class="edit-lab-btn">View</button>
-                                                    <form action="../src/php/deleteLabTest.php" method="POST" style="float:right">
+                                                    <button onclick="location.href='./editLabTest.php?labTestId=<?php echo $labTest['id'] ?>'" type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+                                                    <button onclick="location.href='./viewLabTest.php?labTestId=<?php echo $labTest['id'] ?>'" type="button" class="btn btn-outline-success btn-sm">View</button>
+                                                    <form action="../src/php/deleteLabTest.php" method="POST" style="display: inline;">
                                                         <input type="hidden" value="<?php echo $labTest['id'] ?>" name="labTestId">
-                                                        <input type="submit" value="Delete" class="delete-lab-btn">
+                                                        <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
                                                     </form>
                                                 </span>
                                         <?php
@@ -176,7 +197,7 @@ include '../src/php/dbconnect.php';
                                         }
                                         ?>
                                         <br>
-                                        <button onclick="location.href='./addPrescription.php'" type="button" class="add-pres-btn">Add</button>
+                                        <!-- <button onclick="location.href='./addPrescription.php'" type="button" class="btn btn-outline-primary btn-sm">Add</button> -->
                                     </td>
                                 </tr>
                         <?php
