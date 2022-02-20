@@ -12,12 +12,9 @@
     <!-- <link rel="stylesheet" href="../src/css/profile.css"> -->
     <title>SmartCare - Search</title>
 </head>
-
 <body>
     <!-- <?php include('session_check.php') ?> -->
-
     <?php include "./header.php" ?>
-
     <main>
         <form action="" class="search-form" id="searchForm">
             <h4>Note: Please input a name or select at least 1 filter</h4>

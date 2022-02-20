@@ -364,15 +364,15 @@ include('../src/php/dbconnect.php')
                 <div class="modal-body">
                     <form action="../src/php/edit-accDetails-pat.php" method="POST">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="name@gmail.com" required>
+                            <input type="hidden" class="form-control" id="email" name="email" placeholder="name@gmail.com" required>
                             <label for="floatingInput">Email</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="confirm_password" name="confirm_password" placeholder="name@gmail.com" required>
-                            <label for="floatingInput">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="name@gmail.com" required>
+                            <label for="floatingInput">Old Password</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="password" name="password" placeholder="name@gmail.com" required>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="name@gmail.com" required>
                             <label for="floatingInput">New Password</label>
                         </div>
                         <input type="text" hidden name="patient_id" id="Accpatient_id">
