@@ -150,7 +150,7 @@ include('../src/php/dbconnect.php')
                                 </td>
                                 <td>
                                     <label for="email"><?php echo $profile['email']; ?></label><br>
-                                    <label for="password"><?php echo $password ?></label><br>  
+                                    <label for="password"><?php echo $password; ?></label><br>  
                                     <label for="password"><?php if($sec != $noData){
                                         echo $sec['email'];
                                      }else{
@@ -375,6 +375,7 @@ include('../src/php/dbconnect.php')
                             <input type="password" class="form-control" id="password" name="password" placeholder="name@gmail.com" required>
                             <label for="floatingInput">New Password</label>
                         </div>
+                        <input type="text" hidden name="verify" value="<?php echo $decryption ?>">
                         <input type="text" hidden name="patient_id" id="Accpatient_id">
                 </div>
                 <div class="modal-footer">
