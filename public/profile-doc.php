@@ -150,7 +150,7 @@ include('../src/php/dbconnect.php')
                                 </td>
                                 <td>
                                     <label for="email"><?php echo $profile['email']; ?></label><br>
-                                    <label for="password"><?php echo $password ?></label><br>  
+                                    <label for="password"><?php echo $password; ?></label><br>  
                                     <label for="password"><?php if($sec != $noData){
                                         echo $sec['email'];
                                      }else{
@@ -364,7 +364,7 @@ include('../src/php/dbconnect.php')
                 <div class="modal-body">
                     <form action="../src/php/edit-accDetails-pat.php" method="POST">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="name@gmail.com" required>
+                            <input type="hidden" class="form-control" id="email" name="email" placeholder="name@gmail.com" required>
                             <label for="floatingInput">Email</label>
                         </div>
                         <div class="form-floating mb-3">
@@ -375,6 +375,7 @@ include('../src/php/dbconnect.php')
                             <input type="text" class="form-control" id="password" name="password" placeholder="name@gmail.com" required>
                             <label for="floatingInput">New Password</label>
                         </div>
+                        <input type="text" hidden name="verify" value="<?php echo $decryption ?>">
                         <input type="text" hidden name="patient_id" id="Accpatient_id">
                 </div>
                 <div class="modal-footer">
