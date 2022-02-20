@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../src/css/appointment.css">
     <link rel="stylesheet" href="../src/css/font-awesome-4.7.0/css/font-awesome.min.css">
     <script defer src="../src/js/script.js"></script>
-    <link rel="stylesheet" href="../src/css/profile.css">
+    <!-- <link rel="stylesheet" href="../src/css/profile.css"> -->
     <title>SmartCare - Search</title>
 </head>
 
