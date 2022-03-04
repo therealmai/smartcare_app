@@ -53,8 +53,12 @@
 
     if (mysqli_query($mysqli, $sql)) {
         mysqli_close($mysqli);
-        echo "sucess";
-        header('location: ../../public/profile-pat.php');
+        echo "success";
+        if($_SESSION['currUser']['role'] == 'patient'){
+            header('location: ../../public/profile-pat.php');
+        }else{
+            header('location: ../../public/profile-doc.php');
+        }
         exit();
     }else{
         echo "Error: " . $sql . ":-" . mysqli_error($mysqli);

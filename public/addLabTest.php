@@ -53,16 +53,16 @@
                                     }
                                 }
                             }
-                    
-                                for($x = 0 ; $x< count($patient); $x++) {
+
+                            for ($x = 0; $x < count($patient); $x++) {
                             ?>
-                                    <option value="<?php echo $patient['id'] ?>"><?php echo "{$patient[$x]["firstname"]} " .
+                                <option value="<?php echo $patient['id'] ?>"><?php echo "{$patient[$x]["firstname"]} " .
                                                                                     (!empty($patient[$x]['middle_initial'])
                                                                                         ? "{$patient[$x]['middle_initial']}. "
                                                                                         : "")
                                                                                     . "{$patient[$x]['lastname']}"; ?></option>
                             <?php
-                                }
+                            }
                             ?>
                         </select>
                     </td>

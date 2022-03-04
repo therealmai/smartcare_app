@@ -324,7 +324,7 @@ include('../src/php/dbconnect.php')
                 <div class="modal-body">
                     <form action="../src/php/add-profPat.php" method="POST" enctype="multipart/form-data">
                         <div class="form mb-3">
-                            <input type="file" class="form-control" name="profile_image" accept="image/*" onchange="loadFile(event)">
+                            <input type="file" class="form-control" name="profile_image" accept="image/*" onchange="loadFile(event)" required>
                             <br>
                             <img id="image_preview" class="img-fluid">
                             <img id="output" class="img-fluid">
