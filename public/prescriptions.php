@@ -29,7 +29,7 @@ include '../src/php/dbconnect.php';
                 <thead>
                     <tr>
                         <th>
-                            Patient
+                            Name
                         </th>
                         <th>
                             Prescription
