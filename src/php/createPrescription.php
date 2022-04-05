@@ -11,6 +11,8 @@
     $date = $_POST['date'];
     $prescription = $_POST['prescription'];
 
+    echo $patientId;
+
     $docSql = "SELECT * FROM doctors WHERE userID = {$_SESSION['currUser']['id']}";
 
     $docResults = mysqli_query($mysqli, $docSql);

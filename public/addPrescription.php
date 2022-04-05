@@ -24,7 +24,8 @@
     $patients = mysqli_query($mysqli, $query);
     while ($result = mysqli_fetch_assoc($patients)) {
         $row[] = $result;
-    } ?>
+    }
+    ?>
     <div class="form-body">
         <table style="width:100%">
             <col span="1" style="width: 50%;">
@@ -48,11 +49,12 @@
 
                             for ($x = 0; $x < count($patient); $x++) {
                             ?>
-                                <option value="<?php echo $patient['id'] ?>"><?php echo "{$patient[$x]["firstname"]} " .
+                                
+                                <option value="<?php echo $row[$x]['PatientID'] ?>"><?php echo "{$patient[$x]["firstname"]} " .
                                                                                     (!empty($patient[$x]['middle_initial'])
                                                                                         ? "{$patient[$x]['middle_initial']}. "
                                                                                         : "")
-                                                                                    . "{$patient[$x]['lastname']}"; ?></option>
+                                                                                    . "{$patient[$x]['lastname']}";?></option>
                             <?php
                             }
                             ?>
