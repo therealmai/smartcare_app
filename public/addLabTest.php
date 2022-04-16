@@ -34,7 +34,7 @@
         <table style="width:100%">
             <col span="1" style="width: 50%;">
             <col span="1" style="width: 50%;">
-            <form action="../src/php/createLabTest.php" method="post" enctype="multipart/form-data">
+            <form action="../src/php/createLabTest.php" method="POST" enctype="multipart/form-data">
                 <tr>
                     <td>
                         <label for="patient">Patient</label>
@@ -56,7 +56,7 @@
 
                             for ($x = 0; $x < count($patient); $x++) {
                             ?>
-                                <option value="<?php echo $patient['id'] ?>"><?php echo "{$patient[$x]["firstname"]} " .
+                                <option value="<?php echo $row[$x]['PatientID']?>"><?php echo "{$patient[$x]["firstname"]} " .
                                                                                     (!empty($patient[$x]['middle_initial'])
                                                                                         ? "{$patient[$x]['middle_initial']}. "
                                                                                         : "")

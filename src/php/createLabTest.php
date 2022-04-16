@@ -66,6 +66,8 @@
         mysqli_close($mysqli);
         header('location: ../../public/labTest.php');
         exit();
+    }else{
+        echo "Error: " . $createSql . ":-" . mysqli_error($mysqli);
     }
 
 ?>
